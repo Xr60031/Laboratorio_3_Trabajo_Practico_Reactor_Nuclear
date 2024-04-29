@@ -1,0 +1,35 @@
+@startwbs Trabajo Practico Laboratorio
+
+* Trabajo Practico
+ * Codigo
+  * Aplicacion Emuladora
+   * Funcion cantEnergiaNeta
+   * Funcion cantBarrasConsumidas
+   * Funcion enviarNotificacion
+   * Funcion verificarMecanismos
+   * Funcion obtenerTemperatura
+   * Funcion obtenerEnergiaNeta
+  * Central Nuclear
+   * Edificio de Contencion
+    * Generador de Vapor
+     * Funcion energiaTermica a vapor
+     * Turbina
+     * Generador 
+     * Condensador
+    * Torre de regrigeracion
+    * Reactor
+     * Funcion IniciarReactor
+     * Funcion MantenerReactor
+     * Funcion DetenerReactor
+     * SensorTermico
+     * BarrasDeControl
+     * TurbinasDeRefriceracion (No implementado)
+     * CapacidadReactor
+     * TemperaturaReactor
+     * Funcion Temperatura
+   * Combustible 
+ * Diagrama de clases
+ * Diagramas de secuencias
+  * Diagrama de secuencia 1
+  * Diagrama de secuencia 2
+@endwbs
