@@ -1,0 +1,36 @@
+@startuml DiagramaDeClases
+
+class Central{
+
+}
+
+class Emulador{
+
+}
+
+class Reactor{
+
+}
+
+class GeneradorVapor{
+
+}
+
+class Turbina{
+
+}
+
+class Generador{
+
+}
+
+class Condensador{
+
+}
+
+class TorreRefrigeracion{
+
+}
+
+
+@enduml
