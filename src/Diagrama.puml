@@ -2,13 +2,6 @@
 
 * Trabajo Practico
  * Codigo
-  * Aplicacion Emuladora
-   * Funcion cantEnergiaNeta
-   * Funcion cantBarrasConsumidas
-   * Funcion enviarNotificacion
-   * Funcion verificarMecanismos
-   * Funcion obtenerTemperatura
-   * Funcion obtenerEnergiaNeta
   * Central Nuclear
    * Edificio de Contencion
     * Generador de Vapor
@@ -16,20 +9,28 @@
      * Turbina
      * Generador 
      * Condensador
-    * Torre de regrigeracion
+    * Torre de refrigeración
     * Reactor
-     * Funcion IniciarReactor
-     * Funcion MantenerReactor
-     * Funcion DetenerReactor
+     * Funcion iniciarReactor
+     * Funcion mantenerReactor
+     * Funcion detenerReactor
      * SensorTermico
      * BarrasDeControl
-     * TurbinasDeRefriceracion (No implementado)
+     * TurbinasDeRefrigeración (No implementado)
      * CapacidadReactor
      * TemperaturaReactor
-     * Funcion Temperatura
+     * Funcion temperatura
    * Combustible 
+ * Tests Unitarios
+  * Funcion cantEnergiaNeta
+  * Funcion cantBarrasConsumidas
+  * Funcion enviarNotificacion
+  * Funcion verificarMecanismos
+  * Funcion obtenerTemperatura
+  * Funcion obtenerEnergiaNeta
  * Diagrama de clases
  * Diagramas de secuencias
   * Diagrama de secuencia 1
   * Diagrama de secuencia 2
+
 @endwbs
