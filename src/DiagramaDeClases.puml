@@ -1,11 +1,25 @@
 @startuml DiagramaDeClases
 
-class Central{
+skinparam defaultFontName Arial
+skinparam DefaultFontSize 13
+skinparam Linetype ortho
+skinparam Arrowcolor darkred
+skinparam ArrowThickness 2
+skinparam Classbordercolor darkred
+skinparam ClassBorderThickness 2
+skinparam ClassBackgroundColor LightYellow
+skinparam Shadowing true
+skinparam GroupInheritance 1 /'1 indica la cantidad de flechas indeptes.'/
+skinparam NoteBackgroundColor yellow
+skinparam NoteBorderThickness 2
 
+
+class ComputadoraHomero{
+    
 }
 
-class Emulador{
-
+class Central{
+    
 }
 
 class Reactor{
@@ -16,11 +30,7 @@ class GeneradorVapor{
 
 }
 
-class Turbina{
-
-}
-
-class Generador{
+class TorreRefrigeracion{
 
 }
 
@@ -28,9 +38,32 @@ class Condensador{
 
 }
 
-class TorreRefrigeracion{
+class Barras{
+    
+}
+
+class SensoresDeControl{
+    + recibirTemperatura();
+    + avisarAHomero();
+}
+
+class Turbina{
 
 }
 
+class GeneradorElectrico{
+
+}
+
+Central *-- Reactor
+Central *-- GeneradorVapor
+GeneradorVapor *-- Turbina
+GeneradorVapor *-- GeneradorElectrico
+Central *-- TorreRefrigeracion
+Central *-- Condensador
+ComputadoraHomero -- Central
+Reactor o-- Barras
+Reactor o-- SensoresDeControl
+SensoresDeControl -- ComputadoraHomero
 
 @enduml
