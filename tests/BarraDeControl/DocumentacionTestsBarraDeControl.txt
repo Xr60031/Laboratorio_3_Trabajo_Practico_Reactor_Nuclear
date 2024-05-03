@@ -1,0 +1,15 @@
+1-"Prueba setVidaUtil y getVidaUtil": Prueba del correcto funcionamiento del getter y setter del objeto BarraDeControl.
+2-"Prueba controlarTemperatura": Mediante la utilizacion de un Mock object que nos permite emular el valor de la funcion getTemperatura, funcion que es externa a la clase de BarraDeControl, el Mock object nos permite probar el codigo de controlarTemperatura sin la necesidad de estar utilizando codigo externo a la clase que se quiere testear.
+2.1-"Caso en el que la temperatura es mayor a 330º": Tiene que avisar que se cumplen las condiciones para activar las barras de refrigeracion, devolviendo "Se activo la medida de regulacion de temperatura, la cual fue estabilizada exitosamente".
+2.2-"Caso en el que la temperatura es igual a 330º": Tiene que avisar que no se cumplen las condiciones para activar las barras de refrigeracion, devolviendo "La temperatura del reactor se encuentra normal, no se realizaron medidas".
+2.3-"Caso en el que la temperatura es menor a 330º": Tiene que avisar que no se cumplen las condiciones para activar las barras de refrigeracion, devolviendo "La temperatura del reactor se encuentra normal, no se realizaron medidas".
+3-"Prueba getPorcentajeProduccion": Se prueba esta funcion con la finalidad de comprobar que el valor que retorna la misma sea el correcto para el calculo correspondiente de la energia termica producida. En base a diferentes situaciones de barras de refrigeracion, se prueban los casos a continuacion:
+3.1-"Caso en el que la vida util de la barra de refrigeracion sea 0".
+3.2-"Caso en el que la vida util de la barra de refrigeracion sea 50".
+3.3-"Caso en el que la vida util de la barra de refrigeracion sea 100".
+3.4-"Caso en el que la vida util de la barra de refrigeracion sea 150".
+3.5-"Caso en el que la vida util de la barra de refrigeracion sea 200".
+3.1/3.5 En estos casos, el valor que debe de devolver es la vida util de la barra, dividido por 3600, y dicho resultado multiplicado por 100 para obtener el porcentaje de producción respectivo a cada caso.
+3.6-"Caso en el que la vida util de la barra de refrigeracion sea -1".
+3.7-"Caso en el que la vida util de la barra de refrigeracion sea 201".
+3.6-3.7-En estos dos casos donde se estan ingresando valores invalidos al ser la vida util de una barra entre 0 y 201, lanzara una excepcion en demostracion de que se produjo un error al ingresar un valor invalido.
