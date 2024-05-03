@@ -1,0 +1,45 @@
+@startuml Trabajo Practico Laboratorio - Sistema de Refrigeracion
+
+!define MyFontColor #000000
+!define MyBorderColor #800080
+!define MyBackgroundColor #E6E6FA
+!define MyArrowColor #800080
+
+skinparam defaultFontName Arial
+skinparam DefaultFontSize 13
+skinparam Linetype ortho
+skinparam Arrowcolor MyArrowColor
+skinparam ArrowThickness 2
+skinparam Classbordercolor MyBorderColor
+skinparam ClassBorderThickness 2
+skinparam ClassBackgroundColor MyBackgroundColor
+skinparam Shadowing true
+skinparam GroupInheritance 1
+skinparam NoteBackgroundColor yellow
+skinparam NoteBorderThickness 2
+
+class Reactor{
+    + calcularEnergiaTermica(temperatura:double,porcentajeProduccion:double):double;
+}
+
+interface SistemasDeRegulacionTermica{
+    + controlarTemperatura(temperatura:double):void;
+}
+
+class BarraDeControl implements SistemasDeRegulacionTermica{
+    - vidaUtil:double;
+    + getVidaUtil():double;
+    + setVidaUtil(TiempovidaUtil:double):void;
+    + controlarTemperatura(temperatura:double):string;
+    + getPorcentajeProduccion():double;
+}
+
+class ComputadoraDeHomero{
+    + activarMecanismoDeRefrigeracion(mecanismoRefrigeracion:SistemaDeRegulacionTermica):void;
+    + getTemperatura():double;
+}
+
+Reactor *-- BarraDeControl
+Reactor o-- ComputadoraDeHomero
+
+@enduml
