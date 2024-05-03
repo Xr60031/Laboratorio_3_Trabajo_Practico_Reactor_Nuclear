@@ -1,0 +1,56 @@
+@startuml DiagramaReactor
+
+enum EstadoReactor {
+  APAGADO
+  NORMALIDAD
+  CRITICIDAD
+  CRITICA
+}
+
+abstract class CombustibleNuclear {
+  - cantidadEnToneladas: double
+ 
+  + recargar(double): void
+  + {abstract} consumir(double): void
+  + tieneCombustible(): boolean
+}
+
+class Uranio extends CombustibleNuclear {
+  + consumir(double): void
+}
+
+interface MecanismoDeEnfriamiento {
+  + {abstract} enfriarEnergiaTermica(double): double
+}
+
+class Barras implements MecanismoDeEnfriamiento {
+  + enfriarEnergiaTermica(double): double
+}
+
+class SensorTermico {
+  + medir(double): void
+}
+
+class Reactor {
+  - combustible: CombustibleNuclear
+  - sensorTermico: SensorTermico
+  - mecanismoDeEnfriamiento: MecanismoDeEnfriamiento
+  - estado: EstadoReactor
+  - modoEnfriamiento: boolean
+  - puedeGenerarEnergiaTermica: boolean
+  - eficiencia: double
+  - consumoCombustiblePorSegundo: double
+  - energiaTermicaPorSegundo: double
+
+  + iniciar(): void
+  + mantener(): void
+  + detener(): void
+  - generarEnergiaTermica()
+  - enfriar(): voida
+}
+
+Reactor *-r- CombustibleNuclear
+Reactor *-- SensorTermico
+Reactor *-l- MecanismoDeEnfriamiento
+
+@enduml
