@@ -11,12 +11,12 @@ abstract class CombustibleNuclear {
   - cantidadEnToneladas: double
  
   + recargar(double): void
-  + {abstract} consumir(double): void
+  + {abstract} consumir(double): double
   + tieneCombustible(): boolean
 }
 
 class Uranio extends CombustibleNuclear {
-  + consumir(double): void
+  + consumir(double): double
 }
 
 interface MecanismoDeEnfriamiento {
@@ -38,15 +38,14 @@ class Reactor {
   - estado: EstadoReactor
   - modoEnfriamiento: boolean
   - puedeGenerarEnergiaTermica: boolean
-  - eficiencia: double
-  - consumoCombustiblePorSegundo: double
-  - energiaTermicaPorSegundo: double
+  - consumoCombustible: double
+  - potenciaTermica: double
 
   + iniciar(): void
   + mantener(): void
   + detener(): void
-  - generarEnergiaTermica()
-  - enfriar(): voida
+  - generarEnergiaTermica(): void
+  - enfriar(): void
 }
 
 Reactor *-r- CombustibleNuclear
