@@ -31,6 +31,12 @@ class SensorTermico {
   + medir(double): void
 }
 
+class Computadora {
+  - reactor: Reactor
+  + recibirAlerta(): void
+  + activarModoEnfriamiento(): void
+}
+
 class Reactor {
   - combustible: CombustibleNuclear
   - sensorTermico: SensorTermico
@@ -46,10 +52,12 @@ class Reactor {
   + detener(): void
   - generarEnergiaTermica(): void
   - enfriar(): void
+  - enviarAlerta(): void
 }
 
 Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
 Reactor *-l- MecanismoDeEnfriamiento
+Computadora *-- Reactor
 
 @enduml
