@@ -11,12 +11,12 @@ abstract class CombustibleNuclear {
   - cantidadEnToneladas: double
  
   + recargar(double): void
-  + {abstract} consumir(double): void
+  + {abstract} consumir(double): double
   + tieneCombustible(): boolean
 }
 
 class Uranio extends CombustibleNuclear {
-  + consumir(double): void
+  + consumir(double): double
 }
 
 abstract class SistemasDeRegulacionTermica{
@@ -39,6 +39,12 @@ class SensorTermico {
   + medir(double): void
 }
 
+class Computadora {
+  - reactor: Reactor
+  + recibirAlerta(): void
+  + activarModoEnfriamiento(): void
+}
+
 class Reactor {
   - combustible: CombustibleNuclear
   - sensorTermico: SensorTermico
@@ -46,9 +52,8 @@ class Reactor {
   - estado: EstadoReactor
   - modoEnfriamiento: boolean
   - puedeGenerarEnergiaTermica: boolean
-  - eficiencia: double
-  - consumoCombustiblePorSegundo: double
-  - energiaTermicaPorSegundo: double
+  - consumoCombustible: double
+  - potenciaTermica: double
 
   + iniciar(): void
   + mantener(): void
