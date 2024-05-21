@@ -19,12 +19,20 @@ class Uranio extends CombustibleNuclear {
   + consumir(double): double
 }
 
-interface MecanismoDeEnfriamiento {
-  + {abstract} enfriarEnergiaTermica(double): double
+abstract class SistemasDeRegulacionTermica{
+    - estado:boolean;
+    + encenderSistema():void;
+    + apagarSistema():void;
+    + getEstado():boolean;
+    + controlarTemperatura(temperatura:number):void;
 }
 
-class Barras implements MecanismoDeEnfriamiento {
-  + enfriarEnergiaTermica(double): double
+class BarraDeControl extends SistemasDeRegulacionTermica{
+    - vidaUtil:number;
+    + getVidaUtil():number;
+    + setVidaUtil(TiempovidaUtil:number):void;
+    + controlarTemperatura(temperatura:number):void;
+    + getPorcentajeProduccion():number;
 }
 
 class SensorTermico {
@@ -40,7 +48,7 @@ class Computadora {
 class Reactor {
   - combustible: CombustibleNuclear
   - sensorTermico: SensorTermico
-  - mecanismoDeEnfriamiento: MecanismoDeEnfriamiento
+  - sistemasDeRegulacionTermica : SistemasDeRegulacionTermica
   - estado: EstadoReactor
   - modoEnfriamiento: boolean
   - puedeGenerarEnergiaTermica: boolean
@@ -50,14 +58,12 @@ class Reactor {
   + iniciar(): void
   + mantener(): void
   + detener(): void
-  - generarEnergiaTermica(): void
+  - generarEnergiaTermica(temperatura:number):number
   - enfriar(): void
-  - enviarAlerta(): void
 }
 
 Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
-Reactor *-l- MecanismoDeEnfriamiento
-Computadora *-- Reactor
+Reactor *-l- SistemasDeRegulacionTermica
 
 @enduml

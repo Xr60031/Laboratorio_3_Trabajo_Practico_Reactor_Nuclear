@@ -19,24 +19,28 @@ skinparam NoteBackgroundColor yellow
 skinparam NoteBorderThickness 2
 
 class Reactor{
-    + calcularEnergiaTermica(temperatura:Number,porcentajeProduccion:Number):Number;
+    + calcularEnergiaTermica(temperatura:number):number;
 }
 
-interface SistemasDeRegulacionTermica{
-    + controlarTemperatura(temperatura:Number):void;
+abstract class SistemasDeRegulacionTermica{
+    - estado:boolean;
+    + encenderSistema():void;
+    + apagarSistema():void;
+    + getEstado():boolean;
+    + controlarTemperatura(temperatura:number):void;
 }
 
-class BarraDeControl implements SistemasDeRegulacionTermica{
-    - vidaUtil:Number;
-    + getVidaUtil():Number;
-    + setVidaUtil(TiempovidaUtil:Number):void;
-    + controlarTemperatura(temperatura:Number):void;
-    + getPorcentajeProduccion():Number;
+class BarraDeControl extends SistemasDeRegulacionTermica{
+    - vidaUtil:number;
+    + getVidaUtil():number;
+    + setVidaUtil(TiempovidaUtil:number):void;
+    + controlarTemperatura(temperatura:number):void;
+    + getPorcentajeProduccion():number;
 }
 
 class ComputadoraDeHomero{
     + activarMecanismoDeRefrigeracion(mecanismoRefrigeracion:SistemaDeRegulacionTermica):void;
-    + getTemperatura():Number;
+    + getTemperatura():number;
 }
 
 Reactor *-- BarraDeControl

@@ -1,9 +1,9 @@
 import ExceptionTemperaturaNormal from "../Exceptions/ExceptionTemperaturaNormal";
 import ExceptionVidaUtilInvalida from "../Exceptions/ExceptionVidaUtilInvalida";
-import SistemaDeRegulacionTermica from "../Interfaces/SistemaDeRegulacionTermica";
+import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionTermica";
 
-export default class BarraDeControl implements SistemaDeRegulacionTermica{
-    private vidaUtil:number=0;
+export default class BarraDeControl extends SistemaDeRegulacionTermica{
+    private vidaUtil:number;
 
     public getVidaUtil():number{
         return this.vidaUtil;
@@ -20,9 +20,9 @@ export default class BarraDeControl implements SistemaDeRegulacionTermica{
         this.vidaUtil=nuevaVidaUtil;
     }
 
-    ControlarTemperatura(temperatura:number):number{
+    public controlarEnergiaTermica(temperatura:number):void{
         if(temperatura>330){
-            return this.getPorcentajeProduccion();
+            this.encenderSistema();
         }
         else{
             throw new ExceptionTemperaturaNormal(temperatura);
@@ -36,9 +36,13 @@ export default class BarraDeControl implements SistemaDeRegulacionTermica{
     constructor();
     constructor(vidaUtil:number);
     constructor(vidaUtil?:number){
+        super();
         if(vidaUtil!==undefined){
             this.controlarVidaUtil(vidaUtil);
             this.vidaUtil=vidaUtil;
+        }
+        else{
+            this.vidaUtil=0;
         }
     }
 }
