@@ -29,6 +29,11 @@ export default class BarraDeControl extends SistemaDeRegulacionTermica{
         }
     }
 
+    public regularEnergiaTermica(energiaTermica: number): number {
+        if(this.encendido) return energiaTermica * this.getPorcentajeProduccion()/100;
+        return energiaTermica;
+    }
+
     public getPorcentajeProduccion():number{
         return (this.getVidaUtil()/3600)*100;
     }
