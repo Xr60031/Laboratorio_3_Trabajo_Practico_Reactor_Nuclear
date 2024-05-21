@@ -1,6 +1,7 @@
 export default abstract class SistemaDeRegulacionTermica{
     protected encendido:boolean=false;
     public abstract controlarEnergiaTermica(temperatura:number):void;
+    public abstract regularEnergiaTermica(energiaTermica: number): number;
     public encenderSistema():void{
         this.encendido=true;
     }

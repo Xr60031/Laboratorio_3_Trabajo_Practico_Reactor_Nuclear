@@ -1,0 +1,6 @@
+export enum ESTADO_REACTOR {
+    APAGADO,
+  	NORMALIDAD,
+  	CRITICIDAD,
+  	CRITICA
+}

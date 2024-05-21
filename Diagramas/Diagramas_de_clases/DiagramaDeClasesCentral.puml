@@ -1,4 +1,26 @@
-@startuml DiagramaReactor
+@startuml DiagramaCentral
+
+' tema
+
+!define MyFontColor #000000
+!define MyBorderColor #800080
+!define MyBackgroundColor #E6E6FA
+!define MyArrowColor #800080
+
+skinparam defaultFontName Arial
+skinparam DefaultFontSize 13
+skinparam Linetype ortho
+skinparam Arrowcolor MyArrowColor
+skinparam ArrowThickness 2
+skinparam Classbordercolor MyBorderColor
+skinparam ClassBorderThickness 2
+skinparam ClassBackgroundColor MyBackgroundColor
+skinparam Shadowing true
+skinparam GroupInheritance 1
+skinparam NoteBackgroundColor yellow
+skinparam NoteBorderThickness 2
+
+' clases
 
 enum EstadoReactor {
   	APAGADO
@@ -19,7 +41,7 @@ class Uranio extends CombustibleNuclear {
   	+ consumir(number): number
 }
 
-abstract class SistemasDeRegulacionTermica {
+abstract class SistemaDeRegulacionTermica {
     - estado: boolean
     + encenderSistema(): void
     + apagarSistema(): void
@@ -28,7 +50,7 @@ abstract class SistemasDeRegulacionTermica {
 	+ {abstract} regularEnergiaTermica(energiaTermica: number): number
 }
 
-class BarraDeControl extends SistemasDeRegulacionTermica {
+class BarraDeControl extends SistemaDeRegulacionTermica {
     - vidaUtil: number
     + getVidaUtil(): number
     + setVidaUtil(TiempovidaUtil: number): void
@@ -78,7 +100,7 @@ class CentralNuclear {
 
 Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
-Reactor *-l- SistemasDeRegulacionTermica
+Reactor *-l- SistemaDeRegulacionTermica
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
