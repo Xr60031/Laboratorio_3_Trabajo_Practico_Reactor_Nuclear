@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  cuvl_lab3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME}
+    image: cuvl_lab3_trabajo_practico
+    volumes:
+      - ./src:/home/node/app/src
+      - ./tests:/home/node/app/tests

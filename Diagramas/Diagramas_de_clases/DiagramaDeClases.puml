@@ -9,7 +9,7 @@ skinparam Classbordercolor darkred
 skinparam ClassBorderThickness 2
 skinparam ClassBackgroundColor LightYellow
 skinparam Shadowing true
-skinparam GroupInheritance 1 /'1 indica la cantidad de flechas indeptes.'/
+skinparam GroupInheritance 1
 skinparam NoteBackgroundColor yellow
 skinparam NoteBorderThickness 2
 
@@ -24,6 +24,10 @@ class Central{
 
 class Reactor{
 
+}
+
+interface Notificador {
+    + enviarAlerta(temperatura: double, estado: Estado): void
 }
 
 class GeneradorVapor{
@@ -61,9 +65,9 @@ GeneradorVapor *-- Turbina
 GeneradorVapor *-- GeneradorElectrico
 Central *-- TorreRefrigeracion
 Central *-- Condensador
-ComputadoraHomero -- Central
 Reactor o-- Barras
-Reactor o-- SensoresDeControl
-SensoresDeControl -- ComputadoraHomero
+Reactor o-l- SensoresDeControl
+Notificador <|.. ComputadoraHomero
+Notificador <.u. Reactor
 
 @enduml
