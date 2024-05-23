@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk add tar vim bash openjdk8-jre graphviz git
+RUN apk add tar vim bash openjdk8-jre graphviz git openssh
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_18.x | sh -
 RUN apk add nodejs
