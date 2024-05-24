@@ -62,9 +62,11 @@ class SensorTermico {
   	+ medir(): number
 }
 
-class Computadora {
+class Email {
   	- reactor: Reactor
-  	+ recibirAlerta(): void
+	- notificable: Notificable
+
+  	+ enviarAlerta(): void
   	+ activarModoEnfriamiento(): void
 }
 
@@ -82,6 +84,7 @@ class Reactor {
 	+ mantener(): void
 	+ detener(): void
 	+ generarEnergiaTermica(temperatura: number): number
+	+ setNotificador(notificable: Notificable): void
 	- enfriar(): void
 }
 
@@ -96,13 +99,42 @@ class CentralNuclear {
 	+ generarEnergia(): number
 }
 
+interface Estado {
+	+ generarEnergia(): void
+	+ refrigerar(): void
+}
+
+class Normal {
+
+}
+
+class Critico {
+
+}
+
+class Emergencia {
+
+}
+
+interface Notificable {
+    + enviarAlerta(temperatura: double, estado: Estado): void
+}
+
 ' relaciones
 
 Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
 Reactor *-l- SistemaDeRegulacionTermica
+Reactor *-d- Estado
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
+
+Notificable <|.. Email
+Notificable <.u. Reactor
+
+Estado <|.. Normal
+Estado <|.. Critico
+Estado <|.. Emergencia
 
 @enduml
