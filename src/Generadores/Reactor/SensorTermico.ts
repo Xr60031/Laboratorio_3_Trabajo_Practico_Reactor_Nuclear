@@ -1,4 +1,5 @@
 import { Computadora } from "../../Controles/Computadora";
+import { AlertaTemperatura } from "./Types/AlertaTemperatura";
 
 export class SensorTermico {
     private temperatura: number;
@@ -11,14 +12,16 @@ export class SensorTermico {
 
     public medir(energiaTermica: number): void {
         this.temperatura = energiaTermica / 7.5;
-        console.log("Temperatura: ", this.temperatura);
-        if (this.temperatura > 330) {
-            this.enviarAlertaTemperatura();
+
+        if (this.temperatura >= 330) {
+            this.enviarAlertaTemperatura(AlertaTemperatura.ALTA);
+        } else {
+            this.enviarAlertaTemperatura(AlertaTemperatura.NORMAL);
         }
     }
 
-    private enviarAlertaTemperatura(): void {
-        this.computadora.recibirAlertaTemperatura();
+    private enviarAlertaTemperatura(alerta: AlertaTemperatura): void {
+        this.computadora.recibirAlertaTemperatura(alerta);
     }
 
     public getTemperatura(): number {
