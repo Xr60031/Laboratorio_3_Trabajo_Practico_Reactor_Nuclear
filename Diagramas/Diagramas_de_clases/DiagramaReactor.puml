@@ -8,59 +8,66 @@ enum EstadoReactor {
 }
 
 abstract class CombustibleNuclear {
-  	- cantidadEnToneladas: number
+  	# cantidad: number
+  	# limite: number
 
-  	+ recargar(number): void
-  	+ {abstract} consumir(number): number
+  	+ recargar(cantidad: number): void
+  	+ {abstract} consumir(cantidad: number): number
   	+ tieneCombustible(): boolean
+  	+ {abstract} calcularEnergiaTermica(cantidad: number): number
 }
 
 class Uranio extends CombustibleNuclear {
-  	+ consumir(number): number
+  	+ consumir(cantidad: number): number
+  	+ calcularEnergiaTermica(cantidad: number): number
 }
 
-abstract class SistemasDeRegulacionTermica {
-    - estado: boolean
-    + encenderSistema(): void
-    + apagarSistema(): void
-    + getEstado(): boolean
-    + {abstract} controlarEnergiaTermica(temperatura: number): void
-	+ {abstract} regularEnergiaTermica(energiaTermica: number): number
+abstract class SistemaRegulacionTermica {
+    # encendido: boolean
+
+    + encender(): void
+    + apagar(): void
+    + {abstract} controlarEnergiaTermica(energiaTermica: number): number
 }
 
-class BarraDeControl extends SistemasDeRegulacionTermica {
+class BarraDeControl extends SistemaRegulacionTermica {
     - vidaUtil: number
-    + getVidaUtil(): number
-    + setVidaUtil(TiempovidaUtil: number): void
-    + controlarEnergiaTermica(temperatura: number): void
-    + getPorcentajeProduccion(): number
+
+    + controlarEnergiaTermica(energiaTermica: number): number
+	- consumirVidaUtil(): void
+    - getPorcentajeReduccion(): number
 }
 
 class SensorTermico {
+	- temperatura: number
+	- computadora: Computadora
+
   	+ medir(): number
+	- enviarAlertaTemperatura(): void
 }
 
 class Computadora {
-  	- reactor: Reactor
-  	+ recibirAlerta(): void
-  	+ activarModoEnfriamiento(): void
+  	- sistemaRegulacionTermica: SistemaRegulacionTermica
+
+  	+ recibirAlertaTemperatura(): void
+  	- activarModoEnfriamiento(): void
 }
 
 class Reactor {
-	- combustible: CombustibleNuclear
-	- sensorTermico: SensorTermico
-	- sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
-	- estado: EstadoReactor
-	- modoEnfriamiento: boolean
-	- puedeGenerarEnergiaTermica: boolean
 	- consumoCombustible: number
-	- potenciaTermica: number
+	- energiaTermica: number
+	- estado: EstadoReactor
+	- combustible: CombustibleNuclear
+	- sistemaRegulacionTermica: SistemaRegulacionTermica
+	- sensor: SensorTermico
 
 	+ iniciar(): void
 	+ mantener(): void
 	+ detener(): void
-	+ generarEnergiaTermica(temperatura: number): number
-	- enfriar(): void
+	+ generarEnergiaTermica(): number
+	- controlarEstado(): void
+	- consumirCombustible(cantidad: number): void
+	- controlarEnergiatermica(energiaTermica: number): number
 }
 
 class Generador {
@@ -78,7 +85,10 @@ class CentralNuclear {
 
 Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
-Reactor *-l- SistemasDeRegulacionTermica
+Reactor *-l- SistemaRegulacionTermica
+
+Computadora *-l- SistemaRegulacionTermica
+SensorTermico *-- Computadora
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
