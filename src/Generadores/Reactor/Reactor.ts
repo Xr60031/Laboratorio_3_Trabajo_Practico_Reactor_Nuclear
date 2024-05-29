@@ -1,12 +1,12 @@
 import { CombustibleNuclear } from "./Combustible/CombustibleNuclear";
 import { NoHayCombustibleExcepcion } from "./Excepciones/NoHayCombustibleExcepcion";
-import { ReactorApagadoExcepcion } from "./Excepciones/ReactorApagadoExcepcion";
 import { SistemaRegulacionTermica } from "./RegulacionTermica/SistemaRegulacionTermica";
 import { SensorTermico } from "./SensorTermico";
 import { EstadoReactor } from "./Types/EstadoReactor";
 
 export class Reactor {
     private consumoCombustible: number;
+    private capacidadProductiva: number;
     private energiaTermica: number;
     private estado: EstadoReactor;
     private combustible: CombustibleNuclear;
@@ -23,6 +23,7 @@ export class Reactor {
         this.sensor = sensor;
 
         this.consumoCombustible = 1;
+        this.capacidadProductiva = 1;
         this.energiaTermica = 0;
         this.estado = EstadoReactor.APAGADO;
     }
@@ -40,25 +41,56 @@ export class Reactor {
 
     public mantener(): void {
         if (this.estado === EstadoReactor.APAGADO) {
-            throw new ReactorApagadoExcepcion("Reactor apagado");
-        }
+            this.reducirEnergiaTermica();
 
-        if (!this.combustible.tieneCombustible()) {
-            this.detener();
-        }
+            if (this.energiaTermica === 0) {
+                this.iniciar();
+            }
+        } else {
+            if (!this.combustible.tieneCombustible()) {
+                this.detener();
+            }
 
-        this.consumirCombustible(this.consumoCombustible);
+            this.consumirCombustible(this.consumoCombustible);
 
-        this.controlarEstado();
+            this.controlarEstado();
 
-        if (this.estado === EstadoReactor.CRITICA) {
-            this.detener();
+            this.calcularCapacidadProductiva();
+
+            if (this.estado === EstadoReactor.CRITICA) {
+                this.detener();
+            }
         }
     }
 
     public detener(): void {
         this.estado = EstadoReactor.APAGADO;
-        this.energiaTermica = 0;
+    }
+
+    public generarEnergiaTermica(): number {
+        this.mantener();
+
+        return this.energiaTermica;
+    }
+
+    private reducirEnergiaTermica(): void {
+        if (this.energiaTermica - 1000 < 0) {
+            this.energiaTermica = 0;
+        } else {
+            this.energiaTermica -= 1000;
+        }
+
+        this.sensor.medir(this.energiaTermica);
+    }
+
+    private calcularCapacidadProductiva(): void {
+        if (this.estado === EstadoReactor.NORMALIDAD) {
+            this.capacidadProductiva = 1;
+        } else if (this.estado === EstadoReactor.CRITICIDAD) {
+            this.capacidadProductiva = 0.2;
+        } else if (this.estado === EstadoReactor.CRITICA) {
+            this.capacidadProductiva = 0;
+        }
     }
 
     private controlarEstado(): void {
@@ -87,9 +119,7 @@ export class Reactor {
         );
     }
 
-    public generarEnergiaTermica(): number {
-        this.mantener();
-
-        return this.energiaTermica;
+    public getCapacidadProductiva(): number {
+        return this.capacidadProductiva;
     }
 }

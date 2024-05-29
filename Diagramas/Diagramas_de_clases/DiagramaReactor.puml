@@ -7,6 +7,11 @@ enum EstadoReactor {
   	CRITICA
 }
 
+enum AlertaTemperatura {
+	NORMAL
+	ALTA
+}
+
 abstract class CombustibleNuclear {
   	# cantidad: number
   	# limite: number
@@ -43,7 +48,7 @@ class SensorTermico {
 	- computadora: Computadora
 
   	+ medir(): number
-	- enviarAlertaTemperatura(): void
+	- enviarAlertaTemperatura(alerta: AlertaTemperatura): void
 }
 
 class Computadora {
@@ -55,6 +60,7 @@ class Computadora {
 
 class Reactor {
 	- consumoCombustible: number
+	- capacidadProductiva: number
 	- energiaTermica: number
 	- estado: EstadoReactor
 	- combustible: CombustibleNuclear
@@ -65,9 +71,11 @@ class Reactor {
 	+ mantener(): void
 	+ detener(): void
 	+ generarEnergiaTermica(): number
+	- reducirEnergiaTermica(): void
+	- calcularCapacidadProductiva(): void
 	- controlarEstado(): void
 	- consumirCombustible(cantidad: number): void
-	- controlarEnergiatermica(energiaTermica: number): number
+	- controlarEnergiaTermica(energiaTermica: number): number
 }
 
 class Generador {

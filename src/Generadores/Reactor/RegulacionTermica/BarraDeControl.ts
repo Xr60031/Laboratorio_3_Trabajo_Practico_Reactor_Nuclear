@@ -6,7 +6,7 @@ export class BarraDeControl extends SistemaRegulacionTermica {
 
     constructor() {
         super();
-        this.vidaUtil = 200;
+        this.vidaUtil = 2000;
     }
 
     public controlarEnergiaTermica(energiaTermica: number): number {
