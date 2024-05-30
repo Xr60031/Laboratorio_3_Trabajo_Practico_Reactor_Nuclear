@@ -64,7 +64,7 @@ class SensorTermico {
 
 class Email {
   	- reactor: Reactor
-	- notificable: Notificable
+	- Notificador: Notificador
 
   	+ enviarAlerta(): void
   	+ activarModoEnfriamiento(): void
@@ -84,7 +84,7 @@ class Reactor {
 	+ mantener(): void
 	+ detener(): void
 	+ generarEnergiaTermica(temperatura: number): number
-	+ setNotificador(notificable: Notificable): void
+	+ setNotificador(Notificador: Notificador): void
 	- enfriar(): void
 }
 
@@ -116,7 +116,7 @@ class Emergencia {
 
 }
 
-interface Notificable {
+interface Notificador {
     + enviarAlerta(temperatura: double, estado: Estado): void
 }
 
@@ -130,8 +130,8 @@ Reactor *-d- Estado
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
 
-Notificable <|.. Email
-Notificable <.u. Reactor
+Notificador <|.. Email
+Notificador <.u. Reactor
 
 Estado <|.. Normal
 Estado <|.. Critico
