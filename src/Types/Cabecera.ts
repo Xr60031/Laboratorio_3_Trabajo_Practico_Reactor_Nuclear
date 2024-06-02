@@ -1,5 +1,6 @@
 export enum Cabecera{
     RESULTADO,
     ALERTA,
-    COMANDO
+    COMANDO, 
+    APAGADO
 }
