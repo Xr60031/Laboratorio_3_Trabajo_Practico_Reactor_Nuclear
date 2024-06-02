@@ -63,9 +63,9 @@ class SensorTermico {
 }
 
 class Computadora {
-  	- reactor: Reactor
-  	+ recibirAlerta(): void
-  	+ activarModoEnfriamiento(): void
+  	
+  	+ recibirAlerta(mensaje: Mensaje): Mensaje
+  	+ MostrarMenu(): Mensaje
 }
 
 class Reactor {
@@ -95,7 +95,20 @@ class CentralNuclear {
 
 	+ generarEnergia(): number
 }
-
+class Mensaje{
+	- cabecera : Cabecera
+	- cuerpo : string
+	getters();
+}
+enum Cabecera{
+	RESULTADO
+	ALERTA
+	COMANDO
+}
+enum Comando{
+	INICIAR_REFRIGERACION
+    PEDIR_TEMPERATURA
+}
 ' relaciones
 
 Reactor *-r- CombustibleNuclear
@@ -104,5 +117,8 @@ Reactor *-l- SistemaDeRegulacionTermica
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
+CentralNuclear *-r- Computadora
+
+Mensaje *-- Cabecera
 
 @enduml

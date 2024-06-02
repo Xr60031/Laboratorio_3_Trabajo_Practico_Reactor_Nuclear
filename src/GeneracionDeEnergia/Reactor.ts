@@ -1,6 +1,7 @@
 import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica"
 import { ESTADO_REACTOR } from "../Types/EstadoReactor";
 import SensorTermico from "./SensorTermico";
+import Mensaje from "../Comunicaciones/Mensaje";
 
 export default class Reactor {
     //private combustible: CombustibleNuclear;
@@ -29,13 +30,14 @@ export default class Reactor {
         this.estado = ESTADO_REACTOR.APAGADO;
     }
 
-    public generarEnergiaTermica(): number {
+    public generarEnergiaTermica(): Mensaje {
         if(this.estado != ESTADO_REACTOR.APAGADO) {
             const temperatura: number = this.sensorTermico.medir();
             const energiaTermica: number = temperatura * 8 - 140;
-            return this.sistemaDeRegulacionTermica.regularEnergiaTermica(energiaTermica);
+            var resultado : string= energiaTermica as string;
+            return new Mensaje(0,resultado);
         }
-        return 0;
+        return new Mensaje(3, "");
     }
 
     private enfriar(): void {
