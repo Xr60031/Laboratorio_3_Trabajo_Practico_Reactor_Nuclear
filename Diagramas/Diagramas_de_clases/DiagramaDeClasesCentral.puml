@@ -46,16 +46,33 @@ abstract class SistemaDeRegulacionTermica {
     + encenderSistema(): void
     + apagarSistema(): void
     + getEstado(): boolean
-    + {abstract} controlarEnergiaTermica(temperatura: number): void
-	+ {abstract} regularEnergiaTermica(energiaTermica: number): number
+    + abstract controlarTemperatura(temperatura: number): void
+    + abstract getEnergiaTermica(energiaTermica: number): number
 }
 
-class BarraDeControl extends SistemaDeRegulacionTermica {
+class BarraDeControl{
     - vidaUtil: number
+    - nroSerie: number
     + getVidaUtil(): number
     + setVidaUtil(TiempovidaUtil: number): void
-    + controlarEnergiaTermica(temperatura: number): void
+    + controlarVidaUtil(vidaUtil:number): void
+    + desgasteBarraVidaUtil(): Number
+	+ getNroSerie(): number
+	+ setNroSerie(nroSerie:number):void
+}
+
+class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
+    - barrasDeControl:Array<BarraDeControl>|undefined
+    + isEmpty(): boolean
+    + addBarra(barraControl:BarraDeControl): void
+    + removeBarra(): void
+    + getBarraActual(): BarraDeControl
+    + comprobarReemplazo(barraActual:BarraDeControl): void
+    - procesarBarra(): void
+    + controlarEnergiaTermica(temperatura:number): void
     + getPorcentajeProduccion(): number
+    + getEnergiaTermica(energiaTermica: number): number
+	+ getBarras():Array<BarraDeControl>|undefined
 }
 
 class SensorTermico {
