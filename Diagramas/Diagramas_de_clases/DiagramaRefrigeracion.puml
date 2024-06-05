@@ -43,7 +43,7 @@ class BarraDeControl{
 }
 
 class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
-    - barrasDeControl:Array<BarraDeControl>|undefined
+    - barrasDeControl:Array<BarraDeControl>
     + isEmpty(): boolean
     + addBarra(barraControl:BarraDeControl): void
     + removeBarra(): void

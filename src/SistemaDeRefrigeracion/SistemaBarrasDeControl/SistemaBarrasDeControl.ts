@@ -5,19 +5,19 @@ import ExceptionSinBarras from "../Exceptions/ExceptionSinBarras";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
-    private barrasDeControl:Array<BarraDeControl>|undefined;
+    private barrasDeControl:Array<BarraDeControl>;
 
     public isEmpty():boolean{
-        return this.barrasDeControl===undefined;
+        return this.barrasDeControl.length===0;
     }
 
     public addBarra(barraControl:BarraDeControl):void{
-        this.barrasDeControl!.push(barraControl);
+        this.barrasDeControl.push(barraControl);
     }
 
     public removeBarra():void{
         if(!this.isEmpty()){
-            this.barrasDeControl!.shift();
+            this.barrasDeControl.shift();
         }
         else{
             throw new ExceptionSinBarras();
@@ -26,7 +26,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     public getBarraActual():BarraDeControl{
         if(!this.isEmpty()){
-            return this.barrasDeControl![0];
+            return this.barrasDeControl[0];
         }
         else{
             throw new ExceptionSinBarras();
@@ -41,7 +41,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     private procesarBarra():void{
         const barraActual=this.getBarraActual();
-        barraActual!.setVidaUtil(barraActual!.desgasteBarraVidaUtil());
+        barraActual.setVidaUtil(barraActual.desgasteBarraVidaUtil());
         this.comprobarReemplazo(barraActual);
     }
 
@@ -56,7 +56,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public getPorcentajeProduccion():number{
-        return (this.getBarraActual().getVidaUtil()/3600)*100;
+        return (this.getBarraActual().getVidaUtil()/3600);
     }
 
     public getEnergiaTermica(energiaTermica: number):number {
@@ -64,7 +64,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         return energiaTermica;
     }
 
-    public getBarras():Array<BarraDeControl>|undefined{
+    public getBarras():Array<BarraDeControl>{
         return this.barrasDeControl;
     }
 
@@ -74,6 +74,9 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         super();
         if(barrasDeControl!==undefined){
             this.barrasDeControl=barrasDeControl;
+        }
+        else{
+            this.barrasDeControl=[];
         }
     }
 }
