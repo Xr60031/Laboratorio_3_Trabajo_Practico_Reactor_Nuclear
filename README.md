@@ -2,41 +2,17 @@
 
 ## Trabajo Práctico Reactor Nuclear
 
-### Análisis
+Asignaciones:
+1. Diagrama de clase de la solución propuesta.
+2. Diagramas de sequencia de 2 o más requerimientos a definir por el equipo.
+3. Desarrollar una aplicación que permita emular la situación planteada. Proveer el código y las pruebas unitarias para verificar:
+    1. Cantidad de energía neta producida en una determinada cantidad de horas. Considerar distintos escenarios.
+    2. Cantidad de barras de control consumidas para normalizar el estado del reactor. Considerar distintos escenarios.
+    3. Enviar una notifiación a Homero J. S.
+    4. Verificar que los mecanismos de generación de energía y enfriamiento se activen bajo las condiciones especificadas.
+    5. Conocer la temperatura del reactor en todo momento.
+    6. Conocer la cantidad de energia neta (MWe) producida en todo momento.
 
-**Mecanismos de control**
-* sensores (temperatura) --> Mocks
-* barras de control (material x)
-* turbinas de refrigeración (agua)
-
-**Reactor**
-* capacidad 700 MWe/h (eléctrica)
-* fuera de rango de temperatura: [400]ºC --> Reactor OFF
-* rango de temperatura normal: [280 - 330]ºC --> mecanismo de enfriamiento [flag booleano] en estado 'false'.
-
-**Aviso de exceso de temperatura**
-
-**[> 330]ºC**: Se activa el mecanismo de enfriamiento [flag booleano] en estado 'true' --> El mecanismo inserta barras de control al núcleo el reactor para reducir la velocidad de reacción nuclear a través de la absorción de neutrones, donde la magnitud de reducción está dada por el cálculo del porcentaje a ser restado de la energía térmica hasta que la misma se estabilice (<= 330)ºC.
-
-* aviso de energía térmica liberada: debe ser [>= 2500.24]
-
-```cálculo hecho con regla de 3 simple: (330.01 x 2500.02) / 329.98```
-  
-**Porcentaje de reducción de energía térmica a través de 1 barra de control**
-
-```Cálculo del porcentaje de vida útil de 1 barra de control: prc = [ (200 - 0) / 3600 ] (%)```
-    
-* Son 3600 segundos, es decir 1 hora. O sea que por cada minuto se reduce en 3.33 el valor de vida útil de cada barra en cuestión. Al entrar en contacto con el reactor, cada barra deberá ser reemplazada cuando llegue a un valor <= 50, es decir cuando resten al menos 15 minutos (tiempo de recambio) para agotar su vida útil por completo, teniendo en cuenta de recalcular el porcentaje de reducción de temperatura en base al conjunto total de barras, con la idea de asegurar un porcentaje constante de reducción de la temperatura del reactor.
-         
-    
-**Observación 1**: La idea es sumar barras de control hasta obtener el porcentaje de reducción necesario como para reducir la temperatura en exceso del reactor en el lapso de al menos 30' minutos, donde los 30' subsiguientes serán posiblemente utilizados (según la situación lo requiera) para reponer las barras que estén por debajo de un valor de vida útil, tomando como referencia el valor 50.
-
-```cálculo de vida útil de 1 barra por 1 minuto: 200 / 60 = 3,33```
-
-```cálculo de vida útil de 1 barra por 15 minutos: 3,33 x 15 = 50```
-            
-**Observación 2**: En esos 30' minutos se ejecutará el reemplazo de x cantidad de barras, contemplando la posibilidad de que la temperatura del reactor vuelva a subir o sea mayor el porcentaje de temperatura al porcentaje de enfriamiento, para que en ese caso tengamos un espacio de 15' minutos para reponer barras sin que la temperatura continúe en ascenso y así estabilizarla en 280ºC.   
-      
 ### ENUNCIADO
 PUNTO 3: Desarrollar una aplicación que permita emular la situación planteada. 
 Proveer el código y las pruebas unitarias para verificar lo siguiente:

@@ -6,6 +6,15 @@ import ExceptionSinBarras from "../Exceptions/ExceptionSinBarras";
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     private barrasDeControl:Array<BarraDeControl>;
+    private barrasGastadas:number=0;
+
+    public getBarrasGastadas():number{
+        return this.barrasGastadas;
+    }
+
+    public aumentarBarrasGastadas():void{
+        this.barrasGastadas++;
+    }
 
     public isEmpty():boolean{
         return this.barrasDeControl.length===0;
@@ -36,11 +45,13 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     public comprobarReemplazo(barraActual:BarraDeControl):void{
         if(barraActual.getVidaUtil()<50){
             this.removeBarra();
+            this.aumentarBarrasGastadas();
         }
     }
 
     private procesarBarra():void{
         const barraActual=this.getBarraActual();
+        this.comprobarReemplazo(barraActual);
         barraActual.setVidaUtil(barraActual.desgasteBarraVidaUtil());
         this.comprobarReemplazo(barraActual);
     }
@@ -48,7 +59,6 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     public controlarEnergiaTermica(temperatura:number):void{
         if(temperatura>330){
             this.encenderSistema();
-            this.procesarBarra();
         }
         else{
             throw new ExceptionTemperaturaNormal(temperatura);
@@ -60,7 +70,10 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public getEnergiaTermica(energiaTermica: number):number {
-        if(this.encendido) return energiaTermica * this.getPorcentajeProduccion();
+        if(this.encendido){ 
+            this.procesarBarra();
+            return energiaTermica * this.getPorcentajeProduccion();
+        }
         return energiaTermica;
     }
 
