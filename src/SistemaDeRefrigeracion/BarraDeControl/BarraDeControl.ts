@@ -37,7 +37,7 @@ export default class BarraDeControl {
         if(vidaUtil!==undefined && nroSerie!==undefined){
             this.controlarVidaUtil(vidaUtil);
             this.vidaUtil=vidaUtil;
-            this.nroSerie=0;
+            this.nroSerie=nroSerie;
         }
         else{
             this.vidaUtil=200;

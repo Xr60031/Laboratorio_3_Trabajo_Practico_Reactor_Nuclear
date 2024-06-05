@@ -1,33 +1,43 @@
-import * as MOCKS from "./mocks"
+import * as mocksReactor from "./mocksReactor"
 import ExceptionTemperaturaNormal from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionTemperaturaNormal";
 import SistemaBarrasDeControl from "../../../src/SistemaDeRefrigeracion/SistemaBarrasDeControl/SistemaBarrasDeControl";
-import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionSinBarras";
+import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
 
 describe("Tests Sistema de barras de control", () =>{
 
-    let sistemaBarras:SistemaBarrasDeControl=new SistemaBarrasDeControl();
+    let sistemaBarras:SistemaBarrasDeControl;
+    
+    beforeEach(()=>{
+        sistemaBarras=new SistemaBarrasDeControl();
+    })
 
     it("Prueba controlarTemperatura casoTemperatura>330", ()=>{
-        MOCKS.BarrasMocks.getTemperatura=jest.fn().mockReturnValueOnce(331);
-        sistemaBarras.controlarEnergiaTermica(MOCKS.BarrasMocks.getTemperatura());
+        const barraNew=new BarraDeControl(1,200);
+        sistemaBarras.addBarra(barraNew);
+        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(331);
+        sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
         expect(sistemaBarras.getEstado()).toBe(true);
     })
 
     it("Prueba controlarTemperatura casoTemperatura=330", ()=>{
-        MOCKS.BarrasMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
+        const barraNew=new BarraDeControl(1,200);
+        sistemaBarras.addBarra(barraNew);
+        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
         try{
-            sistemaBarras.controlarEnergiaTermica(MOCKS.BarrasMocks.getTemperatura());
+            sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
         }
     })
 
-    it("Prueba controlarTemperatura casoTemperatura=330", ()=>{
-        MOCKS.BarrasMocks.getTemperatura=jest.fn().mockReturnValueOnce(329);
+    it("Prueba controlarTemperatura casoTemperatura<330", ()=>{
+        const barraNew=new BarraDeControl(1,200);
+        sistemaBarras.addBarra(barraNew);
+        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(329);
         try{
-            sistemaBarras.controlarEnergiaTermica(MOCKS.BarrasMocks.getTemperatura());
+            sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
@@ -35,28 +45,26 @@ describe("Tests Sistema de barras de control", () =>{
     })
 
     it("Pruba getPorcentajeProduccion cuando vida util=100", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
-        sistemaBarras.addBarra(new BarraDeControl(0, 100));
+        const barraNew=new BarraDeControl(1,100);
+        sistemaBarras.addBarra(barraNew);
         expect(sistemaBarras.getPorcentajeProduccion()).toBe((100/3600)*100);
     })
 
     it("Pruba addBarra", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
-        sistemaBarras.addBarra(new BarraDeControl(12345, 200));
-        const barraBuscada=sistemaBarras.getBarras()!.find(obj => obj.getNroSerie()===12345);
-        expect(barraBuscada!.getNroSerie()).toBe(12345);
+        const barraNew=new BarraDeControl(1,200);
+        sistemaBarras.addBarra(barraNew);
+        const barraBuscada=sistemaBarras.getBarras().find(obj => obj.getNroSerie()===barraNew.getNroSerie());
+        expect(barraBuscada!.getNroSerie()).toBe(1);
     })
 
     it("Prueba removeBarra, caso válido", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
-        sistemaBarras.addBarra(new BarraDeControl(12345, 200));
-        const barraActual=sistemaBarras.getBarraActual();
+        const barraNew=new BarraDeControl(1,200);
+        sistemaBarras.addBarra(barraNew);
         sistemaBarras.removeBarra();
-        expect(sistemaBarras.getBarraActual()).toBe(undefined);
+        expect(sistemaBarras.getBarras().length).toBe(0);
     })
 
     it("Prueba removeBarra, caso inválido", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
         try{
             sistemaBarras.removeBarra();
         }
@@ -67,14 +75,12 @@ describe("Tests Sistema de barras de control", () =>{
     })
 
     it("Prueba getBarraActual, caso válido", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
-        const barraNew=new BarraDeControl(1,200)
+        const barraNew=new BarraDeControl(1,200);
         sistemaBarras.addBarra(barraNew);
         expect(sistemaBarras.getBarraActual()).toBe(barraNew);
     })
 
     it("Prueba getBarraActual, caso inválido", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
         try{
             sistemaBarras.getBarraActual();
         }
@@ -84,8 +90,8 @@ describe("Tests Sistema de barras de control", () =>{
     })
 
     it("Prueba getEnergiaTermica", ()=>{
-        sistemaBarras.getBarras()!.splice(0, sistemaBarras.getBarras()!.length);
-        sistemaBarras.addBarra(new BarraDeControl());
-        expect(sistemaBarras.getEnergiaTermica(MOCKS.BarrasMocks.getEnergia())).toBe(200*200);
+        sistemaBarras.addBarra(new BarraDeControl(1,200));
+        sistemaBarras.encenderSistema();
+        expect(sistemaBarras.getEnergiaTermica(2500)).toBe(2500*(200/3600));
     })
 })

@@ -3,7 +3,11 @@ import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRefrigeracion/Excep
 
 describe("Tests barras de control", () =>{
 
-    let barraControl:BarraDeControl=new BarraDeControl();
+    let barraControl:BarraDeControl;
+
+    beforeEach(()=>{
+        barraControl=new BarraDeControl();
+    })
     
     it("Prueba setVidaUtil y getVidaUtil", ()=>{
         barraControl.setVidaUtil(75);
