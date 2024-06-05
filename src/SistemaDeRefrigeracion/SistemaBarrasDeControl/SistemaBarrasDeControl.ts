@@ -71,8 +71,9 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     public getEnergiaTermica(energiaTermica: number):number {
         if(this.encendido){ 
+            const energiaTermicaCalculada=energiaTermica * this.getPorcentajeProduccion();
             this.procesarBarra();
-            return energiaTermica * this.getPorcentajeProduccion();
+            return energiaTermicaCalculada;
         }
         return energiaTermica;
     }

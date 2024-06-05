@@ -47,7 +47,7 @@ describe("Tests Sistema de barras de control", () =>{
     it("Pruba getPorcentajeProduccion cuando vida util=100", ()=>{
         const barraNew=new BarraDeControl(1,100);
         sistemaBarras.addBarra(barraNew);
-        expect(sistemaBarras.getPorcentajeProduccion()).toBe((100/3600)*100);
+        expect(sistemaBarras.getPorcentajeProduccion()).toBe(100/3600);
     })
 
     it("Pruba addBarra", ()=>{
