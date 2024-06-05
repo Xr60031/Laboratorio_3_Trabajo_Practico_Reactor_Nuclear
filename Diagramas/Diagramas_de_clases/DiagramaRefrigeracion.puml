@@ -44,6 +44,9 @@ class BarraDeControl{
 
 class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     - barrasDeControl:Array<BarraDeControl>
+    - barrasGastadas:number
+	+ getBarrasGastadas():number
+	+ aumentarBarrasGastadas():void
     + isEmpty(): boolean
     + addBarra(barraControl:BarraDeControl): void
     + removeBarra(): void
