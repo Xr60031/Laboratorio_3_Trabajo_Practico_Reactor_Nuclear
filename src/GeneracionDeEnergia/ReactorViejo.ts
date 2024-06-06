@@ -1,6 +1,7 @@
 import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica"
 import { Estado } from "./Estados/Estado";
 import SensorTermico from "./SensorTermico";
+import Mensaje from "../Comunicaciones/Mensaje";
 
 class Reactor {
     private static instance: Reactor;
@@ -35,13 +36,13 @@ class Reactor {
         
     }
 
-    public generarEnergiaTermica(): number {
+    public generarEnergiaTermica(): Mensaje {
         if(this.estado != ESTADO_REACTOR.APAGADO) {
             const temperatura: number = this.sensorTermico.medir();
             const energiaTermica: number = temperatura * 8 - 140;
             return this.sistemaDeRegulacionTermica.getEnergiaTermica(energiaTermica);
         }
-        return 0;
+        return new Mensaje(3, "");
     }
 
     private enfriar(): void {

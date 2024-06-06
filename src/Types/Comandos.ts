@@ -1,0 +1,4 @@
+export enum Comandos{
+    INICIAR_REFRIGERACION,
+    PEDIR_TEMPERATURA
+}
