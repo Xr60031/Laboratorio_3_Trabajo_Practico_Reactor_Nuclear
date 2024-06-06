@@ -1,13 +1,21 @@
 import Generador from "../GeneracionDeEnergia/Generador";
-import Reactor from "../GeneracionDeEnergia/Reactor";
+import Reactor from "../Generadores/Reactor/Reactor";
 
 export default class CentralNuclear {
+    private static instance: CentralNuclear;
     private reactor: Reactor;
     private generador: Generador;
 
-    constructor(r: Reactor, g: Generador) {
-        this.reactor = r;
-        this.generador = g;
+    private constructor(reactor: Reactor, generador: Generador) {
+        this.reactor = reactor;
+        this.generador = generador;
+    }
+
+    public static getInstance(reactor: Reactor, generador: Generador): CentralNuclear {
+        if (CentralNuclear.instance == null) {
+            CentralNuclear.instance = new CentralNuclear(reactor, generador);
+        }
+        return CentralNuclear.instance;
     }
 
     public generarEnergia(): number {
