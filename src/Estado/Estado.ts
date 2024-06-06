@@ -1,5 +1,5 @@
 
 export default interface Estado {
-    generarEnergia(): void;
-    refrigerar(): void;
+    generarEnergiaTermica(): void;
+    activarModoEnfriamiento(): void;
 }

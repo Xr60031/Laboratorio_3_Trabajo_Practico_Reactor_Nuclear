@@ -1,25 +1,26 @@
-import Reactor from "../GeneracionDeEnergia/Reactor";
 import Estado from "./Estado";
+import SensorTermico from "../GeneracionDeEnergia/SensorTermico";
+import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
 
 
 export default class Normal implements Estado {
 
-    private reactor: Reactor;
+    private sensor: SensorTermico;
+    private sistemaRegulacionTermica: SistemaRegulacionTermica;
 
-    constructor(r: Reactor) {
-        this.reactor = r;
+    constructor(sensor: SensorTermico, sistRegTermica: SistemaRegulacionTermica) {
+        this.sensor = sensor;
+        this.sistemaRegulacionTermica = sistRegTermica;
     }   
 
-    public generarEnergia(): void {
-        let temperatura = this.reactor.getTemperatura();
+    public generarEnergiaTermica(): void {
+        let temperatura = this.sensor.medir();
         temperatura += 10;
-        this.reactor.setTemperatura(temperatura);
+        this.sensor.setTemperatura(temperatura);
     }
 
-    public refrigerar(): void {
-        let temperatura = this.reactor.getTemperatura();
-        temperatura -=20;
-        this.reactor.setTemperatura(temperatura);
+    public activarModoEnfriamiento(): void {
+        this.sistemaRegulacionTermica.encender();
     }
 
     public toString():string {

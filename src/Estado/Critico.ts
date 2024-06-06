@@ -1,37 +1,43 @@
-import LinkedList from "linked-list-typescript"
-import Reactor from "../GeneracionDeEnergia/Reactor";
 import Estado from "./Estado";
-
+import { SensorTermico } from "../Generadores/Reactor/SensorTermico";
+import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
+import LinkedList from "linked-list-typescript"
 
 export default class Critico implements Estado {
-    private reactor: Reactor;
-    private turbinas: LinkedList<Turbina>;
 
-    constructor(r: Reactor, t: LinkedList<Turbina>) {
-        this.reactor = r;
-        this.turbinas = t;
+    private _sensorTermico: SensorTermico;
+    private _sistemaRegulacionTermica: SistemaRegulacionTermica;
+    //private barras: LinkedList<SistemaDeRegulacionTermica>;
+
+    constructor(
+        sensorTermico: SensorTermico, 
+        sistRegTermica: SistemaRegulacionTermica
+    ) {
+        this._sensorTermico = sensorTermico;
+        this._sistemaRegulacionTermica = sistRegTermica;
     }
 
-    generarEnergia(): void {
-        let temperatura: number = this.reactor.getTemperatura();
+    generarEnergiaTermica(): void {
+        let temperatura: number = this._sensorTermico.temperatura;
         temperatura += 30;
 
-        for (let turbina of this.turbinas) {
-            if (turbina.getEstado() === "PRENDIDA") {
-                temperatura += turbina.getPotencia();
+        // aquí va lo que suma temperatura al proceso
+        // -> lo que baja temperatura -> BARRAS
+        for (let barra of this.barras) {
+            if (barra.getEstado() === "ENCENDIDA") {
+                temperatura += barra.getPotencia();
             }
         }
-        this.reactor.setTemperatura(temperatura);
+    
+        this._sensorTermico.temperatura = temperatura;
+    
     }
 
-    refrigerar(): void {
-        let temperatura: number = this.reactor.getTemperatura();
-        temperatura -= 30;
-        temperatura -= this.reactor.cantidadTurbinas();
-        this.reactor.setTemperatura(temperatura);
+    public activarModoEnfriamiento(): void {
+        this._sistemaRegulacionTermica.encender();
     }
 
-    toString(): string {
+    public toString(): string {
         return "Critico";
     }
 }

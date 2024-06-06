@@ -1,19 +1,20 @@
 import { Computadora } from "../../Controles/Computadora";
 import { AlertaTemperatura } from "./Types/AlertaTemperatura";
 
-export class SensorTermico {
-    private temperatura: number;
-    private computadora: Computadora;
 
-    constructor(computadora: Computadora) {
-        this.computadora = computadora;
-        this.temperatura = 0;
+export class SensorTermico {
+    private _temperatura: number;
+    private _computadora: Computadora;
+
+    constructor(computadora: Computadora, temperatura: number) {
+        this._computadora = computadora;
+        this._temperatura = temperatura ?? 0;
     }
 
     public medir(energiaTermica: number): void {
-        this.temperatura = energiaTermica / 7.5;
+        this._temperatura = energiaTermica / 7.5;
 
-        if (this.temperatura >= 330) {
+        if (this._temperatura >= 330) {
             this.enviarAlertaTemperatura(AlertaTemperatura.ALTA);
         } else {
             this.enviarAlertaTemperatura(AlertaTemperatura.NORMAL);
@@ -21,10 +22,14 @@ export class SensorTermico {
     }
 
     private enviarAlertaTemperatura(alerta: AlertaTemperatura): void {
-        this.computadora.recibirAlertaTemperatura(alerta);
+        this._computadora.recibirAlertaTemperatura(alerta);
     }
 
-    public getTemperatura(): number {
-        return this.temperatura;
+    public set temperatura(value: number) {
+        this._temperatura = value;
+    }
+
+    public get temperatura(): number {
+        return this._temperatura;
     }
 }
