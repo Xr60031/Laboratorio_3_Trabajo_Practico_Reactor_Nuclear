@@ -24,6 +24,10 @@ export class SensorTermico {
         this.computadora.recibirAlertaTemperatura(alerta);
     }
 
+    public setTemperatura(temperatura: number) {
+        this.temperatura = temperatura;
+    }
+
     public getTemperatura(): number {
         return this.temperatura;
     }
