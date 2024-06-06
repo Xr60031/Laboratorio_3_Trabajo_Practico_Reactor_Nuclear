@@ -1,12 +1,14 @@
 import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
-import { AlertaTemperatura } from "../Generadores/Reactor/Types/AlertaTemperatura";
+import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 
 export class Computadora {
-    private sistemaRegulacionTermica: SistemaRegulacionTermica;
+    /*private sistemaRegulacionTermica: SistemaRegulacionTermica;
 
     constructor(sistemaRegulacionTermica: SistemaRegulacionTermica) {
         this.sistemaRegulacionTermica = sistemaRegulacionTermica;
-    }
+    }*/
+
+    // OBSERVERS!!!!!
 
     public recibirAlertaTemperatura(alerta: AlertaTemperatura): void {
         if (alerta === AlertaTemperatura.NORMAL) {

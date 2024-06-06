@@ -1,7 +1,7 @@
 import * as MOCK from "./mocks"
-import ExceptionTemperaturaNormal from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionTemperaturaNormal";
+import ExceptionTemperaturaNormal from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionTemperaturaNormal";
 import SistemaBarrasDeControl from "../../../src/SistemaDeRefrigeracion/SistemaBarrasDeControl/SistemaBarrasDeControl";
-import ExceptionSinBarras from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionSinBarras";
+import ExceptionSinBarras from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionSinBarras";
 import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
 
 describe("Tests Sistema de barras de control", () =>{

@@ -1,7 +1,7 @@
 import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionTermica";
-import ExceptionTemperaturaNormal from "../Exceptions/ExceptionTemperaturaNormal";
+import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperaturaNormal";
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
-import ExceptionSinBarras from "../Exceptions/ExceptionSinBarras";
+import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 

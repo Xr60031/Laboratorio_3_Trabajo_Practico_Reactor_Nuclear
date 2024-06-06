@@ -145,7 +145,7 @@ class Emergencia {
 
 }
 
-interface Notificador {
+interface Notificable {
     + enviarAlerta(temperatura: double, estado: Estado): void
 }
 

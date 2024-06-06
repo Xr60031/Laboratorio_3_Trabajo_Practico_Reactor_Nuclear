@@ -1,4 +1,4 @@
-import { NoHaySuficienteCombustibleExcepcion } from "../Excepciones/NoHaySuficienteCombustibleExcepcion";
+import { NoHaySuficienteCombustibleExcepcion } from "./ExcepcionesCombustible/NoHaySuficienteCombustibleExcepcion";
 import { CombustibleNuclear } from "./CombustibleNuclear";
 
 export class Uranio extends CombustibleNuclear {

@@ -1,4 +1,4 @@
-import Reactor from "../../Generadores/Reactor/Reactor";
+import Reactor from "../Reactor";
 
 export default abstract class Estado {
     protected reactor: Reactor;
@@ -8,4 +8,7 @@ export default abstract class Estado {
     }
 
     abstract iniciar(): void;
+
+    generarEnergiaTermica(): void;
+    activarModoEnfriamiento(): void;
 }

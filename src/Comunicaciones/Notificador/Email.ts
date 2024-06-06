@@ -1,5 +1,5 @@
 import Estado from "../Estado/Estado";
-import Notificable from "./Notificador";
+import Notificable from "./Notificable";
 
 export default class Email implements Notificable {
 

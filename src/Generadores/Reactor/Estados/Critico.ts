@@ -1,9 +1,9 @@
 import Estado from "./Estado";
-import { SensorTermico } from "../Generadores/Reactor/SensorTermico";
+import { SensorTermico } from "../SensorTermico";
 import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
 import LinkedList from "linked-list-typescript"
 
-export default class Critico implements Estado {
+export default class Critico extends Estado {
 
     private _sensorTermico: SensorTermico;
     private _sistemaRegulacionTermica: SistemaRegulacionTermica;

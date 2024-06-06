@@ -1,5 +1,5 @@
 import { Computadora } from "../../Controles/Computadora";
-import { AlertaTemperatura } from "./Types/AlertaTemperatura";
+import { AlertaTemperatura } from "../../Comunicaciones/AlertaTemperatura";
 
 
 export class SensorTermico {

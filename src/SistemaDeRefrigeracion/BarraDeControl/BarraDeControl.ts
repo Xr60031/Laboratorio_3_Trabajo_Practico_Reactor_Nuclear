@@ -1,4 +1,4 @@
-import ExceptionVidaUtilInvalida from "../Exceptions/ExceptionVidaUtilInvalida";
+import ExceptionVidaUtilInvalida from "../ExceptionsBarras/ExceptionVidaUtilInvalida";
 
 export default class BarraDeControl {
     private vidaUtil:number;

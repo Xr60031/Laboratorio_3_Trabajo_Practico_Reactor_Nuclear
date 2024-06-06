@@ -1,4 +1,4 @@
-import Generador from "../GeneracionDeEnergia/Generador";
+import Generador from "../Generadores/GeneradorElectrico/Generador";
 import Reactor from "../Generadores/Reactor/Reactor";
 
 export default class CentralNuclear {

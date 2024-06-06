@@ -1,9 +1,9 @@
 import { CombustibleNuclear } from "./Combustible/CombustibleNuclear";
-import { NoHayCombustibleExcepcion } from "./Excepciones/NoHayCombustibleExcepcion";
+import { NoHayCombustibleExcepcion } from "./Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import SistemaDeRegulacionTermica from "../../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { SensorTermico } from "./SensorTermico";
 import { EstadoReactor } from "./Types/EstadoReactor";
-import Estado from "../../GeneracionDeEnergia/Estados/Estado";
+import Estado from "./Estados/Estado";
 
 export default class Reactor {
     private static instance: Reactor;

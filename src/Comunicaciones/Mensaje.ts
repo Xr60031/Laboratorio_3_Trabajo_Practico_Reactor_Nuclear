@@ -1,4 +1,4 @@
-import { Cabecera } from "../Types/Cabecera";
+import { Cabecera } from "./Types/Cabecera";
 
 export default class Mensaje{
     private cabecera : Cabecera;

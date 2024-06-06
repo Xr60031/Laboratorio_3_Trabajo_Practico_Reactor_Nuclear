@@ -1,4 +1,4 @@
-import Notificable from "./Notificador";
+import Notificable from "./Notificable";
 import Estado from "../Estado/Estado";
 
 export default class Sms implements Notificable {

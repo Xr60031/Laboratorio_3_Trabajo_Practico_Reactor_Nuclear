@@ -2,7 +2,7 @@ import Estado from "./Estado";
 import { SensorTermico } from "../Generadores/Reactor/SensorTermico";
 import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
 
-export default class Emergencia implements Estado {
+export default class Emergencia extends Estado {
     
     private sensor: SensorTermico;
     private sistemaRegulacionTermica: SistemaRegulacionTermica;

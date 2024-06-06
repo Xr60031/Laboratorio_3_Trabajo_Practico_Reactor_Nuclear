@@ -1,5 +1,5 @@
 import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
-import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionVidaUtilInvalida";
+import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionVidaUtilInvalida";
 
 describe("Tests barras de control", () =>{
 
@@ -38,4 +38,3 @@ describe("Tests barras de control", () =>{
     })
 
 })
-    
