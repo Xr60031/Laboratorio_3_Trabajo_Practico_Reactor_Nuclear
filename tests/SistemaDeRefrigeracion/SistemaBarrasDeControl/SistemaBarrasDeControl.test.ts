@@ -1,4 +1,4 @@
-import * as mocksReactor from "./mocksReactor"
+import * as MOCK from "./mocks"
 import ExceptionTemperaturaNormal from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionTemperaturaNormal";
 import SistemaBarrasDeControl from "../../../src/SistemaDeRefrigeracion/SistemaBarrasDeControl/SistemaBarrasDeControl";
 import ExceptionSinBarras from "../../../src/SistemaDeRefrigeracion/Exceptions/ExceptionSinBarras";
@@ -15,17 +15,17 @@ describe("Tests Sistema de barras de control", () =>{
     it("Prueba controlarTemperatura casoTemperatura>330", ()=>{
         const barraNew=new BarraDeControl(1,200);
         sistemaBarras.addBarra(barraNew);
-        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(331);
-        sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
+        MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(331);
+        sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
         expect(sistemaBarras.getEstado()).toBe(true);
     })
 
     it("Prueba controlarTemperatura casoTemperatura=330", ()=>{
         const barraNew=new BarraDeControl(1,200);
         sistemaBarras.addBarra(barraNew);
-        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
+        MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
         try{
-            sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
+            sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
@@ -35,9 +35,9 @@ describe("Tests Sistema de barras de control", () =>{
     it("Prueba controlarTemperatura casoTemperatura<330", ()=>{
         const barraNew=new BarraDeControl(1,200);
         sistemaBarras.addBarra(barraNew);
-        mocksReactor.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(329);
+        MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(329);
         try{
-            sistemaBarras.controlarEnergiaTermica(mocksReactor.ReactorMocks.getTemperatura());
+            sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
