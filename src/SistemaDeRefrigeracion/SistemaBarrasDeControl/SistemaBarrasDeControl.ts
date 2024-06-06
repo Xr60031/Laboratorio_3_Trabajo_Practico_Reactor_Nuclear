@@ -50,8 +50,12 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     private procesarBarra():void{
-        const barraActual=this.getBarraActual();
-        this.comprobarReemplazo(barraActual);
+        let barraActual=this.getBarraActual();
+        let iterador=0;
+        while(barraActual.getVidaUtil()<50){
+            barraActual=this.barrasDeControl[iterador];
+            this.comprobarReemplazo(barraActual);
+        }
         barraActual.setVidaUtil(barraActual.desgasteBarraVidaUtil());
         this.comprobarReemplazo(barraActual);
     }
