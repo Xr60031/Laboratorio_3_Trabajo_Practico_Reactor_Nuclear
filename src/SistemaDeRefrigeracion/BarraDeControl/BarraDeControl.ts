@@ -1,9 +1,8 @@
-import ExceptionTemperaturaNormal from "../Exceptions/ExceptionTemperaturaNormal";
 import ExceptionVidaUtilInvalida from "../Exceptions/ExceptionVidaUtilInvalida";
-import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionTermica";
 
-export default class BarraDeControl extends SistemaDeRegulacionTermica{
+export default class BarraDeControl {
     private vidaUtil:number;
+    private nroSerie:number;
 
     public getVidaUtil():number{
         return this.vidaUtil;
@@ -20,34 +19,29 @@ export default class BarraDeControl extends SistemaDeRegulacionTermica{
         this.vidaUtil=nuevaVidaUtil;
     }
 
-    public controlarEnergiaTermica(temperatura:number):void{
-        if(temperatura>330){
-            this.encenderSistema();
-        }
-        else{
-            throw new ExceptionTemperaturaNormal(temperatura);
-        }
+    public desgasteBarraVidaUtil():number{
+        return this.vidaUtil-50;
     }
 
-    public regularEnergiaTermica(energiaTermica: number): number {
-        if(this.encendido) return energiaTermica * this.getPorcentajeProduccion()/100;
-        return energiaTermica;
+    public setNroSerie(nroSerie:number):void{
+        this.nroSerie=nroSerie;
     }
 
-    public getPorcentajeProduccion():number{
-        return (this.getVidaUtil()/3600)*100;
+    public getNroSerie():number{
+        return this.nroSerie;
     }
-
+    
     constructor();
-    constructor(vidaUtil:number);
-    constructor(vidaUtil?:number){
-        super();
-        if(vidaUtil!==undefined){
+    constructor(nroSerie:number, vidaUtil:number);
+    constructor(nroSerie?:number, vidaUtil?:number){
+        if(vidaUtil!==undefined && nroSerie!==undefined){
             this.controlarVidaUtil(vidaUtil);
             this.vidaUtil=vidaUtil;
+            this.nroSerie=nroSerie;
         }
         else{
-            this.vidaUtil=0;
+            this.vidaUtil=200;
+            this.nroSerie=0;
         }
     }
 }

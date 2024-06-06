@@ -27,20 +27,41 @@ abstract class SistemaDeRegulacionTermica {
     + encenderSistema(): void
     + apagarSistema(): void
     + getEstado(): boolean
-    + controlarTemperatura(temperatura: number): void
+    + abstract controlarTemperatura(temperatura: number): void
+    + abstract getEnergiaTermica(energiaTermica: number): number
 }
 
-class BarraDeControl extends SistemaDeRegulacionTermica {
+class BarraDeControl{
     - vidaUtil: number
+    - nroSerie: number
     + getVidaUtil(): number
     + setVidaUtil(TiempovidaUtil: number): void
-    + controlarTemperatura(temperatura: number): void
+    + controlarVidaUtil(vidaUtil:number): void
+    + desgasteBarraVidaUtil(): Number
+    + getNroSerie(): number
+	+ setNroSerie(nroSerie:number):void
+}
+
+class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
+    - barrasDeControl:Array<BarraDeControl>
+    - barrasGastadas:number
+	+ getBarrasGastadas():number
+	+ aumentarBarrasGastadas():void
+    + isEmpty(): boolean
+    + addBarra(barraControl:BarraDeControl): void
+    + removeBarra(): void
+    + getBarraActual(): BarraDeControl
+    + comprobarReemplazo(barraActual:BarraDeControl): void
+    - procesarBarra(): void
+    + controlarEnergiaTermica(temperatura:number): void
     + getPorcentajeProduccion(): number
+    + getEnergiaTermica(energiaTermica: number): number
+    + getBarras():Array<BarraDeControl>|undefined
 }
 
 class ComputadoraDeHomero {
-    + activarMecanismoDeRefrigeracion(mecanismoRefrigeracion: SistemaDeRegulacionTermica): void;
-    + getTemperatura(): number;
+    + activarMecanismoDeRefrigeracion(mecanismoRefrigeracion: SistemaDeRegulacionTermica): void
+    + getTemperatura(): number
 }
 
 Reactor *-- BarraDeControl
