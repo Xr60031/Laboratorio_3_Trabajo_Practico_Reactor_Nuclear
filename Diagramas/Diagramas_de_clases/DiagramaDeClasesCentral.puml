@@ -22,23 +22,19 @@ skinparam NoteBorderThickness 2
 
 ' clases
 
-enum EstadoReactor {
-  	APAGADO
-  	NORMALIDAD
-  	CRITICIDAD
-  	CRITICA
-}
-
 abstract class CombustibleNuclear {
-  	- cantidadEnToneladas: number
+  	# cantidad: number
+  	# limite: number
 
-  	+ recargar(number): void
-  	+ {abstract} consumir(number): number
+  	+ recargar(cantidad: number): void
+  	+ {abstract} consumir(cantidad: number): number
   	+ tieneCombustible(): boolean
+  	+ {abstract} calcularEnergiaTermica(cantidad: number): number
 }
 
 class Uranio extends CombustibleNuclear {
-  	+ consumir(number): number
+  	+ consumir(cantidad: number): number
+  	+ calcularEnergiaTermica(cantidad: number): number
 }
 
 abstract class SistemaDeRegulacionTermica {
@@ -79,7 +75,11 @@ class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 }
 
 class SensorTermico {
+  	- temperatura: number
+	- computadora: Computadora
+
   	+ medir(): number
+	- enviarAlertaTemperatura(alerta: AlertaTemperatura): void
 }
 
 class Email {
@@ -90,22 +90,31 @@ class Email {
   	+ activarModoEnfriamiento(): void
 }
 
+class Computadora {
+  	- sistemaRegulacionTermica: SistemaRegulacionTermica
+
+  	+ recibirAlertaTemperatura(): void
+  	- activarModoEnfriamiento(): void
+}
+
 class Reactor {
-	- combustible: CombustibleNuclear
-	- sensorTermico: SensorTermico
-	- sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
-	- estado: EstadoReactor
-	- modoEnfriamiento: boolean
-	- puedeGenerarEnergiaTermica: boolean
 	- consumoCombustible: number
-	- potenciaTermica: number
+	- capacidadProductiva: number
+	- energiaTermica: number
+	- estado: EstadoReactor
+	- combustible: CombustibleNuclear
+	- sistemaRegulacionTermica: SistemaRegulacionTermica
+	- sensor: SensorTermico
 
 	+ iniciar(): void
 	+ mantener(): void
 	+ detener(): void
-	+ generarEnergiaTermica(temperatura: number): number
-	+ setNotificador(Notificador: Notificador): void
-	- enfriar(): void
+	+ generarEnergiaTermica(): number
+	- reducirEnergiaTermica(): void
+	- calcularCapacidadProductiva(): void
+	- controlarEstado(): void
+	- consumirCombustible(cantidad: number): void
+	- controlarEnergiaTermica(energiaTermica: number): number
 }
 
 class Generador {
@@ -146,6 +155,8 @@ Reactor *-r- CombustibleNuclear
 Reactor *-- SensorTermico
 Reactor *-l- SistemaDeRegulacionTermica
 Reactor *-d- Estado
+
+SistemaBarrasDeControl *-- BarraDeControl
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
