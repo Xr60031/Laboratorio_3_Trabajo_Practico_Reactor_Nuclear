@@ -1,3 +1,8 @@
-1-"Prueba setVidaUtil y getVidaUtil": Prueba del correcto funcionamiento del getter y setter del objeto BarraDeControl.
-2.1 y 2.2-"Prueba controlarVidaUtil": Prueba del correcto funcionamiento del controlador que revisa que la vida útil sea válida, y en caso de que sea menor a 0, o mayor a 200, lanza el error que indica esto (ExceptionVidaUtilInvalida).
-3- "Prueba desgaste barra vida util": Prueba del correcto funcionamiento del metodo que calcula el desgaste de una barra de control luego de ser utilizada para regular la temperatura.
+1-"Prueba para obtener la vida util":Prueba del correcto funcionamiento del getter de la vida util.
+2-"Prueba para establecer la vida util": Prueba del correcto funcionamiento del setter de ña vida util.
+3-"Prueba controlarVidaUtil": Prueba del correcto funcionamiento del controlador que revisa que la vida útil sea válida.
+3.1-"Prueba controlar vida util cuando la vida util es mayor a 200": En caso de que la vida util sea mayor a 200, lanza el error que indica esto (ExceptionVidaUtilInvalida).
+3.2-"Prueba controlar vida util cuando la vida util es menor a 0": En caso de que la vida util sea menor a 0, lanza el error que indica esto (ExceptionVidaUtilInvalida).
+4- "Prueba del desgaste de la vida util de la barra de control": Prueba del correcto funcionamiento del metodo que calcula el desgaste de una barra de control luego de ser utilizada para regular la temperatura.
+5-"Prueba para obtener el numero de serie de una barra de control": Prubea del correcto funcionamiento del getter del número de serie.
+6-"Prueba para establecer el numero de serie de una barra de control": Prueba del correcto funcionamiento del setter del número de serie.
