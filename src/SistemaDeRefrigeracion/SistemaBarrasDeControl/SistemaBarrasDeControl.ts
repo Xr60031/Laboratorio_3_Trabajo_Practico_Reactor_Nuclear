@@ -61,7 +61,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public controlarEnergiaTermica(temperatura:number):void{
-        if(temperatura>330){
+        if(temperatura>=330){
             this.encenderSistema();
         }
         else{

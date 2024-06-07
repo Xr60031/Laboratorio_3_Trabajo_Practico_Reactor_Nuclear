@@ -1,6 +1,8 @@
 import Generador from "../Generadores/GeneradorElectrico/Generador";
 import Reactor from "../Generadores/Reactor/Reactor";
 
+//Para agregar iniciar reactor;
+
 export default class CentralNuclear {
     private static instance: CentralNuclear;
     private reactor: Reactor;
@@ -18,6 +20,8 @@ export default class CentralNuclear {
         return CentralNuclear.instance;
     }
 
+    // Deberia recibir un number y un bucle for que ejecute la función de generar energia
+    // Cada una hora
     public generarEnergia(): number {
         return this.generador.generarEnergiaElectrica(this.reactor.generarEnergiaTermica());
     }

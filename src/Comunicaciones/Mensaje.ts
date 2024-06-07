@@ -1,5 +1,6 @@
 import { Cabecera } from "./Types/Cabecera";
 
+//RRR
 export default class Mensaje{
     private cabecera : Cabecera;
     private cuerpo : string;

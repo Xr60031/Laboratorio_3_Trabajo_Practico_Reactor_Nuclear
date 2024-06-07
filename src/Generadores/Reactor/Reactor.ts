@@ -2,7 +2,6 @@ import { CombustibleNuclear } from "./Combustible/CombustibleNuclear";
 import { NoHayCombustibleExcepcion } from "./Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import SistemaDeRegulacionTermica from "../../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { SensorTermico } from "./SensorTermico";
-import { EstadoReactor } from "./Types/EstadoReactor";
 import Estado from "./Estados/Estado";
 
 export default class Reactor {
@@ -80,9 +79,7 @@ export default class Reactor {
             this.consumirCombustible(this.consumoCombustible);
 
             this.controlarEstado();
-
-            this.calcularCapacidadProductiva();
-
+            
             if (this.estado === EstadoReactor.CRITICA) {
                 this.detener();
             }
@@ -107,16 +104,6 @@ export default class Reactor {
         }
 
         this.sensor.medir(this.energiaTermica);
-    }
-
-    private calcularCapacidadProductiva(): void {
-        if (this.estado === EstadoReactor.NORMALIDAD) {
-            this.capacidadProductiva = 1;
-        } else if (this.estado === EstadoReactor.CRITICIDAD) {
-            this.capacidadProductiva = 0.2;
-        } else if (this.estado === EstadoReactor.CRITICA) {
-            this.capacidadProductiva = 0;
-        }
     }
 
     private controlarEstado(): void {

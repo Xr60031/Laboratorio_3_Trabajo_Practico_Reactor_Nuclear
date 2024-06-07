@@ -1,12 +1,12 @@
-import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
+import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 
 export class Computadora {
-    /*private sistemaRegulacionTermica: SistemaRegulacionTermica;
+    private sistemaRegulacionTermica: SistemaDeRegulacionTermica;
 
-    constructor(sistemaRegulacionTermica: SistemaRegulacionTermica) {
-        this.sistemaRegulacionTermica = sistemaRegulacionTermica;
-    }*/
+    constructor(SistemaDeRegulacionTermica: SistemaDeRegulacionTermica) {
+        this.sistemaRegulacionTermica = SistemaDeRegulacionTermica;
+    }
 
     // OBSERVERS!!!!!
 
@@ -19,10 +19,12 @@ export class Computadora {
     }
 
     private activarModoEnfriamiento(): void {
-        this.sistemaRegulacionTermica.encender();
+        //Mandarle a sus suscribers encender
+        this.sistemaRegulacionTermica.encenderSistema();
     }
 
     private desactivarModoEnfriamiento(): void {
-        this.sistemaRegulacionTermica.apagar();
+        //Mandarle a sus suscribers apagado
+        this.sistemaRegulacionTermica.apagarSistema();
     }
 }

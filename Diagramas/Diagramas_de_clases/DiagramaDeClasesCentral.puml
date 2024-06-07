@@ -161,8 +161,8 @@ SistemaBarrasDeControl *-- BarraDeControl
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
 
-Notificador <|.. Email
-Notificador <.u. Reactor
+Notificable <|.. Email
+Notificable <.u. Reactor
 
 Estado <|.. Normal
 Estado <|.. Critico

@@ -24,12 +24,8 @@ describe("Tests Sistema de barras de control", () =>{
         const barraNew=new BarraDeControl(1,200);
         sistemaBarras.addBarra(barraNew);
         MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
-        try{
-            sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
-        }
-        catch (TemperaturaNormal){
-            expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
-        }
+        sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
+        expect(sistemaBarras.getEstado()).toBe(true);
     })
 
     it("Prueba controlarTemperatura casoTemperatura<330", ()=>{
