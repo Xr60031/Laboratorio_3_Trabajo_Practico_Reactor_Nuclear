@@ -9,4 +9,4 @@
 4.2-"Prueba para remover una barra de control del sistema y que no hayan para sacar". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
 5.1-"Prueba para obtener la barra que se esta utilizando actualmente". Se obtiene la primera barra que se encuentre dentro del vector de barras.
 5.2-"Prueba para obtener la barra que se esta utilizando actualmente, pero no hay barras en sistema". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
-6-"Prueba para obtener la energia termica cuando se utilizan las barras de control". Retorna la energía térmica calculada en base a la barra de control que se está utilizando actualmente.
+6-"Prueba para obtener la energia termica cuando se utilizan las barras de control". Retorna la energía térmica calculada en base a la barra de control que se está utilizando actualmente. 
