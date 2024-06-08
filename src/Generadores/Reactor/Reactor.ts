@@ -3,6 +3,7 @@ import { NoHayCombustibleExcepcion } from "./Combustible/ExcepcionesCombustible/
 import SistemaDeRegulacionTermica from "../../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { SensorTermico } from "./SensorTermico";
 import Estado from "./Estados/Estado";
+import { COMBUSTIBLE_INICIO_REACTOR } from "../../Constantes";
 
 export default class Reactor {
     private static instance: Reactor;
@@ -59,9 +60,10 @@ export default class Reactor {
                 "No hay combustible para iniciar el reactor"
             );
         }
+        
 
         this.estado = EstadoReactor.NORMALIDAD;
-        this.consumirCombustible(this.consumoCombustible * 210);
+        this.consumirCombustible(this.consumoCombustible * COMBUSTIBLE_INICIO_REACTOR);
     }
 
     public mantener(): void {
