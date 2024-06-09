@@ -1,7 +1,7 @@
 import Generador from "../../src/Generadores/GeneradorElectrico/Generador";
 import Reactor from "../../src/Generadores/Reactor/Reactor";
 import CentralNuclear from "../../src/CentralNuclear/CentralNuclear";
-import * as MOCK from "./mocks"
+import * as MOCK from "./Mocks"
 import { NoHayCombustibleExcepcion } from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import { MODIFICADOR_TEMPERATURA_ENERGIA } from "../../src/Constantes";
 
