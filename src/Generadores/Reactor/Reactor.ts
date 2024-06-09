@@ -3,12 +3,11 @@ import { NoHayCombustibleExcepcion } from "./Combustible/ExcepcionesCombustible/
 import SistemaDeRegulacionTermica from "../../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { SensorTermico } from "./SensorTermico";
 import Estado from "./Estados/Estado";
-import { COMBUSTIBLE_INICIO_REACTOR } from "../../Constantes";
+import { COMBUSTIBLE_INICIO_REACTOR, CONSUMO_COMBUSTIBLE_BASICO, REDUCCION_TEMPERATURA_APAGADO, TEMPERATURA_CRITICA, TEMPERATURA_CRITICIDAD } from "../../Constantes";
 
 export default class Reactor {
     private static instance: Reactor;
     private consumoCombustible: number;
-    private capacidadProductiva: number;
     private energiaTermica: number;
     private estado: Estado;
     private combustible: CombustibleNuclear;
@@ -26,8 +25,7 @@ export default class Reactor {
         this.sistemaDeRegulacionTermica = sistemaRegulacionTermica;
         this.sensor = sensor;
 
-        this.consumoCombustible = 1;
-        this.capacidadProductiva = 1;
+        this.consumoCombustible = CONSUMO_COMBUSTIBLE_BASICO;
         this.energiaTermica = 0;
         this.temperatura = 0;
         this.estado = estado;
@@ -99,10 +97,10 @@ export default class Reactor {
     }
 
     private reducirEnergiaTermica(): void {
-        if (this.energiaTermica - 1000 < 0) {
+        if (this.energiaTermica - REDUCCION_TEMPERATURA_APAGADO < 0) {
             this.energiaTermica = 0;
         } else {
-            this.energiaTermica -= 1000;
+            this.energiaTermica -= REDUCCION_TEMPERATURA_APAGADO;
         }
 
         this.sensor.medir(this.energiaTermica);
@@ -111,11 +109,11 @@ export default class Reactor {
     private controlarEstado(): void {
         const temperatura = this.sensor.getTemperatura();
 
-        if (temperatura >= 400) {
+        if (temperatura >= TEMPERATURA_CRITICA) {
             this.estado = EstadoReactor.CRITICA;
-        } else if (temperatura >= 330) {
+        } else if (temperatura >= TEMPERATURA_CRITICIDAD) {
             this.estado = EstadoReactor.CRITICIDAD;
-        } else if (temperatura >= 280) {
+        } else {
             this.estado = EstadoReactor.NORMALIDAD;
         }
     }
@@ -134,7 +132,4 @@ export default class Reactor {
         );
     }
 
-    public getCapacidadProductiva(): number {
-        return this.capacidadProductiva;
-    }
 }

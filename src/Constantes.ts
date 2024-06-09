@@ -1,7 +1,8 @@
 export const MODIFICADOR_TEMPERATURA_ENERGIA = 7.5
 export const COMBUSTIBLE_INICIO_REACTOR = 210
-
-
+export const CONSUMO_COMBUSTIBLE_BASICO = 1
+export const TEMPERATURA_CRITICIDAD = 330
+export const TEMPERATURA_CRITICA = 400
 
 
 export const CONVERSION_ELECTRICA = (n : number) => {

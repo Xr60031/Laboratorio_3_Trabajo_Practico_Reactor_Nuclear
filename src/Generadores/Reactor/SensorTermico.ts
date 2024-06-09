@@ -1,6 +1,6 @@
 import { Computadora } from "../../Controles/Computadora";
 import { AlertaTemperatura } from "../../Comunicaciones/AlertaTemperatura";
-import { MODIFICADOR_TEMPERATURA_ENERGIA } from "../../Constantes";
+import { MODIFICADOR_TEMPERATURA_ENERGIA, TEMPERATURA_CRITICIDAD } from "../../Constantes";
 
 
 
@@ -16,7 +16,7 @@ export class SensorTermico {
     public medir(energiaTermica: number): void {
         this._temperatura = energiaTermica / MODIFICADOR_TEMPERATURA_ENERGIA;
 
-        if (this._temperatura >= 330) {
+        if (this._temperatura >= TEMPERATURA_CRITICIDAD) {
             this.enviarAlertaTemperatura(AlertaTemperatura.ALTA);
         } else {
             this.enviarAlertaTemperatura(AlertaTemperatura.NORMAL);
