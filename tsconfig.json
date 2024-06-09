@@ -20,7 +20,7 @@
   },
   "include": [
     "src/**/*"
-, "tests/SistemaDeRefrigeracion/CentralNuclear/CentralNuclear.generated.test.ts"  ],
+, "tests/CentralNuclear/CentralNuclear.generated.test.ts"  ],
   "exclude": [
     "dist",
     "node_modules",

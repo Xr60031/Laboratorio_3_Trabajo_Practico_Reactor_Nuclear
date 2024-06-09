@@ -32,7 +32,7 @@ export default class CentralNuclear {
     }
     // Deberia recibir un number y un bucle for que ejecute la función de generar energia
     // Cada una hora
-    public generarEnergia(duracion : number, temperatura? : number) : void{
+    public generarEnergia(duracion : number, temperatura? : number) : number{
         var energiaAcumulada : number = 0;
         this.setTemperaturaReactor(temperatura);
         
@@ -43,9 +43,9 @@ export default class CentralNuclear {
                 console.error("Catch no implementado CentralNuclear.generarEnergia()");
             } 
         }
-        
+        return energiaAcumulada;
     }
-    private setTemperaturaReactor(temp : number | undefined){
+    public setTemperaturaReactor(temp : number | undefined){
         if(temp !== undefined){
         this.reactor.getSensorTermico().medir(temp*MODIFICADOR_TEMPERATURA_ENERGIA);
         }
