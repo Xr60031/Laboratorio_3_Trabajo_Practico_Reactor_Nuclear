@@ -1,11 +1,12 @@
 import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
+import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 
 export const ReactorMocks = {
     getTemperatura : jest.fn().mockReturnValue(0),
 };
 
 export const BarraDeControlMocks:BarraDeControl={
-    vidaUtil: 200,
+    vidaUtil: BARRA_VIDA_MAX,
     nroSerie: 1,
     getVidaUtil: jest.fn().mockReturnValue(200),
     controlarVidaUtil: jest.fn(),

@@ -1,4 +1,7 @@
 import ExceptionVidaUtilInvalida from "../ExceptionsBarras/ExceptionVidaUtilInvalida";
+import { DESGASTE_BARRA } from "../../Constantes";
+import { BARRA_VIDA_MAX } from "../../Constantes";
+import { BARRA_VIDA_MIN } from "../../Constantes";
 
 export default class BarraDeControl {
     private vidaUtil:number;
@@ -9,7 +12,7 @@ export default class BarraDeControl {
     }
 
     public controlarVidaUtil(vidaUtil:number):void{
-        if(vidaUtil>200 || vidaUtil<0){
+        if(vidaUtil>BARRA_VIDA_MAX || vidaUtil<BARRA_VIDA_MIN){
             throw new ExceptionVidaUtilInvalida(vidaUtil);
         }
     }
@@ -20,7 +23,7 @@ export default class BarraDeControl {
     }
 
     public desgasteBarraVidaUtil():number{
-        return this.vidaUtil-50;
+        return this.vidaUtil-DESGASTE_BARRA;
     }
 
     public setNroSerie(nroSerie:number):void{
@@ -40,7 +43,7 @@ export default class BarraDeControl {
             this.nroSerie=nroSerie;
         }
         else{
-            this.vidaUtil=200;
+            this.vidaUtil=BARRA_VIDA_MAX;
             this.nroSerie=0;
         }
     }

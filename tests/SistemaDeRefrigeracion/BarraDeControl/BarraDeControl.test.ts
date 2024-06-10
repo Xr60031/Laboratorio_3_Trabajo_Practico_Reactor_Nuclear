@@ -1,5 +1,6 @@
 import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
 import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionVidaUtilInvalida";
+import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 
 describe("Tests barras de control", () =>{
 
@@ -10,7 +11,7 @@ describe("Tests barras de control", () =>{
     })
 
     it("Prueba para obtener la vida util", ()=>{
-        expect(barraControl.getVidaUtil()).toBe(200);
+        expect(barraControl.getVidaUtil()).toBe(BARRA_VIDA_MAX);
     })
     
     it("Prueba para establecer la vida util", ()=>{
@@ -42,11 +43,11 @@ describe("Tests barras de control", () =>{
     })
 
     it("Prueba para obtener el numero de serie de una barra de control", ()=>{
-        expect(barraControl.getNroSerie()).toBe(1);
+        expect(barraControl.getNroSerie()).toBe(0);
     })
 
     it("Prueba para establecer el numero de serie de una barra de control", ()=>{
-        barraControl.setVidaUtil(50);
+        barraControl.setNroSerie(50);
         expect(barraControl.getNroSerie()).toBe(50);
     })
 

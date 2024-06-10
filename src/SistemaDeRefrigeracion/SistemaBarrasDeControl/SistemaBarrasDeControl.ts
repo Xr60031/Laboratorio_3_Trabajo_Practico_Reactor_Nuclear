@@ -2,6 +2,9 @@ import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionT
 import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperaturaNormal";
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
+import { TEMPERATURA_CRITICIDAD } from "../../Constantes";
+import { BARRA_ENERGIA_MINIMA } from "../../Constantes";
+import { DIVIDENDO_PRODUCCION_ENERGIA_TERMICA } from "../../Constantes";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
@@ -43,7 +46,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public comprobarReemplazo(barraActual:BarraDeControl):void{
-        if(barraActual.getVidaUtil()<50){
+        if(barraActual.getVidaUtil()<BARRA_ENERGIA_MINIMA){
             this.removeBarra();
             this.aumentarBarrasGastadas();
         }
@@ -52,7 +55,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     private procesarBarra():void{
         let barraActual=this.getBarraActual();
         let iterador=0;
-        while(barraActual.getVidaUtil()<50){
+        while(barraActual.getVidaUtil()<BARRA_ENERGIA_MINIMA){
             barraActual=this.barrasDeControl[iterador];
             this.comprobarReemplazo(barraActual);
         }
@@ -61,7 +64,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public controlarEnergiaTermica(temperatura:number):void{
-        if(temperatura>=330){
+        if(temperatura>=TEMPERATURA_CRITICIDAD){
             this.encenderSistema();
         }
         else{
@@ -70,7 +73,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public getPorcentajeProduccion():number{
-        return (this.getBarraActual().getVidaUtil()/3600);
+        return (this.getBarraActual().getVidaUtil()/DIVIDENDO_PRODUCCION_ENERGIA_TERMICA);
     }
 
     public getEnergiaTermica(energiaTermica: number):number {

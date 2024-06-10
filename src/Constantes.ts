@@ -3,6 +3,11 @@ export const COMBUSTIBLE_INICIO_REACTOR = 210
 export const CONSUMO_COMBUSTIBLE_BASICO = 1
 export const TEMPERATURA_CRITICIDAD = 330
 export const TEMPERATURA_CRITICA = 400
+export const DESGASTE_BARRA = 50
+export const BARRA_ENERGIA_MINIMA = 50
+export const DIVIDENDO_PRODUCCION_ENERGIA_TERMICA = 3600
+export const BARRA_VIDA_MAX = 200
+export const BARRA_VIDA_MIN = 0
 
 
 export const CONVERSION_ELECTRICA = (n : number) => {
