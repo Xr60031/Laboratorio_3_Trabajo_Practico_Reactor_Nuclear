@@ -42,7 +42,7 @@ abstract class SistemaDeRegulacionTermica {
     + encenderSistema(): void
     + apagarSistema(): void
     + getEstado(): boolean
-    + abstract controlarTemperatura(temperatura: number): void
+    + abstract verificadorParaEncender(temperatura: number): void
     + abstract getEnergiaTermica(energiaTermica: number): number
 }
 
@@ -68,7 +68,7 @@ class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     + getBarraActual(): BarraDeControl
     + comprobarReemplazo(barraActual:BarraDeControl): void
     - procesarBarra(): void
-    + controlarEnergiaTermica(temperatura:number): void
+    + verificadorParaEncender(temperatura:number): void
     + getPorcentajeProduccion(): number
     + getEnergiaTermica(energiaTermica: number): number
 	+ getBarras():Array<BarraDeControl>|undefined

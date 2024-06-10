@@ -63,7 +63,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         this.comprobarReemplazo(barraActual);
     }
 
-    public controlarEnergiaTermica(temperatura:number):void{
+    public verificadorParaEncender(temperatura:number):void{
         if(temperatura>=TEMPERATURA_CRITICIDAD){
             this.encenderSistema();
         }

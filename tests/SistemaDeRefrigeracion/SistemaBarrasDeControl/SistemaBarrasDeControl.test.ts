@@ -14,14 +14,14 @@ describe("Tests para el sistema de barras de control", () =>{
     it("Prueba para enencder el sistema de refrigeracion cuando la temperatura es mayor a 330", ()=>{
         sistemaBarras.addBarra(MOCK.BarraDeControlMocks);
         MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(331);
-        sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
+        sistemaBarras.verificadorParaEncender(MOCK.ReactorMocks.getTemperatura());
         expect(sistemaBarras.getEstado()).toBeTruthy();
     })
 
     it("Prueba para enencder el sistema de refrigeracion cuando la temperatura es igual a 330", ()=>{
         sistemaBarras.addBarra(MOCK.BarraDeControlMocks);
         MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(330);
-        sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
+        sistemaBarras.verificadorParaEncender(MOCK.ReactorMocks.getTemperatura());
         expect(sistemaBarras.getEstado()).toBeTruthy();
     })
 
@@ -29,7 +29,7 @@ describe("Tests para el sistema de barras de control", () =>{
         sistemaBarras.addBarra(MOCK.BarraDeControlMocks);
         MOCK.ReactorMocks.getTemperatura=jest.fn().mockReturnValueOnce(329);
         try{
-            sistemaBarras.controlarEnergiaTermica(MOCK.ReactorMocks.getTemperatura());
+            sistemaBarras.verificadorParaEncender(MOCK.ReactorMocks.getTemperatura());
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);

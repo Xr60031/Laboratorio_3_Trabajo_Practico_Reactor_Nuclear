@@ -2,13 +2,13 @@ import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstract
 import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 
 export class Computadora {
+    private suscribersReguladorTermico!:Array<SistemaDeRegulacionTermica>;
     private sistemaRegulacionTermica: SistemaDeRegulacionTermica;
 
-    constructor(SistemaDeRegulacionTermica: SistemaDeRegulacionTermica) {
-        this.sistemaRegulacionTermica = SistemaDeRegulacionTermica;
+    constructor(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica) {
+        this.sistemaRegulacionTermica = sistemaDeRegulacionTermica;
+        this.suscribe(this.sistemaRegulacionTermica);
     }
-
-    // OBSERVERS!!!!!
 
     public recibirAlertaTemperatura(alerta: AlertaTemperatura): void {
         if (alerta === AlertaTemperatura.NORMAL) {
@@ -19,12 +19,28 @@ export class Computadora {
     }
 
     private activarModoEnfriamiento(): void {
-        //Mandarle a sus suscribers encender
-        this.sistemaRegulacionTermica.encenderSistema();
+        this.suscribersReguladorTermico.forEach(element => {
+            // Como obtiene la temperatura numérica la computadora?
+            // -Eze
+            element.verificadorParaEncender();
+        });
     }
 
     private desactivarModoEnfriamiento(): void {
-        //Mandarle a sus suscribers apagado
-        this.sistemaRegulacionTermica.apagarSistema();
+        this.suscribersReguladorTermico.forEach(element => {
+            element.apagarSistema();
+        });
+    }
+
+    public suscribe(sistemaDeRegulacionTermica:SistemaDeRegulacionTermica):void{
+        this.suscribersReguladorTermico.push(sistemaDeRegulacionTermica);
+    }
+
+    public unsubscribe(sistemaDeRegulacionTermica:SistemaDeRegulacionTermica):void{
+        let iterador=0;
+        while(sistemaDeRegulacionTermica!=this.suscribersReguladorTermico[iterador]){
+            iterador++;
+        }
+        this.suscribersReguladorTermico.splice(iterador, 1);
     }
 }
