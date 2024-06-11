@@ -1,15 +1,47 @@
+import { COMBUSTIBLE_INICIO_REACTOR, REDUCCION_TEMPERATURA_APAGADO, TEMPERATURA_CRITICO } from "../../../Constantes";
+import NoHayCombustibleExcepcion from "../Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
+import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
 import Estado from "./Estado";
+import Normal from "./Normal";
 
 export default class Apagado extends Estado {
-    
-
     public iniciar(): void {
-        
+        if (!this.reactor.getCombustible().tieneCombustible()) {
+            throw new NoHayCombustibleExcepcion(
+                "No hay combustible para iniciar el reactor."
+            );
+        }
+
+        this.reactor.consumirCombustible(this.reactor.getConsumoCombustible() * COMBUSTIBLE_INICIO_REACTOR);
+        this.reactor.cambiarA(new Normal());
     }
 
-    public generarEnergiaTermica(): number {
-        const temperatura: number = this.reactor.getSensorTermico().medir();
-        const energiaTermica: number = temperatura * 8 - 140;
-        return this.reactor.getSistemaDeRegulacionTermica().getEnergiaTermica(energiaTermica);
+    public detener(): void {
+        throw new AccionInvalidaException(
+            "El reactor ya se encuentra detenido."
+        );
+    }
+
+    public procesarEnergiaTermica(): void {
+        this.reducirEnergiaTermica();
+
+        if (TEMPERATURA_CRITICO >= this.reactor.getEnergiaTermica()) {
+            this.iniciar();
+        }
+    }
+
+    public toString(): string {
+        return "Apagado";
+    }
+
+    private reducirEnergiaTermica(): void {
+        let energiaTermica = this.reactor.getEnergiaTermica();
+        energiaTermica -= REDUCCION_TEMPERATURA_APAGADO;
+        if (0 > energiaTermica) {
+            energiaTermica = 0;
+        }
+        this.reactor.setEnergiaTermica(energiaTermica);
+        
+        this.reactor.getSensorTermico().medir(energiaTermica);
     }
 }

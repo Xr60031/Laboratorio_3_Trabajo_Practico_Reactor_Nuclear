@@ -1,4 +1,4 @@
 export enum AlertaTemperatura {
     NORMAL,
-    ALTA,
+    ALTA
 }

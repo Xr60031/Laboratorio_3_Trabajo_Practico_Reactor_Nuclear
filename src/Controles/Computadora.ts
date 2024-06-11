@@ -1,8 +1,8 @@
-import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
+import SistemaDeRegulacionTermica from "../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
-import { TEMPERATURA_CRITICA } from "../Constantes";
+import { TEMPERATURA_CRITICO } from "../Constantes";
 
-export class Computadora {
+export default class Computadora {
     private suscribersReguladorTermico!:Array<SistemaDeRegulacionTermica>;
     private sistemaRegulacionTermica: SistemaDeRegulacionTermica;
 
@@ -16,7 +16,7 @@ export class Computadora {
     }
 
     public verificarTemperatura(temperatura: number): void {
-        if (temperatura > TEMPERATURA_CRITICA) {
+        if (temperatura >= TEMPERATURA_CRITICO) {
             this.activarModoEnfriamiento();
         } else {
             this.desactivarModoEnfriamiento();
