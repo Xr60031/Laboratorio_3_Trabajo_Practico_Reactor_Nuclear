@@ -1,23 +1,24 @@
+import Apagado from "./Apagado";
 import Estado from "./Estado";
-import { SensorTermico } from "../SensorTermico";
-import { SistemaRegulacionTermica } from "../Generadores/Reactor/RegulacionTermica/SistemaRegulacionTermica";
-import LinkedList from "linked-list-typescript"
 
 export default class Critico extends Estado {
-
-    private _sensorTermico: SensorTermico;
-    private _sistemaRegulacionTermica: SistemaRegulacionTermica;
-    //private barras: LinkedList<SistemaDeRegulacionTermica>;
-
-    constructor(
-        sensorTermico: SensorTermico, 
-        sistRegTermica: SistemaRegulacionTermica
-    ) {
-        this._sensorTermico = sensorTermico;
-        this._sistemaRegulacionTermica = sistRegTermica;
+    public iniciar(): void {
+        throw new Error("Method not implemented.");
     }
 
-    generarEnergiaTermica(): void {
+    public detener(): void {
+        this.reactor.cambiarA(new Apagado());
+    }
+
+    public generarEnergiaTermica(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    public toString(): string {
+        return "Critico";
+    }
+
+    /*public generarEnergiaTermicaMARCOS(): void {
         let temperatura: number = this._sensorTermico.temperatura;
         temperatura += 30;
 
@@ -28,16 +29,8 @@ export default class Critico extends Estado {
                 temperatura += barra.getPotencia();
             }
         }
-    
+
         this._sensorTermico.temperatura = temperatura;
-    
-    }
 
-    public activarModoEnfriamiento(): void {
-        this._sistemaRegulacionTermica.encender();
-    }
-
-    public toString(): string {
-        return "Critico";
-    }
+    }*/
 }
