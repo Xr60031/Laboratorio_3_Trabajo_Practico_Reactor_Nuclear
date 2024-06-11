@@ -10,12 +10,8 @@ export class Computadora {
         this.suscribe(this.sistemaRegulacionTermica);
     }
 
-    public recibirAlertaTemperatura(alerta: AlertaTemperatura): void {
-        if (alerta === AlertaTemperatura.NORMAL) {
-            this.desactivarModoEnfriamiento();
-        } else if (alerta === AlertaTemperatura.ALTA) {
-            this.activarModoEnfriamiento();
-        }
+    public actualizar(temperatura: number): void {
+        // TODO: Implementar la lógica para manejar el estado con la temperatura
     }
 
     private activarModoEnfriamiento(): void {
