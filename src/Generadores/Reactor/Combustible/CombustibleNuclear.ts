@@ -1,6 +1,6 @@
-import { LimiteCombustibleExcepcion } from "./ExcepcionesCombustible/LimiteCombustibleExcepcion";
+import LimiteCombustibleExcepcion from "./ExcepcionesCombustible/LimiteCombustibleExcepcion";
 
-export abstract class CombustibleNuclear {
+export default abstract class CombustibleNuclear {
     protected cantidad: number;
     protected limite: number;
 

@@ -1,7 +1,7 @@
 import SistemaDeRegulacionTermica from "../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 
-export class Computadora {
+export default class Computadora {
     private suscribersReguladorTermico!:Array<SistemaDeRegulacionTermica>;
     private sistemaRegulacionTermica: SistemaDeRegulacionTermica;
 

@@ -1,6 +1,6 @@
-import { COMBUSTIBLE_INICIO_REACTOR, REDUCCION_TEMPERATURA_APAGADO } from "../../../Constantes";
-import { NoHayCombustibleExcepcion } from "../Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
-import { AccionInvalidaException } from "../ExcepcionesReactor/AccionInvalidaException";
+import { COMBUSTIBLE_INICIO_REACTOR, REDUCCION_TEMPERATURA_APAGADO, TEMPERATURA_CRITICO } from "../../../Constantes";
+import NoHayCombustibleExcepcion from "../Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
+import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
 import Estado from "./Estado";
 import Normal from "./Normal";
 
@@ -22,32 +22,26 @@ export default class Apagado extends Estado {
         );
     }
 
-    public generarEnergiaTermica(): void {
+    public procesarEnergiaTermica(): void {
         this.reducirEnergiaTermica();
 
-        if (0 === this.reactor.getEnergiaTermica()) {
+        if (TEMPERATURA_CRITICO >= this.reactor.getEnergiaTermica()) {
             this.iniciar();
         }
     }
 
-    public toString(): String {
+    public toString(): string {
         return "Apagado";
     }
 
     private reducirEnergiaTermica(): void {
         let energiaTermica = this.reactor.getEnergiaTermica();
         energiaTermica -= REDUCCION_TEMPERATURA_APAGADO;
-        if (energiaTermica < 0) {
+        if (0 > energiaTermica) {
             energiaTermica = 0;
         }
         this.reactor.setEnergiaTermica(energiaTermica);
         
         this.reactor.getSensorTermico().medir(energiaTermica);
     }
-
-    /*public generarEnergiaTermicaNICO(): number {
-        const temperatura: number = this.reactor.getSensorTermico().medir();
-        const energiaTermica: number = temperatura * 8 - 140;
-        return this.reactor.getSistemaDeRegulacionTermica().getEnergiaTermica(energiaTermica);
-    }*/
 }

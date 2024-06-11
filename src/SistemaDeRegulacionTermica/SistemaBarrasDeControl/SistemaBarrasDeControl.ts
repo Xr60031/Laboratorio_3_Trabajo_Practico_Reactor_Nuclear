@@ -2,9 +2,7 @@ import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionT
 import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperaturaNormal";
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
-import { TEMPERATURA_EMERGENCIA } from "../../Constantes";
-import { BARRA_ENERGIA_MINIMA } from "../../Constantes";
-import { DIVIDENDO_PRODUCCION_ENERGIA_TERMICA } from "../../Constantes";
+import { TEMPERATURA_EMERGENCIA, BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA } from "../../Constantes";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
@@ -72,13 +70,13 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         }
     }
 
-    public getPorcentajeProduccion():number{
-        return (this.getBarraActual().getVidaUtil()/DIVIDENDO_PRODUCCION_ENERGIA_TERMICA);
+    public getPorcentajeReduccion():number{
+        return (this.getBarraActual().getVidaUtil() / DIVISOR_PRODUCCION_ENERGIA_TERMICA);
     }
 
     public getEnergiaTermica(energiaTermica: number):number {
         if(this.encendido){ 
-            const energiaTermicaCalculada=energiaTermica * this.getPorcentajeProduccion();
+            const energiaTermicaCalculada = energiaTermica * (1 - this.getPorcentajeReduccion());
             this.procesarBarra();
             return energiaTermicaCalculada;
         }

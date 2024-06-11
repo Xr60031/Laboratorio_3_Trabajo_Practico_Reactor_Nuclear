@@ -1,13 +1,13 @@
 import { TEMPERATURA_CRITICO, TEMPERATURA_EMERGENCIA } from "../../../Constantes";
-import { AccionInvalidaException } from "../ExcepcionesReactor/AccionInvalidaException";
+import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
 import Apagado from "./Apagado";
+import Encendido from "./Encendido";
 import Critico from "./Critico";
-import Estado from "./Estado";
 
-export default class Normal extends Estado {
+export default class Normal extends Encendido {
     public iniciar(): void {
         throw new AccionInvalidaException(
-            "El reactor ya se encuentra encendido."
+            "El reactor ya se encuentra iniciado."
         );
     }
 
@@ -15,25 +15,21 @@ export default class Normal extends Estado {
         this.reactor.cambiarA(new Apagado());
     }
 
-    public generarEnergiaTermica(): void {
-        super.generarEnergiaTermica();
-
-        this.reactor.consumirCombustible(this.reactor.getConsumoCombustible());
-
-        this.controlarEstado();
-    }
-
-    public toString():string {
+    public toString(): string {
         return "Normal";
     }
 
-    private controlarEstado(): void {
+    protected controlarEstado(): void {
         const temperatura = this.reactor.getSensorTermico().getTemperatura();
 
-        if (temperatura >= TEMPERATURA_EMERGENCIA) {
+        if (TEMPERATURA_EMERGENCIA <= temperatura) {
             this.detener();
-        } else if (temperatura >= TEMPERATURA_CRITICO) {
+        } else if (TEMPERATURA_CRITICO <= temperatura) {
             this.reactor.cambiarA(new Critico());
         }
+    }
+
+    protected absorcionEnergiaTermica(energiaTermica: number): number {
+        return energiaTermica;
     }
 }

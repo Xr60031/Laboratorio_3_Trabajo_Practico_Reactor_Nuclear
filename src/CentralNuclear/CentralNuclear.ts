@@ -1,9 +1,6 @@
-
-import { MODIFICADOR_TEMPERATURA_ENERGIA } from "../Constantes";
+import { CONVERSION_TEMPERATURA_A_TERMICA } from "../Constantes";
 import Generador from "../Generadores/GeneradorElectrico/Generador";
 import Reactor from "../Generadores/Reactor/Reactor";
-
-//Para agregar iniciar reactor;
 
 export default class CentralNuclear {
     private static instance: CentralNuclear;
@@ -23,18 +20,23 @@ export default class CentralNuclear {
         }
         return CentralNuclear.instance;
     }
+
     public iniciarReactor(){
         try {
             this.reactor.iniciar();
         } catch (NoHayCombustibleExcepcion) {
-            throw new Error("Catch no implemenado CentralNuclear.iniciarReactor()");
+            throw new Error("Catch no implementado CentralNuclear.iniciarReactor()");
         }
     }
+
     // Deberia recibir un number y un bucle for que ejecute la función de generar energia
     // Cada una hora
     public generarEnergia(duracion : number, temperatura? : number) : number{
-        var energiaAcumulada : number = 0;
-        this.setTemperaturaReactor(temperatura);
+        let energiaAcumulada : number = 0;
+
+        if (temperatura !== undefined) {
+            this.setTemperaturaReactor(temperatura);
+        }
         
         for (let i = 0; i < duracion; i++) {
             try {
@@ -45,9 +47,8 @@ export default class CentralNuclear {
         }
         return energiaAcumulada;
     }
-    public setTemperaturaReactor(temp : number | undefined){
-        if(temp !== undefined){
-        this.reactor.getSensorTermico().medir(temp*MODIFICADOR_TEMPERATURA_ENERGIA);
-        }
+
+    public setTemperaturaReactor(temp : number){
+        this.reactor.getSensorTermico().medir(CONVERSION_TEMPERATURA_A_TERMICA(temp));
     }
 }

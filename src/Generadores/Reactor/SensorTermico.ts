@@ -1,7 +1,7 @@
-import { Computadora } from "../../Controles/Computadora";
+import Computadora from "../../Controles/Computadora";
 import { CONVERSION_TERMICA_A_TEMPERATURA } from "../../Constantes";
 
-export class SensorTermico {
+export default class SensorTermico {
     private temperatura: number;
     private computadoras: Computadora[];
 

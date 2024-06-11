@@ -1,6 +1,6 @@
-import { CombustibleNuclear } from "./Combustible/CombustibleNuclear";
+import CombustibleNuclear from "./Combustible/CombustibleNuclear";
 import SistemaDeRegulacionTermica from "../../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
-import { SensorTermico } from "./SensorTermico";
+import SensorTermico from "./SensorTermico";
 import Estado from "./Estados/Estado";
 import { CONSUMO_COMBUSTIBLE_BASICO } from "../../Constantes";
 
@@ -78,7 +78,7 @@ export default class Reactor {
     }
 
     public generarEnergiaTermica(): number {
-        this.estado.generarEnergiaTermica();
+        this.estado.procesarEnergiaTermica();
         return this.energiaTermica;
     }
 
@@ -89,6 +89,10 @@ export default class Reactor {
             );
 
         this.sensor.medir(this.energiaTermica);
+    }
+
+    public getAdicionalEnergia(): number {
+        return this.combustible.consumir(this.consumoCombustible);
     }
 
     private controlarEnergiaTermica(energiaTermica: number): number {

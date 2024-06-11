@@ -1,4 +1,4 @@
-export class NoHayCombustibleExcepcion extends Error {
+export default class NoHayCombustibleExcepcion extends Error {
     constructor(msg: string) {
         super(msg);
     }

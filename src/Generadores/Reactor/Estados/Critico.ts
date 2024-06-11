@@ -1,13 +1,13 @@
 import { TEMPERATURA_CRITICO, TEMPERATURA_EMERGENCIA } from "../../../Constantes";
-import { AccionInvalidaException } from "../ExcepcionesReactor/AccionInvalidaException";
+import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
 import Apagado from "./Apagado";
-import Estado from "./Estado";
+import Encendido from "./Encendido";
 import Normal from "./Normal";
 
-export default class Critico extends Estado {
+export default class Critico extends Encendido {
     public iniciar(): void {
         throw new AccionInvalidaException(
-            "El reactor ya se encuentra encendido."
+            "El reactor ya se encuentra iniciado."
         );
     }
 
@@ -15,39 +15,21 @@ export default class Critico extends Estado {
         this.reactor.cambiarA(new Apagado());
     }
 
-    public generarEnergiaTermica(): void {
-        super.generarEnergiaTermica();
-
-        this.controlarEstado();
-    }
-
     public toString(): string {
         return "Critico";
     }
 
-    private controlarEstado(): void {
+    protected controlarEstado(): void {
         const temperatura = this.reactor.getSensorTermico().getTemperatura();
 
-        if (temperatura >= TEMPERATURA_EMERGENCIA) {
+        if (TEMPERATURA_EMERGENCIA <= temperatura) {
             this.detener();
-        } else if (temperatura < TEMPERATURA_CRITICO) {
+        } else if (TEMPERATURA_CRITICO > temperatura) {
             this.reactor.cambiarA(new Normal());
         }
     }
 
-    /*public generarEnergiaTermicaMARCOS(): void {
-        let temperatura: number = this._sensorTermico.temperatura;
-        temperatura += 30;
-
-        // aquí va lo que suma temperatura al proceso
-        // -> lo que baja temperatura -> BARRAS
-        for (let barra of this.barras) {
-            if (barra.getEstado() === "ENCENDIDA") {
-                temperatura += barra.getPotencia();
-            }
-        }
-
-        this._sensorTermico.temperatura = temperatura;
-
-    }*/
+    protected absorcionEnergiaTermica(energiaTermica: number): number {
+        return this.reactor.getSistemaDeRegulacionTermica().getEnergiaTermica(energiaTermica);
+    }
 }
