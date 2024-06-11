@@ -1,4 +1,4 @@
-import SistemaDeRegulacionTermica from "../SistemaDeRefrigeracion/ClasesAbstractas/SistemaDeRegulacionTermica";
+import SistemaDeRegulacionTermica from "../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 
 export class Computadora {

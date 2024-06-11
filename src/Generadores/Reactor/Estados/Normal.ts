@@ -1,9 +1,14 @@
+import { TEMPERATURA_CRITICO, TEMPERATURA_EMERGENCIA } from "../../../Constantes";
+import { AccionInvalidaException } from "../ExcepcionesReactor/AccionInvalidaException";
 import Apagado from "./Apagado";
+import Critico from "./Critico";
 import Estado from "./Estado";
 
 export default class Normal extends Estado {
     public iniciar(): void {
-        throw new Error("Method not implemented.");
+        throw new AccionInvalidaException(
+            "El reactor ya se encuentra encendido."
+        );
     }
 
     public detener(): void {
@@ -11,17 +16,11 @@ export default class Normal extends Estado {
     }
 
     public generarEnergiaTermica(): void {
-        if (!this.combustible.tieneCombustible()) {
-            this.detener();
-        }
+        super.generarEnergiaTermica();
 
-        this.consumirCombustible(this.consumoCombustible);
+        this.reactor.consumirCombustible(this.reactor.getConsumoCombustible());
 
         this.controlarEstado();
-        
-        if (this.estado === EstadoReactor.CRITICA) {
-            this.detener();
-        }
     }
 
     public toString():string {
@@ -29,14 +28,12 @@ export default class Normal extends Estado {
     }
 
     private controlarEstado(): void {
-        const temperatura = this.sensor.getTemperatura();
+        const temperatura = this.reactor.getSensorTermico().getTemperatura();
 
-        if (temperatura >= TEMPERATURA_CRITICA) {
-            this.estado = EstadoReactor.CRITICA;
-        } else if (temperatura >= TEMPERATURA_CRITICIDAD) {
-            this.estado = EstadoReactor.CRITICIDAD;
-        } else {
-            this.estado = EstadoReactor.NORMALIDAD;
+        if (temperatura >= TEMPERATURA_EMERGENCIA) {
+            this.detener();
+        } else if (temperatura >= TEMPERATURA_CRITICO) {
+            this.reactor.cambiarA(new Critico());
         }
     }
 }

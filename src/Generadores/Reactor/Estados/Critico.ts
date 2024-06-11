@@ -1,9 +1,14 @@
+import { TEMPERATURA_CRITICO, TEMPERATURA_EMERGENCIA } from "../../../Constantes";
+import { AccionInvalidaException } from "../ExcepcionesReactor/AccionInvalidaException";
 import Apagado from "./Apagado";
 import Estado from "./Estado";
+import Normal from "./Normal";
 
 export default class Critico extends Estado {
     public iniciar(): void {
-        throw new Error("Method not implemented.");
+        throw new AccionInvalidaException(
+            "El reactor ya se encuentra encendido."
+        );
     }
 
     public detener(): void {
@@ -11,11 +16,23 @@ export default class Critico extends Estado {
     }
 
     public generarEnergiaTermica(): void {
-        throw new Error("Method not implemented.");
+        super.generarEnergiaTermica();
+
+        this.controlarEstado();
     }
 
     public toString(): string {
         return "Critico";
+    }
+
+    private controlarEstado(): void {
+        const temperatura = this.reactor.getSensorTermico().getTemperatura();
+
+        if (temperatura >= TEMPERATURA_EMERGENCIA) {
+            this.detener();
+        } else if (temperatura < TEMPERATURA_CRITICO) {
+            this.reactor.cambiarA(new Normal());
+        }
     }
 
     /*public generarEnergiaTermicaMARCOS(): void {
