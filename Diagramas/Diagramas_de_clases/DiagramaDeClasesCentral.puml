@@ -97,6 +97,7 @@ class Computadora {
   	- sistemaRegulacionTermica: SistemaRegulacionTermica
 
 	+ actualizar(temperatura: number): void
+	+ verificarTemperatura(temperatura: number): void
   	- activarModoEnfriamiento(): void
   	- desactivarModoEnfriamiento(): void
 	+ subscribe(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica): void
