@@ -76,10 +76,12 @@ class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
 class SensorTermico {
   	- temperatura: number
-	- computadora: Computadora
+	- computadoras: Computadora[]
 
+	+ suscribir(computadora: Computadora): void
+	+ desuscribir(): void
+	+ notificar(): void
   	+ medir(): number
-	- enviarAlertaTemperatura(alerta: AlertaTemperatura): void
 }
 
 class Email {
@@ -91,10 +93,14 @@ class Email {
 }
 
 class Computadora {
+	- suscribersReguladorTermico: SistemaDeRegulacionTermica[]
   	- sistemaRegulacionTermica: SistemaRegulacionTermica
 
-  	+ recibirAlertaTemperatura(): void
+	+ actualizar(temperatura: number): void
   	- activarModoEnfriamiento(): void
+  	- desactivarModoEnfriamiento(): void
+	+ subscribe(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica): void
+	+ unsubscribe(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica): void
 }
 
 class Reactor {
