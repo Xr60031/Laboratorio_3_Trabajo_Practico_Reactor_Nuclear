@@ -1,4 +1,4 @@
-import { Computadora } from "../../../src/Controles/Computadora";
+import Computadora from "../../../src/Controles/Computadora";
 
 export const ComputadoraMock = {
     actualizar: jest.fn(),

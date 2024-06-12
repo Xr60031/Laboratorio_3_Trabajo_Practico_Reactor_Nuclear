@@ -46,7 +46,7 @@ describe("SensorTermico", () => {
     });
 
     describe("desuscribir", () => {
-        it("deberia desuscribir una computadora del arreglo de suscriptores", () => {
+        it("deberia borrar una computadora del arreglo de suscriptores", () => {
             instancia.desuscribir(ComputadoraMock);
             expect(instancia.getSuscriptores()).toEqual([]);
             expect(instancia.getSuscriptores().length).toBe(0);
@@ -70,7 +70,7 @@ describe("SensorTermico", () => {
             expect(ComputadoraMock.actualizar).toHaveBeenCalled();
             expect(ComputadoraMock.actualizar).toHaveBeenCalledTimes(1);
             expect(ComputadoraMock.actualizar).toHaveBeenCalledWith(
-                TEMPERATURA_POR_DEFECTO
+                ComputadoraMock
             );
         });
     });
