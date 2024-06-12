@@ -74,11 +74,11 @@ class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 	+ getBarras():Array<BarraDeControl>|undefined
 }
 
-class SensorTermico {
+class SensorTermico implements Notificador {
   	- temperatura: number
-	- computadoras: Computadora[]
+	- suscriptores: Suscriptor[]
 
-	+ suscribir(computadora: Computadora): void
+	+ suscribir(suscriptor: Suscriptor): void
 	+ desuscribir(): void
 	+ notificar(): void
   	+ medir(): number
@@ -92,7 +92,7 @@ class Email {
   	+ activarModoEnfriamiento(): void
 }
 
-class Computadora {
+class Computadora implements Notificador, Suscriptor {
 	- suscribersReguladorTermico: SistemaDeRegulacionTermica[]
   	- sistemaRegulacionTermica: SistemaRegulacionTermica
 
@@ -154,6 +154,17 @@ class Emergencia {
 
 interface Notificable {
     + enviarAlerta(temperatura: double, estado: Estado): void
+}
+
+' interfaces
+interface Notificador {
+	+ suscribir(suscriptor: Suscriptor): void
+	+ desuscribir(suscriptor: Suscriptor): void
+	+ notificar(): void
+}
+
+interface Suscriptor {
+	+ actualizar(notificador: Notificador): void
 }
 
 ' relaciones
