@@ -6,24 +6,29 @@ import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
 
 export default class Computadora implements Notificador, Suscriptor {
-    private suscribersReguladorTermico!: Array<SistemaDeRegulacionTermica>;
-    private sistemaRegulacionTermica: SistemaDeRegulacionTermica;
+    private suscriptores: Suscriptor[];
+    private modoEnfriamiento: boolean;
 
-    constructor(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica) {
-        this.sistemaRegulacionTermica = sistemaDeRegulacionTermica;
-        this.suscribe(this.sistemaRegulacionTermica);
+    constructor() {
+        this.suscriptores = [];
+        this.modoEnfriamiento = false;
     }
 
-    suscribir(suscriptor: Suscriptor): void {
-        throw new Error("Method not implemented.");
+    public suscribir(suscriptor: Suscriptor): void {
+        this.suscriptores.push(suscriptor);
     }
 
-    desuscribir(suscriptor: Suscriptor): void {
-        throw new Error("Method not implemented.");
+    public desuscribir(suscriptor: Suscriptor): void {
+        const indice = this.suscriptores.indexOf(suscriptor);
+        if (indice > -1) {
+            this.suscriptores.splice(indice, 1);
+        }
     }
 
-    notificar(): void {
-        throw new Error("Method not implemented.");
+    public notificar(): void {
+        this.suscriptores.forEach((suscriptor) => {
+            suscriptor.actualizar(this);
+        });
     }
 
     public actualizar(notificador: SensorTermico): void {
@@ -36,38 +41,31 @@ export default class Computadora implements Notificador, Suscriptor {
         } else {
             this.desactivarModoEnfriamiento();
         }
+
+        this.notificar();
     }
 
     private activarModoEnfriamiento(): void {
-        this.suscribersReguladorTermico.forEach((element) => {
-            // Como obtiene la temperatura numérica la computadora?
-            // -Eze
-            // element.verificadorParaEncender();
-        });
+        this.modoEnfriamiento = true;
     }
 
     private desactivarModoEnfriamiento(): void {
-        this.suscribersReguladorTermico.forEach((element) => {
-            element.apagarSistema();
-        });
+        this.modoEnfriamiento = false;
     }
 
-    public suscribe(
-        sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
-    ): void {
-        this.suscribersReguladorTermico.push(sistemaDeRegulacionTermica);
+    public getSuscriptores(): Suscriptor[] {
+        return this.suscriptores;
     }
 
-    public unsubscribe(
-        sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
-    ): void {
-        let iterador = 0;
-        while (
-            sistemaDeRegulacionTermica !=
-            this.suscribersReguladorTermico[iterador]
-        ) {
-            iterador++;
-        }
-        this.suscribersReguladorTermico.splice(iterador, 1);
+    public setSuscriptores(value: Suscriptor[]) {
+        this.suscriptores = value;
+    }
+
+    public getModoEnfriamiento(): boolean {
+        return this.modoEnfriamiento;
+    }
+
+    public setModoEnfriamiento(value: boolean): void {
+        this.modoEnfriamiento = value;
     }
 }
