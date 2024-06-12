@@ -1,4 +1,4 @@
-import { SensorTermico } from "../../../src/Generadores/Reactor/SensorTermico";
+import SensorTermico from "../../../src/Generadores/Reactor/SensorTermico";
 import { ComputadoraMock } from "./mocks";
 
 describe("SensorTermico", () => {
@@ -15,50 +15,51 @@ describe("SensorTermico", () => {
 
     describe("Getters and setters", () => {
         it("deberia obtener la temperatura", () => {
-            expect(instancia.temperatura).toBe(TEMPERATURA_POR_DEFECTO);
+            expect(instancia.getTemperatura()).toBe(TEMPERATURA_POR_DEFECTO);
         });
 
         it("deberia cambiar la temperatura", () => {
             const nuevaTemperatura = 330;
-            instancia.temperatura = nuevaTemperatura;
-            expect(instancia.temperatura).toBe(nuevaTemperatura);
+            instancia.setTemperatura(nuevaTemperatura);
+            expect(instancia.getTemperatura()).toBe(nuevaTemperatura);
         });
 
-        it("deberia obtener las computadoras", () => {
-            expect(instancia.computadoras).toEqual([]);
-            expect(instancia.computadoras.length).toBe(0);
+        it("deberia obtener los suscriptores", () => {
+            expect(instancia.getSuscriptores()).toEqual([]);
+            expect(instancia.getSuscriptores().length).toBe(0);
         });
 
-        it("deberia cambiar las computadoras", () => {
-            instancia.computadoras = [ComputadoraMock];
-            expect(instancia.computadoras).toEqual([ComputadoraMock]);
-            expect(instancia.computadoras.length).toBe(1);
+        it("deberia cambiar las suscriptores", () => {
+            const nuevasComputadoras = [ComputadoraMock];
+            instancia.setSuscriptores(nuevasComputadoras);
+            expect(instancia.getSuscriptores()).toEqual(nuevasComputadoras);
+            expect(instancia.getSuscriptores().length).toBe(1);
         });
     });
 
     describe("suscribir", () => {
-        it("deberia agregar una computadora al arreglo de computadoras suscriptas", () => {
+        it("deberia agregar una computadora al arreglo de suscriptores", () => {
             instancia.suscribir(ComputadoraMock);
-            expect(instancia.computadoras).toEqual([ComputadoraMock]);
-            expect(instancia.computadoras.length).toBe(1);
+            expect(instancia.getSuscriptores()).toEqual([ComputadoraMock]);
+            expect(instancia.getSuscriptores().length).toBe(1);
         });
     });
 
     describe("desuscribir", () => {
-        it("deberia desuscribir una computadora del arreglo de computadoras suscriptas", () => {
+        it("deberia desuscribir una computadora del arreglo de suscriptores", () => {
             instancia.desuscribir(ComputadoraMock);
-            expect(instancia.computadoras).toEqual([]);
-            expect(instancia.computadoras.length).toBe(0);
+            expect(instancia.getSuscriptores()).toEqual([]);
+            expect(instancia.getSuscriptores().length).toBe(0);
 
             instancia.suscribir(ComputadoraMock);
             instancia.desuscribir(ComputadoraMock);
-            expect(instancia.computadoras).toEqual([]);
-            expect(instancia.computadoras.length).toBe(0);
+            expect(instancia.getSuscriptores()).toEqual([]);
+            expect(instancia.getSuscriptores().length).toBe(0);
         });
     });
 
     describe("notificar", () => {
-        it("deberia notificar a las computadoras", () => {
+        it("deberia notificar a los suscriptores", () => {
             jest.spyOn(ComputadoraMock, "actualizar");
             instancia.notificar();
             expect(ComputadoraMock.actualizar).not.toHaveBeenCalled();
@@ -75,10 +76,10 @@ describe("SensorTermico", () => {
     });
 
     describe("medir", () => {
-        it("deberia medir la temperatura a partir de una energia termica", () => {
+        it("deberia medir la temperatura a partir de energia termica", () => {
             jest.spyOn(instancia, "notificar");
             instancia.medir(ENERGIA_TERMICA_POR_DEFECTO);
-            expect(instancia.temperatura).toBe(
+            expect(instancia.getTemperatura()).toBe(
                 ENERGIA_TERMICA_POR_DEFECTO / MODIFICADOR_TEMPERATURA_ENERGIA
             );
             expect(instancia.notificar).toHaveBeenCalled();

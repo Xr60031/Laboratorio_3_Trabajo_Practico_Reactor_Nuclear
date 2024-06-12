@@ -1,29 +1,30 @@
-import Computadora from "../../Controles/Computadora";
 import { CONVERSION_TERMICA_A_TEMPERATURA } from "../../Constantes";
+import Notificador from "../../Interfaces/Notificador";
+import Suscriptor from "../../Interfaces/Suscriptor";
 
-export default class SensorTermico {
+export default class SensorTermico implements Notificador {
     private temperatura: number;
-    private computadoras: Computadora[];
+    private suscriptores: Suscriptor[];
 
-    constructor(temperatura: number) {
+    constructor(temperatura?: number) {
         this.temperatura = temperatura ?? 0;
-        this.computadoras = [];
+        this.suscriptores = [];
     }
 
-    public suscribir(computadora: Computadora): void {
-        this.computadoras.push(computadora);
+    public suscribir(suscriptor: Suscriptor): void {
+        this.suscriptores.push(suscriptor);
     }
 
-    public desuscribir(computadora: Computadora): void {
-        const indice = this.computadoras.indexOf(computadora);
+    public desuscribir(suscriptor: Suscriptor): void {
+        const indice = this.suscriptores.indexOf(suscriptor);
         if (indice > -1) {
-            this.computadoras.splice(indice, 1);
+            this.suscriptores.splice(indice, 1);
         }
     }
 
     public notificar(): void {
-        this.computadoras.forEach((computadora) => {
-            computadora.actualizar(this.temperatura);
+        this.suscriptores.forEach((suscriptor) => {
+            suscriptor.actualizar(this);
         });
     }
 
@@ -36,11 +37,15 @@ export default class SensorTermico {
         return this.temperatura;
     }
 
-    public setComputadoras(value: Computadora[]) {
-        this.computadoras = value;
+    public setTemperatura(value: number): void {
+        this.temperatura = value;
     }
 
-    public getComputadoras(): Computadora[] {
-        return this.computadoras;
+    public setSuscriptores(value: Suscriptor[]) {
+        this.suscriptores = value;
+    }
+
+    public getSuscriptores(): Suscriptor[] {
+        return this.suscriptores;
     }
 }
