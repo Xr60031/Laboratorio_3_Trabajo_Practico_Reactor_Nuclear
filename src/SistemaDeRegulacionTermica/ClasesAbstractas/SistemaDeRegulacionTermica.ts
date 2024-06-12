@@ -1,10 +1,20 @@
-export default abstract class SistemaDeRegulacionTermica{
-    protected encendido:boolean=false;
+import Computadora from "../../Controles/Computadora";
+import Suscriptor from "../../Interfaces/Suscriptor";
+
+export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
     public abstract verificadorParaEncender(temperatura:number):void;
     public abstract getEnergiaTermica(energiaTermica: number): number;
+    protected encendido:boolean=false;
+    actualizar(notificador: Computadora): void {
+        if (notificador.getModoEnfriamiento()) {
+            this.encenderSistema();
+        } else {
+            this.apagarSistema();
+        }
+    }
     public encenderSistema():void{
         this.encendido=true;
-    }
+        }
     public apagarSistema():void{
         this.encendido=false;
     }
