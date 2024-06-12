@@ -19,14 +19,13 @@
     ]
   },
   "include": [
-    "src/**/*",
-    "tests/CentralNuclear/CentralNuclear.generated.test.ts",
-    "tests/GeneradorElectrico/Generador.generated.test.ts"
+    "src/**/*"
   ],
   "exclude": [
     "dist",
     "node_modules",
     "fixtures",
-    "tmp"
+    "tmp",
+    "tests"
   ]
 }
