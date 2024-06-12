@@ -93,15 +93,16 @@ class Email {
 }
 
 class Computadora implements Notificador, Suscriptor {
-	- suscribersReguladorTermico: SistemaDeRegulacionTermica[]
-  	- sistemaRegulacionTermica: SistemaRegulacionTermica
+	- suscriptores: Suscriptor[]
+	- modoEnfriamiento: boolean
 
-	+ actualizar(temperatura: number): void
+	+ suscribir(suscriptor: Suscriptor): void
+	+ desuscribir(suscriptor: Suscriptor): void
+	+ notificar(): void
+	+ actualizar(notificador: SensorTermico): void
 	+ verificarTemperatura(temperatura: number): void
   	- activarModoEnfriamiento(): void
   	- desactivarModoEnfriamiento(): void
-	+ subscribe(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica): void
-	+ unsubscribe(sistemaDeRegulacionTermica: SistemaDeRegulacionTermica): void
 }
 
 class Reactor {
@@ -157,6 +158,7 @@ interface Notificable {
 }
 
 ' interfaces
+
 interface Notificador {
 	+ suscribir(suscriptor: Suscriptor): void
 	+ desuscribir(suscriptor: Suscriptor): void
