@@ -29,8 +29,6 @@ export default class CentralNuclear {
         }
     }
 
-    // Deberia recibir un number y un bucle for que ejecute la función de generar energia
-    // Cada una hora
     public generarEnergia(duracion : number, temperatura? : number) : number{
         let energiaAcumulada : number = 0;
 

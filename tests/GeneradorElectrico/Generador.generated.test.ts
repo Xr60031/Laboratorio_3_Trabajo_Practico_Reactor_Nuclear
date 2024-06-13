@@ -1,4 +1,4 @@
-import { CONVERSION_ELECTRICA } from '../../src/Constantes';
+import { CONVERSION_TERMICA_A_ELECTRICA } from '../../src/Constantes';
 import Generador from '../../src/Generadores/GeneradorElectrico/Generador';
 
 describe('Generador', () => {
@@ -24,6 +24,6 @@ describe('Generador', () => {
   it('metodo generarEnergiaElectrica() devuelve positivo si recive mas de 2100', () => {
     const x = 2300
     const i = instance.generarEnergiaElectrica(x);
-    expect(i).toBe(CONVERSION_ELECTRICA(x));
+    expect(i).toBe(CONVERSION_TERMICA_A_ELECTRICA(x));
   });
 });

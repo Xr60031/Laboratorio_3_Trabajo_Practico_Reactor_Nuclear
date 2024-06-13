@@ -2,8 +2,8 @@ import Generador from "../../src/Generadores/GeneradorElectrico/Generador";
 import Reactor from "../../src/Generadores/Reactor/Reactor";
 import CentralNuclear from "../../src/CentralNuclear/CentralNuclear";
 import * as MOCK from "./Mocks"
-import { NoHayCombustibleExcepcion } from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
-import { MODIFICADOR_TEMPERATURA_ENERGIA } from "../../src/Constantes";
+import  NoHayCombustibleExcepcion  from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
+import { CONVERSION_TEMPERATURA_A_TERMICA } from "../../src/Constantes";
 
 describe('CentralNuclear', () => {
   let instance : CentralNuclear;
@@ -61,7 +61,7 @@ describe('CentralNuclear', () => {
     const spy = jest.spyOn(MOCK.SensorMock, "medir")
     const temperatura = 25
     instance.generarEnergia(5, temperatura);
-    expect(spy).toHaveLastReturnedWith(temperatura * MODIFICADOR_TEMPERATURA_ENERGIA);
+    expect(spy).toHaveLastReturnedWith(CONVERSION_TEMPERATURA_A_TERMICA(temperatura));
   })
   
 });
