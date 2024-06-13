@@ -11,7 +11,6 @@ export default class CentralNuclear implements Suscriptor{
     private reactor: Reactor;
     private generador: Generador;
     private datosFuncionamiento : DatosEnTodoMomento;
-    private datosBarrasEnfriamiento : 
 
     private constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
@@ -20,7 +19,8 @@ export default class CentralNuclear implements Suscriptor{
         
     }
     actualizar(notificador: SensorTermico): void {
-        notificador.getTemperatura()
+        
+        this.datosFuncionamiento.temperatura = notificador.getTemperatura();
     }
 
     public static getInstance(reactor: Reactor, generador: Generador): CentralNuclear {
@@ -40,14 +40,16 @@ export default class CentralNuclear implements Suscriptor{
 
     public generarEnergia(duracion : number, temperatura? : number) : number{
         let energiaAcumulada : number = 0;
-
+        
         if (temperatura !== undefined) {
             this.setTemperaturaReactor(temperatura);
         }
         
         for (let i = 0; i < duracion; i++) {
             try {
-                energiaAcumulada += this.generador.generarEnergiaElectrica(this.reactor.generarEnergiaTermica());
+                this.datosFuncionamiento.energiaProducida = this.generador.generarEnergiaElectrica(this.reactor.generarEnergiaTermica());
+                energiaAcumulada += this.datosFuncionamiento.energiaProducida;
+
             } catch (error) {
                 console.error("Catch no implementado CentralNuclear.generarEnergia()");
             } 
