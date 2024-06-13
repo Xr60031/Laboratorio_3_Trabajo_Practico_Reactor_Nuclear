@@ -1,4 +1,4 @@
-import {CONVERSION_TERMICA_A_ELECTRICA} from '../../src/Constantes';
+import { CONVERSION_TERMICA_A_ELECTRICA } from '../../src/Constantes';
 import Generador from '../../src/Generadores/GeneradorElectrico/Generador';
 
 describe('Generador', () => {

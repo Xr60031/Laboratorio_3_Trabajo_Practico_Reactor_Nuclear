@@ -1,12 +1,12 @@
+import { CONVERSION_TERMICA_A_TEMPERATURA } from "../../../src/Constantes";
 import SensorTermico from "../../../src/Generadores/Reactor/SensorTermico";
 import { ComputadoraMock } from "./mocks";
 
 describe("SensorTermico", () => {
     let instancia: SensorTermico;
 
-    const TEMPERATURA_POR_DEFECTO = 240;
+    const TEMPERATURA_POR_DEFECTO = 280;
     const ENERGIA_TERMICA_POR_DEFECTO = 3000;
-    const MODIFICADOR_TEMPERATURA_ENERGIA = 7.5;
 
     beforeEach(() => {
         instancia = new SensorTermico(TEMPERATURA_POR_DEFECTO);
@@ -69,9 +69,7 @@ describe("SensorTermico", () => {
             instancia.notificar();
             expect(ComputadoraMock.actualizar).toHaveBeenCalled();
             expect(ComputadoraMock.actualizar).toHaveBeenCalledTimes(1);
-            expect(ComputadoraMock.actualizar).toHaveBeenCalledWith(
-                ComputadoraMock
-            );
+            expect(ComputadoraMock.actualizar).toHaveBeenCalledWith(instancia);
         });
     });
 
@@ -80,7 +78,7 @@ describe("SensorTermico", () => {
             jest.spyOn(instancia, "notificar");
             instancia.medir(ENERGIA_TERMICA_POR_DEFECTO);
             expect(instancia.getTemperatura()).toBe(
-                ENERGIA_TERMICA_POR_DEFECTO / MODIFICADOR_TEMPERATURA_ENERGIA
+                CONVERSION_TERMICA_A_TEMPERATURA(ENERGIA_TERMICA_POR_DEFECTO)
             );
             expect(instancia.notificar).toHaveBeenCalled();
             expect(instancia.notificar).toHaveBeenCalledTimes(1);
