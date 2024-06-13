@@ -1,8 +1,8 @@
 import * as MOCK from "./mocks"
-import ExceptionTemperaturaNormal from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionTemperaturaNormal";
-import SistemaBarrasDeControl from "../../../src/SistemaDeRefrigeracion/SistemaBarrasDeControl/SistemaBarrasDeControl";
-import ExceptionSinBarras from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionSinBarras";
-import { BARRA_VIDA_MAX, DIVIDENDO_PRODUCCION_ENERGIA_TERMICA } from "../../../src/Constantes";
+import ExceptionTemperaturaNormal from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionTemperaturaNormal";
+import SistemaBarrasDeControl from "../../../src/SistemaDeRegulacionTermica/SistemaBarrasDeControl/SistemaBarrasDeControl";
+import ExceptionSinBarras from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSinBarras";
+import { BARRA_VIDA_MAX, DIVISOR_PRODUCCION_ENERGIA_TERMICA } from "../../../src/Constantes";
 describe("Tests para el sistema de barras de control", () =>{
 
     let sistemaBarras:SistemaBarrasDeControl;
@@ -39,7 +39,7 @@ describe("Tests para el sistema de barras de control", () =>{
     it("Prueba para obtener el porcentaje de produccion cuando vida util es 200", ()=>{
         let barraNew=MOCK.BarraDeControlMocks;
         sistemaBarras.addBarra(barraNew);
-        expect(sistemaBarras.getPorcentajeProduccion()).toBe(200/DIVIDENDO_PRODUCCION_ENERGIA_TERMICA);
+        expect(sistemaBarras.getPorcentajeReduccion()).toBe(200/DIVISOR_PRODUCCION_ENERGIA_TERMICA);
     })
 
     it("Prueba para añadir una barra de control del sistema", ()=>{
@@ -83,6 +83,6 @@ describe("Tests para el sistema de barras de control", () =>{
     it("Prueba para obtener la energia termica cuando se utilizan las barras de control", ()=>{
         sistemaBarras.addBarra(MOCK.BarraDeControlMocks);
         sistemaBarras.encenderSistema();
-        expect(sistemaBarras.getEnergiaTermica(2500)).toBe(2500*(BARRA_VIDA_MAX/DIVIDENDO_PRODUCCION_ENERGIA_TERMICA));
+        expect(sistemaBarras.getEnergiaTermica(2500)).toBe(2500*(BARRA_VIDA_MAX/DIVISOR_PRODUCCION_ENERGIA_TERMICA));
     })
 })

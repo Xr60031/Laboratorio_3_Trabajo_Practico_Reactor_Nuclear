@@ -2,7 +2,7 @@ import Generador from "../../src/Generadores/GeneradorElectrico/Generador";
 import Reactor from "../../src/Generadores/Reactor/Reactor";
 import CentralNuclear from "../../src/CentralNuclear/CentralNuclear";
 import * as MOCK from "./Mocks"
-import  NoHayCombustibleExcepcion  from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
+import NoHayCombustibleExcepcion from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import { CONVERSION_TEMPERATURA_A_TERMICA } from "../../src/Constantes";
 
 describe('CentralNuclear', () => {
