@@ -1,5 +1,5 @@
-import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
-import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRefrigeracion/ExceptionsBarras/ExceptionVidaUtilInvalida";
+import BarraDeControl from "../../../src/SistemaDeRegulacionTermica/BarraDeControl/BarraDeControl";
+import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionVidaUtilInvalida";
 import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 
 describe("Tests barras de control", () =>{
