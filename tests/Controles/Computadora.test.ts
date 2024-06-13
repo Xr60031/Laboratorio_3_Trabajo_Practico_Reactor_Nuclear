@@ -77,7 +77,7 @@ describe("Computadora", () => {
                 1
             );
             expect(SistemaBarrasDeControlMock.actualizar).toHaveBeenCalledWith(
-                SistemaBarrasDeControlMock
+                instancia
             );
         });
     });
@@ -89,8 +89,8 @@ describe("Computadora", () => {
                 TEMPERATURA_POR_DEFECTO
             );
             instancia.actualizar(SensorTermicoMock);
-            expect(SistemaBarrasDeControlMock).toHaveBeenCalled();
-            expect(SistemaBarrasDeControlMock).toHaveBeenCalledTimes(1);
+            expect(SensorTermicoMock.getTemperatura).toHaveBeenCalled();
+            expect(SensorTermicoMock.getTemperatura).toHaveBeenCalledTimes(1);
             expect(instancia.verificarTemperatura).toHaveBeenCalled();
             expect(instancia.verificarTemperatura).toHaveBeenCalledTimes(1);
             expect(instancia.verificarTemperatura).toHaveBeenCalledWith(
