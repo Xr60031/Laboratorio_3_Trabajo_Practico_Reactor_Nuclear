@@ -1,4 +1,4 @@
-import BarraDeControl from "../../../src/SistemaDeRefrigeracion/BarraDeControl/BarraDeControl";
+import BarraDeControl from "../../../src/SistemaDeRegulacionTermica/BarraDeControl/BarraDeControl";
 import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 
 export const ReactorMocks = {

@@ -31,7 +31,7 @@ describe('CentralNuclear', () => {
   it('inicarReactor sin combustible tira error', () => {
     expect(() => {
       instance.iniciarReactor();
-    }).toThrow(new NoHayCombustibleExcepcion("Catch no implemenado CentralNuclear.iniciarReactor()"))
+    }).toThrow(new NoHayCombustibleExcepcion("Catch no implementado CentralNuclear.iniciarReactor()"))
   });
 
   

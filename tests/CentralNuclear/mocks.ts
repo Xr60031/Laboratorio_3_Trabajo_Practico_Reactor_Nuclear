@@ -1,7 +1,7 @@
 import Generador from "../../src/Generadores/GeneradorElectrico/Generador";
-import { NoHayCombustibleExcepcion } from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
+import NoHayCombustibleExcepcion from "../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import Reactor from "../../src/Generadores/Reactor/Reactor";
-import { SensorTermico } from "../../src/Generadores/Reactor/SensorTermico";
+import SensorTermico from "../../src/Generadores/Reactor/SensorTermico";
 
 export const ReactorMock : Reactor = {
 

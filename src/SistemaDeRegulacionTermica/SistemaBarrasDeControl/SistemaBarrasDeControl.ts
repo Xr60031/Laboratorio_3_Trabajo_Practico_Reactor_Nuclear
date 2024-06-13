@@ -2,7 +2,7 @@ import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionT
 import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperaturaNormal";
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
-import { TEMPERATURA_EMERGENCIA, BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA } from "../../Constantes";
+import { TEMPERATURA_EMERGENCIA, BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA, TEMPERATURA_CRITICO } from "../../Constantes";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
@@ -62,7 +62,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     }
 
     public verificadorParaEncender(temperatura:number):void{
-        if(temperatura>=TEMPERATURA_EMERGENCIA){
+        if(temperatura>=TEMPERATURA_CRITICO){
             this.encenderSistema();
         }
         else{
