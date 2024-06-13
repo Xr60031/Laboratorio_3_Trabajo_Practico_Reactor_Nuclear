@@ -57,7 +57,14 @@ export default class CentralNuclear implements Suscriptor{
         return energiaAcumulada;
     }
 
-    public setTemperaturaReactor(temp : number){
+    public mostrarDatosFuncionamiento():string{
+        return this.datosFuncionamiento.toString();
+    }
+
+    
+    private setTemperaturaReactor(temp : number){
         this.reactor.getSensorTermico().medir(CONVERSION_TEMPERATURA_A_TERMICA(temp));
     }
+
+
 }
