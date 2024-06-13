@@ -10,6 +10,7 @@ export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
             this.encenderSistema();
         } else {
             this.apagarSistema();
+            
         }
     }
     public encenderSistema():void{
