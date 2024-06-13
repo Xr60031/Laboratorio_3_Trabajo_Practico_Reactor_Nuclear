@@ -83,6 +83,6 @@ describe("Tests para el sistema de barras de control", () =>{
     it("Prueba para obtener la energia termica cuando se utilizan las barras de control", ()=>{
         sistemaBarras.addBarra(MOCK.BarraDeControlMocks);
         sistemaBarras.encenderSistema();
-        expect(sistemaBarras.getEnergiaTermica(2500)).toBe(2500*(BARRA_VIDA_MAX/DIVISOR_PRODUCCION_ENERGIA_TERMICA));
+        expect(sistemaBarras.getEnergiaTermica(2500)).toBe(2500*(1-(BARRA_VIDA_MAX/DIVISOR_PRODUCCION_ENERGIA_TERMICA)));
     })
 })
