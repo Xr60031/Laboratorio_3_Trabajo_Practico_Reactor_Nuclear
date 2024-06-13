@@ -19,4 +19,8 @@ export default class DatosEnTodoMomento{
         this._temperatura = 0;
         this._energiaProducida = 0;
     }
+
+    public toString():string{
+        return "Temperatura: "+ this.temperatura + "\nEnergia producida : " + this.energiaProducida;
+    }
 }
