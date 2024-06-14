@@ -102,23 +102,23 @@ describe("Computadora", () => {
     describe("verificarTemperatura", () => {
         it("deberia verificar la temperatura y llamar al metodo de notificacion", () => {
             jest.spyOn(instancia, "notificar");
-            instancia.verificarTemperatura(TEMPERATURA_POR_DEFECTO);
+            instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeFalsy();
             expect(instancia.notificar).toHaveBeenCalled();
             expect(instancia.notificar).toHaveBeenCalledTimes(1);
-            instancia.verificarTemperatura(TEMPERATURA_CRITICO);
+            instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeTruthy();
             expect(instancia.notificar).toHaveBeenCalled();
             expect(instancia.notificar).toHaveBeenCalledTimes(2);
         });
 
         it("deberia verificar la temperatura si es normal el modo enfriamiento tiene que devolver falso", () => {
-            instancia.verificarTemperatura(TEMPERATURA_POR_DEFECTO);
+            instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeFalsy();
         });
 
         it("deberia verificar la temperatura si es critico el modo enfriamiento tiene que devolver verdadero", () => {
-            instancia.verificarTemperatura(TEMPERATURA_CRITICO);
+            instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeTruthy();
         });
     });

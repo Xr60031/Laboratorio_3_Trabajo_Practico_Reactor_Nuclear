@@ -1,5 +1,4 @@
 import SistemaDeRegulacionTermica from "../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
-import { AlertaTemperatura } from "../Comunicaciones/AlertaTemperatura";
 import { TEMPERATURA_CRITICO } from "../Constantes";
 import Suscriptor from "../Interfaces/Suscriptor";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
@@ -8,10 +7,12 @@ import Notificador from "../Interfaces/Notificador";
 export default class Computadora implements Notificador, Suscriptor {
     private suscriptores: Suscriptor[];
     private modoEnfriamiento: boolean;
+    private temperaturaReactor: number;
 
     constructor() {
         this.suscriptores = [];
         this.modoEnfriamiento = false;
+        this.temperaturaReactor = 0;
     }
 
     public suscribir(suscriptor: Suscriptor): void {
@@ -26,17 +27,25 @@ export default class Computadora implements Notificador, Suscriptor {
     }
 
     public notificar(): void {
+        //TODO: A IMPLEMENTAR (Debate catch)
         this.suscriptores.forEach((suscriptor) => {
-            suscriptor.actualizar(this);
+            try{
+                suscriptor.actualizar(this);
+            }
+            catch(ERROR){
+                console.error();
+                throw new Error();
+            }
         });
     }
 
     public actualizar(notificador: SensorTermico): void {
-        this.verificarTemperatura(notificador.getTemperatura());
+        this.temperaturaReactor=notificador.getTemperatura();
+        this.verificarTemperatura();
     }
 
-    public verificarTemperatura(temperatura: number): void {
-        if (temperatura >= TEMPERATURA_CRITICO) {
+    public verificarTemperatura(): void {
+        if (this.temperaturaReactor >= TEMPERATURA_CRITICO) {
             this.activarModoEnfriamiento();
         } else {
             this.desactivarModoEnfriamiento();
@@ -67,5 +76,9 @@ export default class Computadora implements Notificador, Suscriptor {
 
     public setModoEnfriamiento(value: boolean): void {
         this.modoEnfriamiento = value;
+    }
+
+    public getTemperaturaReactor():number{
+        return this.temperaturaReactor
     }
 }

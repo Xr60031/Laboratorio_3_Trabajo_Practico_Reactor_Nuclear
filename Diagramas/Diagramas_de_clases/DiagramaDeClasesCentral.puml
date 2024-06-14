@@ -84,13 +84,6 @@ class SensorTermico implements Notificador {
   	+ medir(): number
 }
 
-class Email {
-  	- reactor: Reactor
-	- Notificador: Notificador
-
-  	+ enviarAlerta(): void
-  	+ activarModoEnfriamiento(): void
-}
 
 class Computadora implements Notificador, Suscriptor {
 	- suscriptores: Suscriptor[]
@@ -130,31 +123,46 @@ class Generador {
 }
 
 class CentralNuclear {
-	- reactor: Reactor
-	- generador: Generador
-
-	+ generarEnergia(): number
+	
 }
 
-interface Estado {
-	+ generarEnergia(): void
-	+ refrigerar(): void
+abstract class Estado {
+	# reactor!: Reactor
+	+ setReactor(reactor: Reactor)
+	+ {abstract} iniciar(): void
+	+ {abstract} detener(): void
+	+ {abstract} procesarEnergiaTermica(): void
+	+ {abstract} toString(): string
 }
 
-class Normal {
-
+class Normal extends Encendido{
+	+ iniciar():void
+	+ detener(): void
+	+ toString(): string
+	# controlarEstado(): void
+	# absorcionEnergiaTermica(energiaTermica: number): number
 }
 
-class Critico {
-
+class Critico extends Encendido{
+	+ iniciar():void
+	+ detener(): void
+	+ toString(): string
+	# controlarEstado(): void
+	# absorcionEnergiaTermica(energiaTermica: number): number
 }
 
-class Emergencia {
-
+class Apagado extends Estado{
+	+ iniciar():void
+	+ detener(): void
+	+ toString(): string
+	# controlarEstado(): void
+	# absorcionEnergiaTermica(energiaTermica: number): number
 }
 
-interface Notificable {
-    + enviarAlerta(temperatura: double, estado: Estado): void
+class Encendido extends Estado{
+	# {abstract} controlarEstado(): void
+	# {abstract} absorcionEnergiaTermica(energiaTermica: number): number
+	+ procesarEnergiaTermica(): void
 }
 
 ' interfaces
@@ -180,12 +188,4 @@ SistemaBarrasDeControl *-- BarraDeControl
 
 CentralNuclear *-- Reactor
 CentralNuclear *-l- Generador
-
-Notificable <|.. Email
-Notificable <.u. Reactor
-
-Estado <|.. Normal
-Estado <|.. Critico
-Estado <|.. Emergencia
-
 @enduml
