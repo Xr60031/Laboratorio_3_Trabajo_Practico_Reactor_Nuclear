@@ -5,7 +5,7 @@ export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
     public abstract verificadorParaEncender(temperatura:number):void;
     public abstract getEnergiaTermica(energiaTermica: number): number;
     protected encendido:boolean=false;
-    actualizar(notificador: Computadora): void {
+    public actualizar(notificador: Computadora): void {
         if (notificador.getModoEnfriamiento()) {
             this.verificadorParaEncender(notificador.getTemperaturaReactor());
         } else {
