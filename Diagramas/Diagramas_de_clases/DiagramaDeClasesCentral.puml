@@ -30,6 +30,7 @@ abstract class CombustibleNuclear {
   	+ {abstract} consumir(cantidad: number): number
   	+ tieneCombustible(): boolean
   	+ {abstract} calcularEnergiaTermica(cantidad: number): number
+	+ gettersYsetters()
 }
 
 class Uranio extends CombustibleNuclear {
@@ -37,13 +38,14 @@ class Uranio extends CombustibleNuclear {
   	+ calcularEnergiaTermica(cantidad: number): number
 }
 
-abstract class SistemaDeRegulacionTermica {
-    - estado: boolean
+abstract class SistemaDeRegulacionTermica implements Suscriptor{
+    # encendido: boolean
+	+ actualizar(notificador: Computadora): void
     + encenderSistema(): void
     + apagarSistema(): void
     + getEstado(): boolean
-    + abstract verificadorParaEncender(temperatura: number): void
-    + abstract getEnergiaTermica(energiaTermica: number): number
+    + {abstract} verificadorParaEncender(temperatura: number): void
+    + {abstract} getEnergiaTermica(energiaTermica: number): number
 }
 
 class BarraDeControl{
@@ -69,7 +71,7 @@ class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
     + comprobarReemplazo(barraActual:BarraDeControl): void
     - procesarBarra(): void
     + verificadorParaEncender(temperatura:number): void
-    + getPorcentajeProduccion(): number
+    + getPorcentajeReduccion(): number
     + getEnergiaTermica(energiaTermica: number): number
 	+ getBarras():Array<BarraDeControl>|undefined
 }
@@ -82,12 +84,14 @@ class SensorTermico implements Notificador {
 	+ desuscribir(): void
 	+ notificar(): void
   	+ medir(): number
+	+ gettersYsetters()
 }
 
 
 class Computadora implements Notificador, Suscriptor {
 	- suscriptores: Suscriptor[]
 	- modoEnfriamiento: boolean
+	- temperaturaReactor: number
 
 	+ suscribir(suscriptor: Suscriptor): void
 	+ desuscribir(suscriptor: Suscriptor): void
@@ -99,31 +103,42 @@ class Computadora implements Notificador, Suscriptor {
 }
 
 class Reactor {
-	- consumoCombustible: number
-	- capacidadProductiva: number
-	- energiaTermica: number
-	- estado: EstadoReactor
-	- combustible: CombustibleNuclear
-	- sistemaRegulacionTermica: SistemaRegulacionTermica
-	- sensor: SensorTermico
+	- {static} instance: Reactor
+    - consumoCombustible: number
+    - energiaTermica: number
+    - estado!: Estado
+    - combustible: CombustibleNuclear
+    - sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
+    - sensor: SensorTermico
 
+	- constructor(combustible: CombustibleNuclear, sistemaRegulacionTermica: SistemaDeRegulacionTermica, sensor: SensorTermico, estado: Estado)
+	+ {static} getInstance(combustible: CombustibleNuclear, sistema: SistemaDeRegulacionTermica, sensor: SensorTermico, estadoInicial: Estado)
+	+ cambiarA(estado: Estado)
 	+ iniciar(): void
-	+ mantener(): void
 	+ detener(): void
 	+ generarEnergiaTermica(): number
-	- reducirEnergiaTermica(): void
-	- calcularCapacidadProductiva(): void
-	- controlarEstado(): void
-	- consumirCombustible(cantidad: number): void
+	+ consumirCombustible(cantidad: number): void
+	+ getAdicionalEnergia(): number
 	- controlarEnergiaTermica(energiaTermica: number): number
+	+ gettersYsetters()
 }
 
 class Generador {
 	+ generarEnergiaElectrica(energiaTermica: number): number
 }
 
-class CentralNuclear {
-	
+class CentralNuclear implements Suscriptor{
+	- {static} instance: CentralNuclear
+	- reactor: Reactor
+	- generador: Generador
+	- datosFuncionamiento : DatosEnTodoMomento
+	- constructor (reactor: Reactor, generador: Generador)
+	- actualizar (notificador: SensorTermico): void
+	+ {static} getInstance(reactor: Reactor, generador: Generador): CentralNuclear
+	+ iniciarReactor()
+	+ generarEnergia(duracion : number, temperatura? : number) : number
+	+ mostrarDatosFuncionamiento():string
+	+ setTemperaturaReactor(temp : number)
 }
 
 abstract class Estado {
