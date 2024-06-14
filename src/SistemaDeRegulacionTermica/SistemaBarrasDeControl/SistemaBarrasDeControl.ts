@@ -63,7 +63,9 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     public verificadorParaEncender(temperatura:number):void{
         if(temperatura>=TEMPERATURA_CRITICO){
-            this.encenderSistema();
+            try{
+                this.encenderSistema();
+            }
         }
         else{
             throw new ExceptionTemperaturaNormal(temperatura);
