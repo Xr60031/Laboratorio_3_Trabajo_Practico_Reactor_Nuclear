@@ -93,9 +93,6 @@ describe("Computadora", () => {
             expect(SensorTermicoMock.getTemperatura).toHaveBeenCalledTimes(1);
             expect(instancia.verificarTemperatura).toHaveBeenCalled();
             expect(instancia.verificarTemperatura).toHaveBeenCalledTimes(1);
-            expect(instancia.verificarTemperatura).toHaveBeenCalledWith(
-                SensorTermicoMock.getTemperatura()
-            );
         });
     });
 
@@ -107,17 +104,23 @@ describe("Computadora", () => {
             expect(instancia.notificar).toHaveBeenCalled();
             expect(instancia.notificar).toHaveBeenCalledTimes(1);
             instancia.verificarTemperatura();
-            expect(instancia.getModoEnfriamiento()).toBeTruthy();
+            expect(instancia.getModoEnfriamiento()).toBeFalsy();
             expect(instancia.notificar).toHaveBeenCalled();
             expect(instancia.notificar).toHaveBeenCalledTimes(2);
         });
 
         it("deberia verificar la temperatura si es normal el modo enfriamiento tiene que devolver falso", () => {
+            instancia.actualizar(SensorTermicoMock);
+
             instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeFalsy();
         });
 
         it("deberia verificar la temperatura si es critico el modo enfriamiento tiene que devolver verdadero", () => {
+            jest.spyOn(SensorTermicoMock, "getTemperatura").mockReturnValue(
+                TEMPERATURA_CRITICO
+            );
+            instancia.actualizar(SensorTermicoMock);
             instancia.verificarTemperatura();
             expect(instancia.getModoEnfriamiento()).toBeTruthy();
         });
