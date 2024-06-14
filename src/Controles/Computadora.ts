@@ -40,7 +40,7 @@ export default class Computadora implements Notificador, Suscriptor {
     }
 
     public actualizar(notificador: SensorTermico): void {
-        this.temperaturaReactor=notificador.getTemperatura();
+        this.temperaturaReactor = notificador.getTemperatura();
         this.verificarTemperatura();
     }
 
