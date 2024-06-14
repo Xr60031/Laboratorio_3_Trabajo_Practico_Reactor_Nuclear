@@ -1,5 +1,7 @@
 import Computadora from "../../Controles/Computadora";
 import Suscriptor from "../../Interfaces/Suscriptor";
+import ExceptionSistemaYaApagado from "../ExceptionsBarras/ExceptionSistemaYaApagado";
+import ExceptionSistemaYaEncendido from "../ExceptionsBarras/ExceptionSistemaYaEncendido";
 
 export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
     public abstract verificadorParaEncender(temperatura:number):void;
@@ -14,10 +16,23 @@ export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
         }
     }
     public encenderSistema():void{
-        this.encendido=true;
+        
+        if(this.getEstado()==false){
+            this.encendido=true;
         }
+        else{
+            throw new ExceptionSistemaYaEncendido();
+        }
+        
+    }
     public apagarSistema():void{
-        this.encendido=false;
+        if(this.getEstado()==true){
+            this.encendido=false;
+        }
+        else{
+            throw new ExceptionSistemaYaApagado();
+        }
+        
     }
     public getEstado():boolean{
         return this.encendido;

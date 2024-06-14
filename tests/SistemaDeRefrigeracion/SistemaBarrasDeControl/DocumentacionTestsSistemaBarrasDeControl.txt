@@ -2,11 +2,14 @@
 1.1-"Prueba para enencder el sistema de refrigeracion cuando la temperatura es mayor a 330": Tiene que avisar que se cumplen las condiciones para activar las barras de refrigeración, encendiendo el sistema de refrigeración.
 1.2-"Prueba para enencder el sistema de refrigeracion cuando la temperatura es igual a 330": Tiene que avisar que se cumplen las condiciones para activar las barras de refrigeración, encendiendo el sistema de refrigeración.
 1.3-"Prueba para enencder el sistema de refrigeracion cuando la temperatura es menor a 330": Tiene que avisar que no se cumplen las condiciones para activar las barras de refrigeración, lanzando el error que indica esto (ExceptionTemperaturaNormal).
-2-"Prueba para obtener el porcentaje de produccion : Se prueba esta función con la finalidad de comprobar que el valor que retorna la misma sea el correcto para el calculo correspondiente de la energía térmica producida.
-2.1-"Prueba para obtener el porcentaje de produccion cuando vida util es 200". En este caso, el valor que debe de devolver es la vida útil de la barra, dividido por 3600.
-3-"Prueba para añadir una barra de control del sistema". Se agrega una barra de control al vector de barras del sistema de barras.
-4.1-"Prueba para remover una barra de control del sistema". Se elimina del vector la barra que se estaba utilizando actualmente.
-4.2-"Prueba para remover una barra de control del sistema y que no hayan para sacar". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
-5.1-"Prueba para obtener la barra que se esta utilizando actualmente". Se obtiene la primera barra que se encuentre dentro del vector de barras.
-5.2-"Prueba para obtener la barra que se esta utilizando actualmente, pero no hay barras en sistema". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
-6-"Prueba para obtener la energia termica cuando se utilizan las barras de control". Retorna la energía térmica calculada en base a la barra de control que se está utilizando actualmente. 
+2-"Prueba para intentar de encender el sistema de refrigeracion cuando ya esta encendido": Por mas de que el sistema se encuentre encendido, el mismo no debería de poder prenderse, ya se encuentra prendido, por ende, se lanza una excepción indicando esto.
+3-"Prueba para intentar de apagar el sistema de refrigeracion cuando ya esta apagado": Por mas de que el sistema se encuentre apagado, el mismo no debería de poder apagarse, ya se encuentra apagado, por ende, se lanza una excepción indicando esto.
+4-"Prueba para obtener el porcentaje de produccion : Se prueba esta función con la finalidad de comprobar que el valor que retorna la misma sea el correcto para el calculo correspondiente de la energía térmica producida.
+4.1-"Prueba para obtener el porcentaje de produccion cuando vida util es 200". En este caso, el valor que debe de devolver es la vida útil de la barra, dividido por 3600.
+5-"Prueba para añadir una barra de control del sistema". Se agrega una barra de control al vector de barras del sistema de barras.
+6.1-"Prueba para remover una barra de control del sistema". Se elimina del vector la barra que se estaba utilizando actualmente.
+6.2-"Prueba para remover una barra de control del sistema y que no hayan para sacar". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
+7.1-"Prueba para obtener la barra que se esta utilizando actualmente". Se obtiene la primera barra que se encuentre dentro del vector de barras.
+7.2-"Prueba para obtener la barra que se esta utilizando actualmente, pero no hay barras en sistema". Al no haber ninguna barra dentro del vector, se lanza una excepción indicando que no hay barras (ExceptionSinBarras).
+8-"Prueba para obtener la energia termica cuando se utilizan las barras de control". Retorna la energía térmica calculada en base a la barra de control que se está utilizando actualmente.
+9-"Prueba para verificar el correcto funcionamiento de la funcion actualizar". Se revisa si el estado del sistema de refrigeración se encuentra en true, es decir, que esté prendido, actualizar es el encargado de encender el sistema de refrigeración y veríficar que sea el momento indicado con los prerequisitos correctos.
