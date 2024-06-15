@@ -3,6 +3,7 @@ import SistemaDeRegulacionTermica from "../../SistemaDeRegulacionTermica/ClasesA
 import SensorTermico from "./SensorTermico";
 import Estado from "./Estados/Estado";
 import { CONSUMO_COMBUSTIBLE_BASICO } from "../../Constantes";
+import Apagado from "./Estados/Apagado";
 
 export default class Reactor {
     private static instance: Reactor;
@@ -17,7 +18,7 @@ export default class Reactor {
         combustible: CombustibleNuclear,
         sistemaRegulacionTermica: SistemaDeRegulacionTermica,
         sensor: SensorTermico,
-        estado: Estado
+       
     ) {
         this.combustible = combustible;
         this.sistemaDeRegulacionTermica = sistemaRegulacionTermica;
@@ -25,7 +26,7 @@ export default class Reactor {
 
         this.consumoCombustible = CONSUMO_COMBUSTIBLE_BASICO;
         this.energiaTermica = 0;
-        this.cambiarA(estado);
+        this.cambiarA(new Apagado());
     }
 
     public static getInstance(
@@ -35,7 +36,7 @@ export default class Reactor {
         estadoInicial: Estado
     ) {
         if (Reactor.instance == null) {
-            Reactor.instance = new Reactor(combustible, sistema, sensor, estadoInicial);
+            Reactor.instance = new Reactor(combustible, sistema, sensor);
         }
         return Reactor.instance;
     }
