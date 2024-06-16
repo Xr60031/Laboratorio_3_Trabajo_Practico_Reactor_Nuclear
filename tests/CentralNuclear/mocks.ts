@@ -19,6 +19,7 @@ export const SensorMock : SensorTermico = {
    medir : jest.fn((n : number) => {
       return n
    })
+   
 }as any;
 
 export const GeneradorMock : Generador = {

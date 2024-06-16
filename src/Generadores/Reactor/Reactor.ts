@@ -33,7 +33,6 @@ export default class Reactor {
         combustible: CombustibleNuclear,
         sistema: SistemaDeRegulacionTermica,
         sensor: SensorTermico,
-        estadoInicial: Estado
     ) {
         if (Reactor.instance == null) {
             Reactor.instance = new Reactor(combustible, sistema, sensor);

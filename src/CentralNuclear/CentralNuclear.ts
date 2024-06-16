@@ -1,4 +1,5 @@
 import { CONVERSION_TEMPERATURA_A_TERMICA } from "../Constantes";
+import Computadora from "../Controles/Computadora";
 import Generador from "../Generadores/GeneradorElectrico/Generador";
 import Reactor from "../Generadores/Reactor/Reactor";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
@@ -11,11 +12,16 @@ export default class CentralNuclear implements Suscriptor{
     private reactor: Reactor;
     private generador: Generador;
     private datosFuncionamiento : DatosEnTodoMomento;
+    public pcHomero : Computadora;
 
     private constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
         this.generador = generador;
         this.datosFuncionamiento = new DatosEnTodoMomento();
+        this.pcHomero = new Computadora();
+
+        //reactor.getSensorTermico().suscribir(this);
+        //reactor.getSensorTermico().suscribir(this.pcHomero);
         
     }
     actualizar(notificador: SensorTermico): void {
