@@ -1,0 +1,74 @@
+@startuml "Diagrama de secuencias Generar Energia"
+autonumber "<b>[000]"
+
+group generarEnergia
+    Usuario -> centralNuclear : generarEnergia()
+    loop i<Numero> times
+        centralNuclear -> reactor : generarEnergiaTermica()
+        reactor -> normal : procesarEnergiaTermica()
+        normal -> reactor : getEnergiaTermica()
+        return number
+        normal -> reactor : getAdicionalEnergia()
+        reactor -> combustible : consumir()
+        activate combustible
+        combustible -> combustible : calcularEnergiaTermica()
+        return number
+        reactor --> normal : number
+        activate normal
+        normal -> normal : absorcionEnergiaTermica()
+        return number
+        normal -> reactor : setEnergiaTermica()
+        return 
+        normal -> reactor : getSensorTermico()
+        return sensorTermico
+        normal -> sensorTermico: medir()
+        sensorTermico -> sensorTermico: notificar()
+        loop <a todos sus suscriptores> times
+            sensorTermico -> computadora : actualizar()
+            computadora -> sensorTermico : getTemperatura()
+            sensorTermico --> computadora : number
+            computadora -> computadora : verificarTemperatura()
+            computadora -> computadora : desactivarModoEnfriamiento()
+            computadora -> computadora : notificar()
+            loop <a todos sus suscriptores> times
+                group try
+                    computadora -> sistemaRegulacionTermica : actualizar()
+                    sistemaRegulacionTermica -> computadora : getModoEnfriamiento()
+                    computadora --> sistemaRegulacionTermica : boolean
+                    alt if notificador.getModoEnfriamiento()
+                    else 
+                        activate sistemaRegulacionTermica
+                        sistemaRegulacionTermica -> sistemaRegulacionTermica : apagarSistema()
+                        sistemaRegulacionTermica -> sistemaRegulacionTermica : getEstado()
+                        alt if this.getEstado()==true
+                        else
+                         note right sistemaRegulacionTermica: throw new ExceptionSistemaYaApagado
+                        end
+                    end
+                    return 
+                end
+                group catch
+                    note right computadora: console.error()
+                end
+            end
+            computadora --> sensorTermico : 
+        end
+        sensorTermico --> normal :
+        normal -> normal : controlarEstado()
+        normal -> reactor : getSensorTermico()
+        return sensorTermico
+        normal -> sensorTermico : getTemperatura()
+        return number
+        normal --> reactor :
+        reactor --> centralNuclear : number
+        centralNuclear -> generador : generarEnergiaElectrica()
+        return number
+    end
+    centralNuclear --> Usuario : number
+end
+
+actor computadoraHomero
+actor computadoraTrabajadorX
+actor Burns
+
+@enduml
