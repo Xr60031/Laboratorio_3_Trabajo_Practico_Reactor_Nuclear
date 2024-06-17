@@ -1,6 +1,7 @@
 import { CONVERSION_TEMPERATURA_A_TERMICA } from "../Constantes";
 import Computadora from "../Controles/Computadora";
 import Generador from "../Generadores/GeneradorElectrico/Generador";
+import NoHayCombustibleExcepcion from "../Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import Reactor from "../Generadores/Reactor/Reactor";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
@@ -12,7 +13,7 @@ export default class CentralNuclear implements Suscriptor{
     private reactor: Reactor;
     private generador: Generador;
     private datosFuncionamiento : DatosEnTodoMomento;
-    public pcHomero : Computadora;
+    private pcHomero : Computadora;
 
     private constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
@@ -20,12 +21,11 @@ export default class CentralNuclear implements Suscriptor{
         this.datosFuncionamiento = new DatosEnTodoMomento();
         this.pcHomero = new Computadora();
 
-        //reactor.getSensorTermico().suscribir(this);
-        //reactor.getSensorTermico().suscribir(this.pcHomero);
-        
+        reactor.getSensorTermico().suscribir(this);
+        reactor.getSensorTermico().suscribir(this.pcHomero);
+        this.pcHomero.suscribir(reactor.getSistemaDeRegulacionTermica());
     }
-    actualizar(notificador: SensorTermico): void {
-        
+    actualizar(notificador: SensorTermico): void {  
         this.datosFuncionamiento.temperatura = notificador.getTemperatura();
     }
 
@@ -39,8 +39,8 @@ export default class CentralNuclear implements Suscriptor{
     public iniciarReactor(){
         try {
             this.reactor.iniciar();
-        } catch (NoHayCombustibleExcepcion) {
-            throw new Error("Catch no implementado CentralNuclear.iniciarReactor()");
+        } catch (e) {
+          console.error(e);
         }
     }
 

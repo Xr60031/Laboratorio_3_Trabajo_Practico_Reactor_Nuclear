@@ -56,7 +56,7 @@ private reactor(
     return Reactor.getInstance(combustible, sistema, sensor);
 }
 private combustible(){
-    return new Uranio(100, 100);
+    return new Uranio(500, 1000);
 }
 private sensor(temperatura? : number){
     return new SensorTermico(temperatura);

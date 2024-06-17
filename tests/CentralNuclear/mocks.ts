@@ -4,11 +4,9 @@ import Reactor from "../../src/Generadores/Reactor/Reactor";
 import SensorTermico from "../../src/Generadores/Reactor/SensorTermico";
 
 export const ReactorMock : Reactor = {
-
-   estado : false,
    generarEnergiaTermica : jest.fn().mockReturnValue(10),
    iniciar : jest.fn(() => {
-          throw new NoHayCombustibleExcepcion("Catch no implemenado CentralNuclear.iniciarReactor()");
+          throw new NoHayCombustibleExcepcion("No hay combustible para iniciar el reactor.");
         }),
         getSensorTermico : jest.fn(() => {
       return SensorMock
