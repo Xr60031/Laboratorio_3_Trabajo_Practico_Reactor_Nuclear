@@ -1,4 +1,3 @@
-import SistemaDeRegulacionTermica from "../SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
 import { TEMPERATURA_CRITICO } from "../Constantes";
 import Suscriptor from "../Interfaces/Suscriptor";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
@@ -29,10 +28,9 @@ export default class Computadora implements Notificador, Suscriptor {
     public notificar(): void {
         //TODO: A IMPLEMENTAR (Debate catch)
         this.suscriptores.forEach((suscriptor) => {
-            try{
+            try {
                 suscriptor.actualizar(this);
-            }
-            catch(ERROR){
+            } catch (ERROR) {
                 console.error();
                 throw new Error();
             }
@@ -78,7 +76,11 @@ export default class Computadora implements Notificador, Suscriptor {
         this.modoEnfriamiento = value;
     }
 
-    public getTemperaturaReactor():number{
-        return this.temperaturaReactor
+    public getTemperaturaReactor(): number {
+        return this.temperaturaReactor;
+    }
+
+    public setTemperaturaReactor(temperaturaReactor: number): void {
+        this.temperaturaReactor = temperaturaReactor;
     }
 }
