@@ -71,7 +71,7 @@ describe("Tests para el sistema de barras de control", () =>{
     })
 
     it("Se añade una barra de control del sistema", ()=>{
-        const barraNew=MOCK.BarraDeControlMocks
+        const barraNew=MOCK.BarraDeControlMocks;
         sistemaBarras.addBarra(barraNew);
         const barraBuscada=sistemaBarras.getBarras().find(obj => obj.getNroSerie()===barraNew.getNroSerie());
         expect(barraBuscada!.getNroSerie()).toBe(1);
