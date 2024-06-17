@@ -34,7 +34,8 @@ export default class Computadora implements Notificador, Suscriptor {
             }
             catch(ERROR){
                 console.error(ERROR);
-                //throw new Error();
+                //throw new Error(ERROR);
+                
             }
         });
     }
