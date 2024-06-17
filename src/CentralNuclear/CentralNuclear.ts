@@ -23,7 +23,7 @@ export default class CentralNuclear implements Suscriptor{
 
         reactor.getSensorTermico().suscribir(this);
         reactor.getSensorTermico().suscribir(this.pcHomero);
-        this.pcHomero.suscribir(reactor.getSistemaDeRegulacionTermica());
+        //this.pcHomero.suscribir(reactor.getSistemaDeRegulacionTermica());
     }
     actualizar(notificador: SensorTermico): void {  
         this.datosFuncionamiento.temperatura = notificador.getTemperatura();
