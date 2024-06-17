@@ -1,0 +1,40 @@
+@startuml "Diagrama de secuencias"
+actor Usuario
+participant centralNuclear
+participant reactor
+participant estado
+participant const
+
+autonumber "<b>[000]"
+
+centralNuclear -> centralNuclear : getInstance()
+
+group iniciarReactor
+    centralNuclear -> reactor : iniciarReactor()
+    reactor -> reactor : iniciar()
+end
+
+group generarEnergia
+    centralNuclear -> centralNuclear : FuncionGenerarEnergia()
+    alt if temperatura !== undefined
+        centralNuclear -> centralNuclear : setTemperaturaReactor()
+    end
+    loop i<Numero> times
+        group try
+            centralNuclear -> centralNuclear : FuncionGenerarEnergia()
+            centralNuclear -> centralNuclear : generarEnergiaElectrica()
+            centralNuclear -> const : CONVERSION_TERMICA_A_ELECTRICA()
+            centralNuclear -> reactor : generarEnergiaTermica()
+            reactor -> estado : procesarEnergiaTermica()
+        end
+        group catch
+            centralNuclear -> console : console.error("Descripcion Error")
+        end
+    end
+end
+
+actor computadoraHomero
+actor computadoraTrabajadorX
+actor Burns
+
+@enduml
