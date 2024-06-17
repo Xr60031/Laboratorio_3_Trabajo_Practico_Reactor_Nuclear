@@ -5,6 +5,7 @@ import ExceptionSinBarras from "../../../src/SistemaDeRegulacionTermica/Exceptio
 import { BARRA_VIDA_MAX, DIVISOR_PRODUCCION_ENERGIA_TERMICA } from "../../../src/Constantes";
 import ExceptionSistemaYaEncendido from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSistemaYaEncendido";
 import ExceptionSistemaYaApagado from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSistemaYaApagado";
+
 describe("Tests para el sistema de barras de control", () =>{
 
     let sistemaBarras:SistemaBarrasDeControl;
