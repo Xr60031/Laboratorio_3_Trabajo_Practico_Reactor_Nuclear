@@ -66,6 +66,9 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
             try{
                 this.encenderSistema();
             }
+            catch(ExceptionSistemaYaEncendido){
+                console.error(ExceptionSistemaYaEncendido.getMessage());
+            }
         }
         else{
             throw new ExceptionTemperaturaNormal(temperatura);

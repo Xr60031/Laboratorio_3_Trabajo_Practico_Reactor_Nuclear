@@ -5,6 +5,7 @@ import ExceptionSinBarras from "../../../src/SistemaDeRegulacionTermica/Exceptio
 import { BARRA_VIDA_MAX, DIVISOR_PRODUCCION_ENERGIA_TERMICA } from "../../../src/Constantes";
 import ExceptionSistemaYaEncendido from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSistemaYaEncendido";
 import ExceptionSistemaYaApagado from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSistemaYaApagado";
+
 describe("Tests para el sistema de barras de control", () =>{
 
     let sistemaBarras:SistemaBarrasDeControl;
@@ -70,7 +71,7 @@ describe("Tests para el sistema de barras de control", () =>{
     })
 
     it("Se añade una barra de control del sistema", ()=>{
-        const barraNew=MOCK.BarraDeControlMocks
+        const barraNew=MOCK.BarraDeControlMocks;
         sistemaBarras.addBarra(barraNew);
         const barraBuscada=sistemaBarras.getBarras().find(obj => obj.getNroSerie()===barraNew.getNroSerie());
         expect(barraBuscada!.getNroSerie()).toBe(1);
