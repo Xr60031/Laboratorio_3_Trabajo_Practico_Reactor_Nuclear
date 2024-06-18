@@ -9,7 +9,7 @@ import Suscriptor from "../Interfaces/Suscriptor";
 import DatosEnTodoMomento from "./DatosEnTodoMomento";
 
 export default class CentralNuclear implements Suscriptor{
-    private static instance: CentralNuclear;
+    
     private reactor: Reactor;
     private generador: Generador;
     private datosFuncionamiento : DatosEnTodoMomento;
@@ -18,21 +18,13 @@ export default class CentralNuclear implements Suscriptor{
     public getDatosFuncionamiento(){
         return this.datosFuncionamiento;
     }
-    private constructor(reactor: Reactor, generador: Generador) {
+    public constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
         this.generador = generador;
         this.datosFuncionamiento = DatosEnTodoMomento.getInstance();
         this.pcHomero = new Computadora();
 
         this.iniciarSubscripciones();
-    }
-
-
-    public static getInstance(reactor: Reactor, generador: Generador): CentralNuclear {
-        if (CentralNuclear.instance == null) {
-            CentralNuclear.instance = new CentralNuclear(reactor, generador);
-        }
-        return CentralNuclear.instance;
     }
 
     public actualizar(notificador: SensorTermico): void {  
