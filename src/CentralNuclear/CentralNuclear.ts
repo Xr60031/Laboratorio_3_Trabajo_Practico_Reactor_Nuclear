@@ -21,9 +21,7 @@ export default class CentralNuclear implements Suscriptor{
         this.datosFuncionamiento = new DatosEnTodoMomento();
         this.pcHomero = new Computadora();
 
-        reactor.getSensorTermico().suscribir(this);
-        reactor.getSensorTermico().suscribir(this.pcHomero);
-        this.pcHomero.suscribir(reactor.getSistemaDeRegulacionTermica());
+        this.iniciarSubscripciones();
     }
     actualizar(notificador: SensorTermico): void {  
         this.datosFuncionamiento.temperatura = notificador.getTemperatura();
@@ -41,6 +39,14 @@ export default class CentralNuclear implements Suscriptor{
             this.reactor.iniciar();
         } catch (e) {
           console.error(e);
+        }
+    }
+    public detenerReactor(){
+        try {
+            this.reactor.detener();
+        } catch (error) {
+            console.error(error);
+            
         }
     }
 
@@ -71,6 +77,10 @@ export default class CentralNuclear implements Suscriptor{
     private setTemperaturaReactor(temp : number){
         this.reactor.getSensorTermico().medir(CONVERSION_TEMPERATURA_A_TERMICA(temp));
     }
-
+    private iniciarSubscripciones(){
+        this.reactor.getSensorTermico().suscribir(this);
+        this.reactor.getSensorTermico().suscribir(this.pcHomero);
+        this.pcHomero.suscribir(this.reactor.getSistemaDeRegulacionTermica());
+    }
 
 }
