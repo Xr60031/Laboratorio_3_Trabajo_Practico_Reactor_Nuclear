@@ -17,10 +17,6 @@ export default class Critico extends Encendido {
         DatosEnTodoMomento.getInstance().contarApagado();
     }
 
-    public toString(): string {
-        return "Critico";
-    }
-
     protected controlarEstado(): void {
         const temperatura = this.reactor.getSensorTermico().getTemperatura();
 

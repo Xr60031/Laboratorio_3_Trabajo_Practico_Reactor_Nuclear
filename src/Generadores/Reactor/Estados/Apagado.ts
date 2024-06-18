@@ -32,10 +32,6 @@ export default class Apagado extends Estado {
         }
     }
 
-    public toString(): string {
-        return "Apagado";
-    }
-
     private reducirEnergiaTermica(): void {
         let energiaTermica = this.reactor.getEnergiaTermica();
         energiaTermica -= REDUCCION_TEMPERATURA_APAGADO;

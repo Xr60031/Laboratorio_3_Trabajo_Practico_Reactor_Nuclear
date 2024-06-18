@@ -23,68 +23,71 @@ skinparam NoteBorderThickness 2
 ' clases
 
 abstract class CombustibleNuclear {
-  	# cantidad: number
-  	# limite: number
+	# cantidad: number
+	# limite: number
 
-  	+ recargar(cantidad: number): void
-  	+ {abstract} consumir(cantidad: number): number
-  	+ tieneCombustible(): boolean
-  	+ {abstract} calcularEnergiaTermica(cantidad: number): number
-	+ gettersYsetters()
+	+ recargar(cantidad: number): void
+	+ {abstract} consumir(cantidad: number): number
+	+ tieneCombustible(): boolean
+	+ {abstract} calcularEnergiaTermica(cantidad: number): number
+	+ getters y setters()
 }
 
 class Uranio extends CombustibleNuclear {
-  	+ consumir(cantidad: number): number
-  	+ calcularEnergiaTermica(cantidad: number): number
+	+ consumir(cantidad: number): number
+	+ calcularEnergiaTermica(cantidad: number): number
 }
 
-abstract class SistemaDeRegulacionTermica implements Suscriptor{
-    # encendido: boolean
+abstract class SistemaDeRegulacionTermica implements Suscriptor {
+	# encendido: boolean
+
 	+ actualizar(notificador: Computadora): void
-    + encenderSistema(): void
-    + apagarSistema(): void
-    + getEstado(): boolean
-    + {abstract} verificadorParaEncender(temperatura: number): void
-    + {abstract} getEnergiaTermica(energiaTermica: number): number
+	+ encenderSistema(): void
+	+ apagarSistema(): void
+	+ getEstado(): boolean
+	+ {abstract} verificadorParaEncender(temperatura: number): void
+	+ {abstract} getEnergiaTermica(energiaTermica: number): number
 }
 
-class BarraDeControl{
-    - vidaUtil: number
-    - nroSerie: number
-    + getVidaUtil(): number
-    + setVidaUtil(TiempovidaUtil: number): void
-    + controlarVidaUtil(vidaUtil:number): void
-    + desgasteBarraVidaUtil(): Number
+class BarraDeControl {
+	- vidaUtil: number
+	- nroSerie: number
+
+	+ getVidaUtil(): number
+	+ setVidaUtil(TiempovidaUtil: number): void
+	+ controlarVidaUtil(vidaUtil: number): void
+	+ desgasteBarraVidaUtil(): number
 	+ getNroSerie(): number
-	+ setNroSerie(nroSerie:number):void
+	+ setNroSerie(nroSerie: number): void
 }
 
-class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
-    - barrasDeControl:Array<BarraDeControl>
-	- barrasGastadas:number
-	+ getBarrasGastadas():number
-	+ aumentarBarrasGastadas():void
-    + isEmpty(): boolean
-    + addBarra(barraControl:BarraDeControl): void
-    + removeBarra(): void
-    + getBarraActual(): BarraDeControl
-    + comprobarReemplazo(barraActual:BarraDeControl): void
-    - procesarBarra(): void
-    + verificadorParaEncender(temperatura:number): void
-    + getPorcentajeReduccion(): number
-    + getEnergiaTermica(energiaTermica: number): number
-	+ getBarras():Array<BarraDeControl>|undefined
+class SistemaBarrasDeControl extends SistemaDeRegulacionTermica {
+	- barrasDeControl: BarraDeControl[]
+	- barrasGastadas: number
+
+	- procesarBarra(): void
+	+ getBarrasGastadas(): number
+	+ aumentarBarrasGastadas(): void
+	+ isEmpty(): boolean
+	+ addBarra(barraControl: BarraDeControl): void
+	+ removeBarra(): void
+	+ getBarraActual(): BarraDeControl
+	+ comprobarReemplazo(barraActual: BarraDeControl): void
+	+ verificadorParaEncender(temperatura: number): void
+	+ getPorcentajeReduccion(): number
+	+ getEnergiaTermica(energiaTermica: number): number
+	+ getBarras(): BarraDeControl[]
 }
 
 class SensorTermico implements Notificador {
-  	- temperatura: number
+	- temperatura: number
 	- suscriptores: Suscriptor[]
 
 	+ suscribir(suscriptor: Suscriptor): void
 	+ desuscribir(): void
 	+ notificar(): void
-  	+ medir(): number
-	+ gettersYsetters()
+	+ medir(): number
+	+ getters y setters()
 }
 
 
@@ -98,83 +101,99 @@ class Computadora implements Notificador, Suscriptor {
 	+ notificar(): void
 	+ actualizar(notificador: SensorTermico): void
 	+ verificarTemperatura(temperatura: number): void
-  	- activarModoEnfriamiento(): void
-  	- desactivarModoEnfriamiento(): void
+	- activarModoEnfriamiento(): void
+	- desactivarModoEnfriamiento(): void
 }
 
-class Reactor {
+class Reactor <<Singleton>> {
 	- {static} instance: Reactor
-    - consumoCombustible: number
-    - energiaTermica: number
-    - estado!: Estado
-    - combustible: CombustibleNuclear
-    - sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
-    - sensor: SensorTermico
+	- consumoCombustible: number
+	- energiaTermica: number
+	- estado!: Estado
+	- combustible: CombustibleNuclear
+	- sistemaDeRegulacionTermica: SistemaDeRegulacionTermica
+	- sensor: SensorTermico
 
-	- constructor(combustible: CombustibleNuclear, sistemaRegulacionTermica: SistemaDeRegulacionTermica, sensor: SensorTermico, estado: Estado)
-	+ {static} getInstance(combustible: CombustibleNuclear, sistema: SistemaDeRegulacionTermica, sensor: SensorTermico, estadoInicial: Estado)
-	+ cambiarA(estado: Estado)
+	- constructor(combustible: CombustibleNuclear, sistemaRegulacionTermica: SistemaDeRegulacionTermica, sensor: SensorTermico): void
+	+ {static} getInstance(combustible: CombustibleNuclear, sistema: SistemaDeRegulacionTermica, sensor: SensorTermico): Reactor
+	+ cambiarA(estado: Estado): void
 	+ iniciar(): void
 	+ detener(): void
 	+ generarEnergiaTermica(): number
 	+ consumirCombustible(cantidad: number): void
 	+ getAdicionalEnergia(): number
 	- controlarEnergiaTermica(energiaTermica: number): number
-	+ gettersYsetters()
+	+ getters y setters()
 }
 
 class Generador {
 	+ generarEnergiaElectrica(energiaTermica: number): number
 }
 
-class CentralNuclear implements Suscriptor{
+class CentralNuclear <<Singleton>> implements Suscriptor {
 	- {static} instance: CentralNuclear
 	- reactor: Reactor
 	- generador: Generador
 	- datosFuncionamiento : DatosEnTodoMomento
-	- constructor (reactor: Reactor, generador: Generador)
-	- actualizar (notificador: SensorTermico): void
+
+	- constructor(reactor: Reactor, generador: Generador): void
+	- actualizar(notificador: SensorTermico): void
 	+ {static} getInstance(reactor: Reactor, generador: Generador): CentralNuclear
-	+ iniciarReactor()
-	+ generarEnergia(duracion : number, temperatura? : number) : number
-	+ mostrarDatosFuncionamiento():string
-	+ setTemperaturaReactor(temp : number)
+	+ iniciarReactor(): void
+	+ detenerReactor(): void
+	+ generarEnergia(duracion : number, temperatura?: number): number
+	+ mostrarDatosFuncionamiento(): string
+	+ setTemperaturaReactor(temp: number): void
+}
+
+class DatosEnTodoMomento <<Singleton>> {
+	- _temperatura: number
+	- _energiaProducida: number
+	- _barrasGastadas: number
+	- _vecesNormal: number
+	- _vecesCritico: number
+	- _vecesApagado: number
+	- {static} _instance: DatosEnTodoMomento
+
+	- constructor(): void
+	+ {static} getInstance(): DatosEnTodoMomento
+	+ contarBarra(): void
+	+ contarNormal(): void
+	+ contarCritico(): void
+	+ contarApagado(): void
+	+ toString(): string
 }
 
 abstract class Estado {
 	# reactor!: Reactor
-	+ setReactor(reactor: Reactor)
+
+	+ setReactor(reactor: Reactor): void
 	+ {abstract} iniciar(): void
 	+ {abstract} detener(): void
 	+ {abstract} procesarEnergiaTermica(): void
-	+ {abstract} toString(): string
 }
 
-class Normal extends Encendido{
-	+ iniciar():void
+class Normal extends Encendido {
+	+ iniciar(): void
 	+ detener(): void
-	+ toString(): string
 	# controlarEstado(): void
 	# absorcionEnergiaTermica(energiaTermica: number): number
 }
 
-class Critico extends Encendido{
-	+ iniciar():void
+class Critico extends Encendido {
+	+ iniciar(): void
 	+ detener(): void
-	+ toString(): string
 	# controlarEstado(): void
 	# absorcionEnergiaTermica(energiaTermica: number): number
 }
 
-class Apagado extends Estado{
-	+ iniciar():void
+class Apagado extends Estado {
+	+ iniciar(): void
 	+ detener(): void
-	+ toString(): string
-	# controlarEstado(): void
-	# absorcionEnergiaTermica(energiaTermica: number): number
+	+ procesarEnergiaTermica(): void
 }
 
-class Encendido extends Estado{
+abstract class Encendido extends Estado {
 	# {abstract} controlarEstado(): void
 	# {abstract} absorcionEnergiaTermica(energiaTermica: number): number
 	+ procesarEnergiaTermica(): void
@@ -194,13 +213,14 @@ interface Suscriptor {
 
 ' relaciones
 
-Reactor *-r- CombustibleNuclear
+Reactor *-- CombustibleNuclear
 Reactor *-- SensorTermico
-Reactor *-l- SistemaDeRegulacionTermica
-Reactor *-d- Estado
+Reactor *-- SistemaDeRegulacionTermica
+Reactor *-- Estado
 
 SistemaBarrasDeControl *-- BarraDeControl
 
 CentralNuclear *-- Reactor
-CentralNuclear *-l- Generador
+CentralNuclear *-- Generador
+CentralNuclear *-- DatosEnTodoMomento
 @enduml
