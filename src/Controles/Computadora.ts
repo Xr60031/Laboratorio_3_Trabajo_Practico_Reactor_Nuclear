@@ -30,9 +30,10 @@ export default class Computadora implements Notificador, Suscriptor {
         this.suscriptores.forEach((suscriptor) => {
             try {
                 suscriptor.actualizar(this);
-            } catch (ERROR) {
-                console.error();
-                throw new Error();
+            }
+            catch(ERROR){
+                console.error(ERROR);
+                //throw new Error(ERROR);
             }
         });
     }

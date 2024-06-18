@@ -1,5 +1,7 @@
 import { CONVERSION_TEMPERATURA_A_TERMICA } from "../Constantes";
+import Computadora from "../Controles/Computadora";
 import Generador from "../Generadores/GeneradorElectrico/Generador";
+import NoHayCombustibleExcepcion from "../Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import Reactor from "../Generadores/Reactor/Reactor";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
@@ -11,17 +13,17 @@ export default class CentralNuclear implements Suscriptor{
     private reactor: Reactor;
     private generador: Generador;
     private datosFuncionamiento : DatosEnTodoMomento;
+    private pcHomero : Computadora;
 
     private constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
         this.generador = generador;
         this.datosFuncionamiento = DatosEnTodoMomento.getInstance();
-        
+        this.pcHomero = new Computadora();
+
+        this.iniciarSubscripciones();
     }
 
-    actualizar(notificador: SensorTermico): void {
-        this.datosFuncionamiento.temperatura = notificador.getTemperatura();
-    }
 
     public static getInstance(reactor: Reactor, generador: Generador): CentralNuclear {
         if (CentralNuclear.instance == null) {
@@ -30,11 +32,31 @@ export default class CentralNuclear implements Suscriptor{
         return CentralNuclear.instance;
     }
 
+    public actualizar(notificador: SensorTermico): void {  
+        this.datosFuncionamiento.temperatura = notificador.getTemperatura();
+    }
+
+    public añadirObservadorSensor(s : Suscriptor){
+        this.reactor.getSensorTermico().suscribir(s);
+    }
+    public removerObservadorSensor(s : Suscriptor){
+        this.reactor.getSensorTermico().desuscribir(s);
+    }
+
     public iniciarReactor(){
         try {
             this.reactor.iniciar();
-        } catch (NoHayCombustibleExcepcion) {
-            throw new Error("Catch no implementado CentralNuclear.iniciarReactor()");
+        } catch (e) {
+          console.error(e);
+        }
+    }
+
+    public detenerReactor(){
+        try {
+            this.reactor.detener();
+        } catch (error) {
+            console.error(error);
+            
         }
     }
 
@@ -51,7 +73,7 @@ export default class CentralNuclear implements Suscriptor{
                 energiaAcumulada += this.datosFuncionamiento.energiaProducida;
 
             } catch (error) {
-                console.error("Catch no implementado CentralNuclear.generarEnergia()");
+                console.error(error);
             } 
         }
         return energiaAcumulada;
@@ -65,6 +87,12 @@ export default class CentralNuclear implements Suscriptor{
     private setTemperaturaReactor(temp : number){
         this.reactor.getSensorTermico().medir(CONVERSION_TEMPERATURA_A_TERMICA(temp));
     }
+    
+    private iniciarSubscripciones(){
+        this.reactor.getSensorTermico().suscribir(this);
+        this.reactor.getSensorTermico().suscribir(this.pcHomero);
+        this.pcHomero.suscribir(this.reactor.getSistemaDeRegulacionTermica());
+    }
 
-
+    
 }

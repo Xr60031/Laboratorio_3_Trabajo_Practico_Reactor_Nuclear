@@ -67,9 +67,9 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         if(temperatura>=TEMPERATURA_CRITICO){
             try{
                 this.encenderSistema();
-            }
-            catch(ExceptionSistemaYaEncendido){
-                console.error(ExceptionSistemaYaEncendido.getMessage());
+            }catch(Error){
+                //TODO agregar lo que corresponda
+                console.log("verificadorParaEncender() : catch no implementado");
             }
         }
         else{

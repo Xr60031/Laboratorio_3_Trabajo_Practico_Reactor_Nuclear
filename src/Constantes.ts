@@ -9,6 +9,7 @@ export const BARRA_VIDA_MAX = 200
 export const BARRA_VIDA_MIN = 0
 export const REDUCCION_TEMPERATURA_APAGADO = 200
 
+
 export const CONVERSION_TEMPERATURA_A_TERMICA = (n : number) => {
     return n * 8 - 140;
 }

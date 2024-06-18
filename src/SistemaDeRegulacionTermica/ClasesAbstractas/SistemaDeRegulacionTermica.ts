@@ -12,7 +12,6 @@ export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
             this.verificadorParaEncender(notificador.getTemperaturaReactor());
         } else {
             this.apagarSistema();
-            
         }
     }
     public encenderSistema():void{
