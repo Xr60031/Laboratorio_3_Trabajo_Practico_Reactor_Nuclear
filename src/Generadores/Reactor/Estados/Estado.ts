@@ -10,5 +10,4 @@ export default abstract class Estado {
     public abstract iniciar(): void;
     public abstract detener(): void;
     public abstract procesarEnergiaTermica(): void;
-    public abstract toString(): string;
 }

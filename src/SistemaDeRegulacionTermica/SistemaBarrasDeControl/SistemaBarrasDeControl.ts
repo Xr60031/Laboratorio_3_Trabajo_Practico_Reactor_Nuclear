@@ -2,12 +2,12 @@ import SistemaDeRegulacionTermica from "../ClasesAbstractas/SistemaDeRegulacionT
 import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperaturaNormal";
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
-import { TEMPERATURA_EMERGENCIA, BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA, TEMPERATURA_CRITICO } from "../../Constantes";
+import { BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA, TEMPERATURA_CRITICO } from "../../Constantes";
 import DatosEnTodoMomento from "../../CentralNuclear/DatosEnTodoMomento";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
-    private barrasDeControl:Array<BarraDeControl>;
+    private barrasDeControl:BarraDeControl[];
     private barrasGastadas:number=0;
 
     public getBarrasGastadas():number{
@@ -90,13 +90,13 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
         return energiaTermica;
     }
 
-    public getBarras():Array<BarraDeControl>{
+    public getBarras():BarraDeControl[]{
         return this.barrasDeControl;
     }
 
     constructor();
-    constructor(barrasDeControl:Array<BarraDeControl>);
-    constructor(barrasDeControl?:Array<BarraDeControl>){
+    constructor(barrasDeControl:BarraDeControl[]);
+    constructor(barrasDeControl?:BarraDeControl[]){
         super();
         if(barrasDeControl!==undefined){
             this.barrasDeControl=barrasDeControl;
