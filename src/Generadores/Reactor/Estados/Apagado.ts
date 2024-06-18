@@ -1,3 +1,4 @@
+import DatosEnTodoMomento from "../../../CentralNuclear/DatosEnTodoMomento";
 import { COMBUSTIBLE_INICIO_REACTOR, REDUCCION_TEMPERATURA_APAGADO, TEMPERATURA_CRITICO } from "../../../Constantes";
 import NoHayCombustibleExcepcion from "../Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
@@ -14,6 +15,7 @@ export default class Apagado extends Estado {
 
         this.reactor.consumirCombustible(this.reactor.getConsumoCombustible() * COMBUSTIBLE_INICIO_REACTOR);
         this.reactor.cambiarA(new Normal());
+        DatosEnTodoMomento.getInstance().contarNormal();
     }
 
     public detener(): void {
