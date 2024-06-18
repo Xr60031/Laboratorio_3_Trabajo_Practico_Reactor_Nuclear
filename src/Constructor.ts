@@ -14,7 +14,7 @@ export default class ConstructorCentralNuclear{
 
 
 crearCentral(cantBarras? : number, temperatura? : number) : CentralNuclear{
-    let central = CentralNuclear.getInstance(
+    let central = new CentralNuclear(
         this.reactor(
             this.combustible(),
             cantBarras ? this.sistemaRegulacionTermica(this.Barras(cantBarras)) : this.sistemaRegulacionTermica(),
@@ -53,7 +53,7 @@ private reactor(
     sensor : SensorTermico,
     )
 {
-    return Reactor.getInstance(combustible, sistema, sensor);
+    return new Reactor(combustible, sistema, sensor);
 }
 private combustible(){
     return new Uranio(500, 1000);
