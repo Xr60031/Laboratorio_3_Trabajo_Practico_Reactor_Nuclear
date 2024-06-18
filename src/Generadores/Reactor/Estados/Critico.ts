@@ -1,3 +1,4 @@
+import DatosEnTodoMomento from "../../../CentralNuclear/DatosEnTodoMomento";
 import { TEMPERATURA_CRITICO, TEMPERATURA_EMERGENCIA } from "../../../Constantes";
 import AccionInvalidaException from "../ExcepcionesReactor/AccionInvalidaException";
 import Apagado from "./Apagado";
@@ -13,6 +14,7 @@ export default class Critico extends Encendido {
 
     public detener(): void {
         this.reactor.cambiarA(new Apagado());
+        DatosEnTodoMomento.getInstance().contarApagado();
     }
 
     public toString(): string {
@@ -26,6 +28,7 @@ export default class Critico extends Encendido {
             this.detener();
         } else if (TEMPERATURA_CRITICO > temperatura) {
             this.reactor.cambiarA(new Normal());
+            DatosEnTodoMomento.getInstance().contarNormal();
         }
     }
 
