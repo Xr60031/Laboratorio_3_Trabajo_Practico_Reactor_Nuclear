@@ -17,10 +17,6 @@ export default class Normal extends Encendido {
         DatosEnTodoMomento.getInstance().contarApagado();
     }
 
-    public toString(): string {
-        return "Normal";
-    }
-
     protected controlarEstado(): void {
         const temperatura = this.reactor.getSensorTermico().getTemperatura();
 
