@@ -3,6 +3,7 @@ import ExceptionTemperaturaNormal from "../ExceptionsBarras/ExceptionTemperatura
 import BarraDeControl from "../BarraDeControl/BarraDeControl";
 import ExceptionSinBarras from "../ExceptionsBarras/ExceptionSinBarras";
 import { TEMPERATURA_EMERGENCIA, BARRA_ENERGIA_MINIMA, DIVISOR_PRODUCCION_ENERGIA_TERMICA, TEMPERATURA_CRITICO } from "../../Constantes";
+import DatosEnTodoMomento from "../../CentralNuclear/DatosEnTodoMomento";
 
 export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
@@ -15,6 +16,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
 
     public aumentarBarrasGastadas():void{
         this.barrasGastadas++;
+        DatosEnTodoMomento.getInstance().contarBarra();
     }
 
     public isEmpty():boolean{
@@ -68,9 +70,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
             }catch(Error){
                 //TODO agregar lo que corresponda
                 console.log("verificadorParaEncender() : catch no implementado");
-                
             }
-
         }
         else{
             throw new ExceptionTemperaturaNormal(temperatura);

@@ -1,0 +1,39 @@
+@startuml "Diagrama de secuencias"
+actor Usuario
+participant centralNuclear
+participant reactor
+participant apagado
+participant normal
+
+autonumber "<b>[000]"
+
+centralNuclear -> centralNuclear : getInstance()
+
+group iniciarReactor
+    Usuario -> centralNuclear : iniciarReactor()
+    centralNuclear -> reactor : iniciar()
+    reactor -> apagado : inciar()
+    /'
+    alt if !this.reactor.getCombustible().tieneCombustible()
+        note right apagado : throw new NoHayCombustibleException()
+        note right apagado : "No hay combustible para iniciar el reactor"
+    end
+    '/
+    apagado -> reactor : getConsumoCombustible()
+    return number
+    apagado -> reactor : consumirCombustible()
+    reactor -> combustible : consumir()
+    activate combustible
+    combustible -> combustible : calcularEnergiaTermica()
+    return number
+    reactor --> apagado :
+    apagado -> reactor : cambiarA()
+    reactor -> normal : setReactor()
+    return 
+    note left reactor : normal
+    reactor --> apagado
+    apagado --> reactor
+    reactor --> centralNuclear
+    centralNuclear --> Usuario
+end
+@enduml
