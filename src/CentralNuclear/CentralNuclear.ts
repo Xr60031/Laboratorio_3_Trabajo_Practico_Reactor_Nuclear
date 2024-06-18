@@ -15,6 +15,9 @@ export default class CentralNuclear implements Suscriptor{
     private datosFuncionamiento : DatosEnTodoMomento;
     private pcHomero : Computadora;
 
+    public getDatosFuncionamiento(){
+        return this.datosFuncionamiento;
+    }
     private constructor(reactor: Reactor, generador: Generador) {
         this.reactor = reactor;
         this.generador = generador;

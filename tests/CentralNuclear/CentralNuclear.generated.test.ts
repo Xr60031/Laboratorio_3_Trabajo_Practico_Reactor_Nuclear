@@ -18,7 +18,7 @@ describe('CentralNuclear', () => {
     
 
   
-    it('deberia devolver la energia acumulada', () => {
+    it('generarEnergia() deberia devolver la energia acumulada', () => {
       instance.iniciarReactor()
       const energiaRetornada : number = 17.5;
       const horascorridas : number = 1;
@@ -29,14 +29,21 @@ describe('CentralNuclear', () => {
 
 
     
+  describe("actualizar()", () => {
   
-  
-  it("Actualizar() es llamado por el notificador", () =>{
+   it("es llamado por el notificador", () =>{
+     instance.iniciarReactor();
      const spy = jest.spyOn(instance, "actualizar");
-     instance.generarEnergia(2);
-     expect(spy).toHaveBeenCalledTimes(2); 
-     
+     instance.generarEnergia(3);
+     expect(spy).toHaveBeenCalledTimes(3); 
+    });
+   it("Modifica los datos", () => {
+     const dato = instance.getDatosFuncionamiento().temperatura;
+     instance.generarEnergia(1);
+     expect(instance.getDatosFuncionamiento().temperatura).toBeGreaterThan(dato);
+    });
   });
+  
   
 });
   
