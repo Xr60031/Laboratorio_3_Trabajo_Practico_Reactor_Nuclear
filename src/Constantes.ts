@@ -8,7 +8,7 @@ export const DIVISOR_PRODUCCION_ENERGIA_TERMICA = 3600
 export const BARRA_VIDA_MAX = 200
 export const BARRA_VIDA_MIN = 0
 export const REDUCCION_TEMPERATURA_APAGADO = 200
-
+export const MULTIPLICADOR_ENERGIA_TERMICA: number = 100;
 
 export const CONVERSION_TEMPERATURA_A_TERMICA = (n : number) => {
     return n * 8 - 140;
