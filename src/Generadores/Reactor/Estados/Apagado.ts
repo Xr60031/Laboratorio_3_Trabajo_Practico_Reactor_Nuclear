@@ -13,10 +13,11 @@ export default class Apagado extends Estado {
             );
         }
 
-        this.reactor.consumirCombustible(this.reactor.getConsumoCombustible() * COMBUSTIBLE_INICIO_REACTOR);
+        this.precalentarReactor();
         this.reactor.cambiarA(new Normal());
         DatosEnTodoMomento.getInstance().contarNormal();
     }
+    
 
     public detener(): void {
         throw new AccionInvalidaException(
@@ -41,5 +42,8 @@ export default class Apagado extends Estado {
         this.reactor.setEnergiaTermica(energiaTermica);
         
         this.reactor.getSensorTermico().medir(energiaTermica);
+    }
+    private precalentarReactor(){
+        this.reactor.consumirCombustible(this.reactor.getConsumoCombustible() * COMBUSTIBLE_INICIO_REACTOR);
     }
 }
