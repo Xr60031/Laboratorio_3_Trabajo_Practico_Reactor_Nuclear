@@ -72,6 +72,11 @@ package -Controles- {
 		- activarModoEnfriamiento(): void
 		- desactivarModoEnfriamiento(): void
 	}
+
+	class GerenciaBurns implements .Notificador, .Suscriptor { 
+		+ actualizar(notificador: SensorTermico): void
+		+ notificar(): void
+	}
 }
 
 package -SistemaDeRegulacionTermica- {
