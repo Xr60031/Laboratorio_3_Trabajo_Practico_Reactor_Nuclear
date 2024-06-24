@@ -74,7 +74,7 @@ package -Controles- {
 	}
 
 	class GerenciaBurns implements .Notificador, .Suscriptor { 
-		- suscriptores: Suscriptor[]
+		- suscriptoresGerencia: Suscriptor[]
 		
 		+ suscribir(suscriptor: Suscriptor): void
 		+ desuscribir(suscriptor: Suscriptor): void
