@@ -69,7 +69,7 @@ export default class SistemaBarrasDeControl extends SistemaDeRegulacionTermica{
                 this.encenderSistema();
             }catch(Error){
                 //TODO agregar lo que corresponda
-                console.log("verificadorParaEncender() : catch no implementado");
+                console.log("verificadorParaEncender() : temperatura en estado normal");
             }
         }
         else{
