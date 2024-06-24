@@ -30,6 +30,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "linked-list-typescript": "^1.0.15"
+    "linked-list-typescript": "^1.0.15",
+    "resend": "^3.3.0"
   }
 }
