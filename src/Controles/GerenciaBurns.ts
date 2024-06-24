@@ -1,9 +1,10 @@
 import { TEMPERATURA_EMERGENCIA } from "../Constantes";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
+import Notificador from "../Interfaces/Notificador";
 import Suscriptor from "../Interfaces/Suscriptor";
 import { Resend } from "resend";
 
-export default class GerenciaBurns implements Suscriptor {
+export default class GerenciaBurns implements Notificador, Suscriptor {
     private _suscriptoresGerencia: Suscriptor[];
     private _temperaturaReactor: number;
     private _nombre: string;
