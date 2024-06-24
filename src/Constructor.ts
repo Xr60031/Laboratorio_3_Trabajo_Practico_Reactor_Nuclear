@@ -1,5 +1,5 @@
 import CentralNuclear from "./CentralNuclear/CentralNuclear";
-import { BARRA_VIDA_MAX } from "./Constantes";
+import { BARRA_VIDA_MAX, CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR } from "./Constantes";
 import Generador from "./Generadores/GeneradorElectrico/Generador";
 import CombustibleNuclear from "./Generadores/Reactor/Combustible/CombustibleNuclear";
 import Uranio from "./Generadores/Reactor/Combustible/Uranio";
@@ -13,12 +13,12 @@ import SistemaBarrasDeControl from "./SistemaDeRegulacionTermica/SistemaBarrasDe
 export default class ConstructorCentralNuclear{
 
 
-crearCentral(cantBarras? : number, temperatura? : number) : CentralNuclear{
+crearCentral(cantBarras? : number) : CentralNuclear{
     let central = new CentralNuclear(
         this.reactor(
             this.combustible(),
             cantBarras ? this.sistemaRegulacionTermica(this.Barras(cantBarras)) : this.sistemaRegulacionTermica(),
-            this.sensor(temperatura)),
+            this.sensor()),
         this.generador())
     
     
@@ -47,6 +47,7 @@ private sistemaRegulacionTermica(barrasDeControl?:Array<BarraDeControl>): Sistem
     }
     return new SistemaBarrasDeControl();
 }
+
 private reactor(
     combustible : CombustibleNuclear, 
     sistema : SistemaDeRegulacionTermica,
@@ -56,10 +57,10 @@ private reactor(
     return new Reactor(combustible, sistema, sensor);
 }
 private combustible(){
-    return new Uranio(500, 1000);
+    return new Uranio(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR);
 }
-private sensor(temperatura? : number){
-    return new SensorTermico(temperatura);
+private sensor(){
+    return new SensorTermico();
 }
 
 

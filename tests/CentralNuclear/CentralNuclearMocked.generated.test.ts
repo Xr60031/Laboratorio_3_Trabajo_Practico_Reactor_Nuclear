@@ -6,20 +6,21 @@ import { before } from "node:test";
 import ConstructorCentralNuclear from "../../src/Constructor";
 import Reactor from "../../src/Generadores/Reactor/Reactor";
 import SensorTermico from "../../src/Generadores/Reactor/SensorTermico";
+import AccionInvalidaException from "../../src/Generadores/Reactor/ExcepcionesReactor/AccionInvalidaException";
 describe('CentralNuclear', () => {
   let instance : CentralNuclear;
 
   beforeEach(() => {
-    instance = CentralNuclear.getInstance(MOCK.ReactorMock, MOCK.GeneradorMock)
+    instance = new CentralNuclear(MOCK.ReactorMock, MOCK.GeneradorMock)
+  });
+  it('instance should be an instanceof CentralNuclear', () => {
+    expect(instance instanceof CentralNuclear).toBeTruthy();
+  
   });
 
-
-  describe("metodo inicarReactor() ", () => {
-    it('instances should be an instanceof CentralNuclear', () => {
-      expect(instance instanceof CentralNuclear).toBeTruthy();
+  describe("inicarReactor() ", () => {
     
-    });
-    it('con combustible deberia llamar una vez a la funcion', () => {
+    it('deberia llamar una vez a la funcion', () => {
     
       const spy = jest.spyOn(MOCK.ReactorMock, "iniciar")
       try {
@@ -39,9 +40,21 @@ describe('CentralNuclear', () => {
       
     }
   });
+  describe("deternerReactor()", () => {
+      it("detenerReactor apagado tira error", () => {
+        try {
+          expect(() => {
+            instance.detenerReactor();
+          }).toThrow(new AccionInvalidaException("El reactor ya se encuentra detenido."))
+        } catch (error) {
+          
+        }
+      });
+     
+  });
 
   
-  describe("metodo generarEnergia() ", () => {
+  describe("generarEnergia() ", () => {
     it('deberia correr la cantidad de horas ingresada', () => {
       const spy = jest.spyOn(MOCK.ReactorMock, "generarEnergiaTermica")
       instance.generarEnergia(5);
@@ -57,14 +70,14 @@ describe('CentralNuclear', () => {
     
     });
   });
-  describe("metodo setTemperaturaReactor()", () => {
+  describe("setTemperaturaReactor()", () => {
     it('no es llamado sin parametro', () => {
       const spy = jest.spyOn(MOCK.SensorMock, "medir")
       instance.generarEnergia(5);
       expect(spy).toHaveBeenCalledTimes(0);
     });
   
-    it('corre si recibe un numero', () => {
+    it('es llamado si recibe un numero', () => {
       const spy = jest.spyOn(MOCK.SensorMock, "medir");
       const temperatura = 25;
       instance.generarEnergia(5, temperatura);
