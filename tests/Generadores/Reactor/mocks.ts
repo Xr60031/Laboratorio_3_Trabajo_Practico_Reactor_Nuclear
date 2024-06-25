@@ -26,5 +26,6 @@ export const SensorMock = {
 export const EstadoMock = {
     setReactor: jest.fn(),
     iniciar: jest.fn(),
-    detener: jest.fn()
+    detener: jest.fn(),
+    procesarEnergiaTermica: jest.fn()
 } as unknown as Estado;
