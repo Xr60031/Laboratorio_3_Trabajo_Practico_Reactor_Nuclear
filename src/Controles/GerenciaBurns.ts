@@ -1,4 +1,4 @@
-import { TEMPERATURA_EMERGENCIA } from "../Constantes";
+import { RESEND_API_KEY, TEMPERATURA_EMERGENCIA } from "../Constantes";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
 import Suscriptor from "../Interfaces/Suscriptor";
@@ -39,8 +39,7 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
     }
 
     public notificar(): void {
-
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const resend = new Resend(RESEND_API_KEY);
  
         const emailData = {
             from: 'administrador@PlantaNuclearSpringfield.com',

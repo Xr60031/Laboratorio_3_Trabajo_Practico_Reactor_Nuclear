@@ -1,4 +1,6 @@
 import SensorTermico from "../../src/Generadores/Reactor/SensorTermico";
+import Notificador from "../../src/Interfaces/Notificador";
+import Suscriptor from "../../src/Interfaces/Suscriptor";
 import SistemaBarrasDeControl from "../../src/SistemaDeRegulacionTermica/SistemaBarrasDeControl/SistemaBarrasDeControl";
 
 export const SistemaBarrasDeControlMock = {
@@ -10,3 +12,7 @@ export const SistemaBarrasDeControlMock = {
 export const SensorTermicoMock = {
     getTemperatura: jest.fn(),
 } as unknown as SensorTermico;
+
+export const actualizarMock = {
+    actualizar: jest.fn(),
+} as unknown as Suscriptor;
