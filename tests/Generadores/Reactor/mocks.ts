@@ -1,6 +1,6 @@
 import Computadora from "../../../src/Controles/Computadora";
-import Uranio from "../../../src/Generadores/Reactor/Combustible/Uranio";
-import SistemaBarrasDeControl from "../../../src/SistemaDeRegulacionTermica/SistemaBarrasDeControl/SistemaBarrasDeControl";
+import CombustibleNuclear from "../../../src/Generadores/Reactor/Combustible/CombustibleNuclear";
+import SistemaDeRegulacionTermica from "../../../src/SistemaDeRegulacionTermica/ClasesAbstractas/SistemaDeRegulacionTermica";
 import SensorTermico from "../../../src/Generadores/Reactor/SensorTermico";
 import Estado from "../../../src/Generadores/Reactor/Estados/Estado";
 
@@ -11,16 +11,18 @@ export const ComputadoraMock = {
     desactivarModoEnfriamiento: jest.fn(),
 } as unknown as Computadora;
 
-export const UranioMock = {
-    tieneCombustible: jest.fn()
-} as unknown as Uranio;
+export const CombustibleMock = {
+    tieneCombustible: jest.fn(),
+    consumir: jest.fn()
+} as unknown as CombustibleNuclear;
 
 export const SistemaMock = {
-
-} as unknown as SistemaBarrasDeControl;
+    getEnergiaTermica: jest.fn()
+} as unknown as SistemaDeRegulacionTermica;
 
 export const SensorMock = {
-
+    medir: jest.fn(),
+    getTemperatura: jest.fn()
 } as unknown as SensorTermico;
 
 export const EstadoMock = {

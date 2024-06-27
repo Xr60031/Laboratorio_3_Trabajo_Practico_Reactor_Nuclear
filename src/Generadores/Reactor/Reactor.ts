@@ -28,10 +28,6 @@ export default class Reactor {
         this.cambiarA(new Apagado());
     }
 
-    public getEstado(): Estado {
-        return this.estado;
-    }
-
     public getSensorTermico(): SensorTermico {
         return this.sensor;
     }
