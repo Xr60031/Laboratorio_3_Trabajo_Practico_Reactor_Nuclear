@@ -49,7 +49,7 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
         };
             
         try {
-            //resend.emails.send(emailData);
+            resend.emails.send(emailData);
             return console.log('Email enviado correctamente');
         } 
         
