@@ -1,8 +1,8 @@
 import Apagado from "../../../../src/Generadores/Reactor/Estados/Apagado";
-import * as MOCK from "./mocks";
 import NoHayCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import AccionInvalidaException from "../../../../src/Generadores/Reactor/ExcepcionesReactor/AccionInvalidaException";
 import DatosEnTodoMomento from "../../../../src/CentralNuclear/DatosEnTodoMomento";
+import * as MOCK from "./mocks";
 import * as MOCK2 from "../mocks";
 
 describe("Apagado", () => {
@@ -22,8 +22,8 @@ describe("Apagado", () => {
 
     describe("Iniciar", ()=>{
         it("Debería llamar a Reactor.cambiarA(), y DatosEnTodoMomento.contarNormal()", () => {
-            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
-            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValueOnce(true);
+            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValue(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValue(true);
             const spy1 = jest.spyOn(MOCK.ReactorMock, "cambiarA");
             const spy2 = jest.spyOn(DatosEnTodoMomento.getInstance(), "contarNormal");
             const spy3 = jest.spyOn(MOCK.ReactorMock, "consumirCombustible");
@@ -34,8 +34,8 @@ describe("Apagado", () => {
         });
 
         it("Debería lanzar una excepcion cuando se intenta iniciar el reactor sin combustible", ()=>{
-            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
-            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValueOnce(false);
+            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValue(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValue(false);
             try{
                 instancia.iniciar();
             }
@@ -57,30 +57,26 @@ describe("Apagado", () => {
     });
 
     describe("Procesar energia termica", ()=>{
-        //instancia.procesarEnergiaTermica();
+        it("Debería reducir la energia termica del reactor y llamar a SensorTermico.medir()", () => {
+            MOCK.ReactorMock.getEnergiaTermica=jest.fn().mockReturnValue(1000);
+            MOCK.ReactorMock.getSensorTermico=jest.fn().mockReturnValue(MOCK2.SensorMock);
+            MOCK2.SensorMock.getTemperatura=jest.fn().mockReturnValue(350);
+            const spy1 = jest.spyOn(MOCK.ReactorMock, "setEnergiaTermica");
+            const spy2 = jest.spyOn(MOCK2.SensorMock, "medir");
+            instancia.procesarEnergiaTermica();
+            expect(spy1).toHaveBeenCalled();
+            expect(spy2).toHaveBeenCalled();
+        });
+
+        it("Debería iniciar el reactor si la temperatura es menor a la temperatura critica", () => {
+            MOCK.ReactorMock.getEnergiaTermica=jest.fn().mockReturnValue(1000);
+            MOCK.ReactorMock.getSensorTermico=jest.fn().mockReturnValue(MOCK2.SensorMock);
+            MOCK2.SensorMock.getTemperatura=jest.fn().mockReturnValue(100);
+            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValue(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValue(true);
+            const spy = jest.spyOn(instancia, "iniciar");
+            instancia.procesarEnergiaTermica();
+            expect(spy).toHaveBeenCalled();
+        });
     });
-
-
-
-    /*
-    public iniciar(): void {
-        if (!this.reactor.getCombustible().tieneCombustible()) {
-            throw new NoHayCombustibleExcepcion(
-                "No hay combustible para iniciar el reactor."
-            );
-        }
-
-        this.precalentarReactor();
-        this.reactor.cambiarA(new Normal());
-        DatosEnTodoMomento.getInstance().contarNormal();
-    }
-
-    public procesarEnergiaTermica(): void {
-        this.reducirEnergiaTermica();
-
-        if (TEMPERATURA_CRITICO >= this.reactor.getEnergiaTermica()) {
-            this.iniciar();
-        }
-    }
-    */
-})
+});

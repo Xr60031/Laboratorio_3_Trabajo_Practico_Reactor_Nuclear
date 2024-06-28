@@ -1,4 +1,4 @@
-import { RESEND_API_KEY, TEMPERATURA_EMERGENCIA } from "../Constantes";
+import { TEMPERATURA_EMERGENCIA } from "../Constantes";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
 import Suscriptor from "../Interfaces/Suscriptor";

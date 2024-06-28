@@ -42,20 +42,20 @@ describe("Normal", () => {
 
     describe("Procesar Energia Termica", () => {
         it("Debería entrar al if", () => {
-            MOCK.ReactorMock.getCombustible = jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
-            MOCK2.CombustibleMock.tieneCombustible = jest.fn().mockReturnValueOnce(false);
+            MOCK.ReactorMock.getCombustible = jest.fn().mockReturnValue(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible = jest.fn().mockReturnValue(false);
             const spy = jest.spyOn(instancia, "detener");
             instancia.procesarEnergiaTermica();
             expect(spy).toHaveBeenCalled();
         });
 
         it("Debería entrar al else", () => {
-            MOCK.ReactorMock.getCombustible = jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
-            MOCK2.CombustibleMock.tieneCombustible = jest.fn().mockReturnValueOnce(true);
-            MOCK.ReactorMock.getSistemaDeRegulacionTermica = jest.fn().mockReturnValueOnce(MOCK2.SistemaMock);
-            MOCK2.SistemaMock.getEnergiaTermica = jest.fn().mockReturnValueOnce(1000);
+            MOCK.ReactorMock.getCombustible = jest.fn().mockReturnValue(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible = jest.fn().mockReturnValue(true);
+            MOCK.ReactorMock.getSistemaDeRegulacionTermica = jest.fn().mockReturnValue(MOCK2.SistemaMock);
+            MOCK2.SistemaMock.getEnergiaTermica = jest.fn().mockReturnValue(1000);
             MOCK.ReactorMock.getSensorTermico = jest.fn().mockReturnValue(MOCK2.SensorMock);
-            MOCK2.SensorMock.getTemperatura = jest.fn().mockReturnValueOnce(250);
+            MOCK2.SensorMock.getTemperatura = jest.fn().mockReturnValue(250);
             const spy1 = jest.spyOn(MOCK.ReactorMock, "getEnergiaTermica");
             const spy2 = jest.spyOn(MOCK.ReactorMock, "getAdicionalEnergia");
             const spy3 = jest.spyOn(MOCK2.SistemaMock, "getEnergiaTermica");
