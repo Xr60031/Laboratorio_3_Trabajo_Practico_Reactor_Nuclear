@@ -1,44 +1,64 @@
 import Apagado from "../../../../src/Generadores/Reactor/Estados/Apagado";
-import * as Mocks from "./mocks";
+import * as MOCK from "./mocks";
 import NoHayCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHayCombustibleExcepcion";
 import AccionInvalidaException from "../../../../src/Generadores/Reactor/ExcepcionesReactor/AccionInvalidaException";
+import DatosEnTodoMomento from "../../../../src/CentralNuclear/DatosEnTodoMomento";
+import * as MOCK2 from "../mocks";
 
-describe("Apagado tests", () => {
-
-    let apagado:Apagado;
+describe("Apagado", () => {
+    let instancia:Apagado;
 
     beforeEach(()=>{
-        apagado = new Apagado();
-        apagado.setReactor(Mocks.ReactorMock);
-    })
+        instancia = new Apagado();
+        instancia.setReactor(MOCK.ReactorMock);
+    });
 
-    describe("Iniciar reactor", ()=>{
-        apagado.iniciar();
-        // Para que este en normal deberia Datos en todo momento saber que esta en 1???
-    })
+    describe("Set Reactor", () => {
+        it("Debería establecer el reactor", () => {
+            instancia.setReactor(MOCK.ReactorMock);
+            expect((instancia as any) ['reactor']).toBe(MOCK.ReactorMock);
+        });
+    });
 
-    describe("Se intenta iniciar el reactor cuando no hay combustible", ()=>{
-        Mocks.ReactorMock.getCombustible=jest.fn().mockReturnValueOnce(false);
-        try{
-            apagado.iniciar();
-        }
-        catch(SinCombustible){
-            expect(SinCombustible).toBeInstanceOf(NoHayCombustibleExcepcion);
-        }
-    })
+    describe("Iniciar", ()=>{
+        it("Debería llamar a Reactor.cambiarA(), y DatosEnTodoMomento.contarNormal()", () => {
+            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValueOnce(true);
+            const spy1 = jest.spyOn(MOCK.ReactorMock, "cambiarA");
+            const spy2 = jest.spyOn(DatosEnTodoMomento.getInstance(), "contarNormal");
+            const spy3 = jest.spyOn(MOCK.ReactorMock, "consumirCombustible");
+            instancia.iniciar();
+            expect(spy1).toHaveBeenCalled();
+            expect(spy2).toHaveBeenCalled();
+            expect(spy3).toHaveBeenCalled();
+        });
 
-    describe("Se intenta detener el reactor cuando se encuentra detenido", ()=>{
-        try{
-            apagado.detener();
-        }
-        catch(AccionInvalida){
-            expect(AccionInvalidaException).toBeInstanceOf(AccionInvalidaException);
-        }
-    })
+        it("Debería lanzar una excepcion cuando se intenta iniciar el reactor sin combustible", ()=>{
+            MOCK.ReactorMock.getCombustible=jest.fn().mockReturnValueOnce(MOCK2.CombustibleMock);
+            MOCK2.CombustibleMock.tieneCombustible=jest.fn().mockReturnValueOnce(false);
+            try{
+                instancia.iniciar();
+            }
+            catch(e){
+                expect(e).toBeInstanceOf(NoHayCombustibleExcepcion);
+            }
+        });
+    });
 
-    describe("Se procesa la energia termica", ()=>{
-        apagado.procesarEnergiaTermica();
-    })
+    describe("Detener", () => {
+        it("Debería lanzar una excepcion de accion invalida", ()=>{
+            try{
+                instancia.detener();
+            }
+            catch(e){
+                expect(e).toBeInstanceOf(AccionInvalidaException);
+            }
+        });
+    });
+
+    describe("Procesar energia termica", ()=>{
+        //instancia.procesarEnergiaTermica();
+    });
 
 
 
