@@ -1,12 +1,27 @@
 import Uranio from "../../../../src/Generadores/Reactor/Combustible/Uranio";
 import {CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR, MULTIPLICADOR_ENERGIA_TERMICA} from "../../../../src/Constantes";
 import NoHaySuficienteCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHaySuficienteCombustibleExcepcion";
+import LimiteCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/LimiteCombustibleExcepcion";
 
 describe("Tests para el sistema de barras de control", () =>{
     let instanceUranio:Uranio
 
     beforeEach(()=>{
         instanceUranio=new Uranio(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR);
+    })
+
+    it("Se prueba que se realice la recarga de combustible exitosamente", () => {
+        instanceUranio.recargar(50);
+        expect(instanceUranio.getCantidad()).toBe(550);
+    })    
+    
+    it("Se intenta la recarga de combustible en el caso de que pase el limite", () => {
+        try {
+            instanceUranio.recargar(LIMITE_COMBUSTIBLE_CONSTRUCTOR+1);
+        } catch(error) {
+            expect(error.message).toBe("Se alcanzó el limite de combustible");
+            expect(error).toBeInstanceOf(LimiteCombustibleExcepcion);
+        }
     })
 
     it("Se prueba que se realice el consumo del combustible exitosamente", ()=>{
@@ -29,7 +44,25 @@ describe("Tests para el sistema de barras de control", () =>{
             instanceUranio.consumir(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR+1);
         }
         catch(NoHaySuficienteCombustible){
+            expect(NoHaySuficienteCombustible.message).toBe("No hay suficiente Uranio para consumir");
             expect(NoHaySuficienteCombustible).toBeInstanceOf(NoHaySuficienteCombustibleExcepcion);
         }
+    })
+
+    it("Se prueba que si tiene combustible devuelve verdadero", () => {
+        expect(instanceUranio.tieneCombustible()).toBeTruthy();
+    })
+
+    it("Se prueba que si no tiene combustible devuelve falso", () => {
+        instanceUranio.setCantidad(0);
+        expect(instanceUranio.tieneCombustible()).toBeFalsy();
+    })
+
+    it("Se prueba de obtener la cantidad de combustible", () => {
+        expect(instanceUranio.getCantidad()).toBe(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR);
+    })
+
+    it("Se prueba de obtener el limite de combustible", () => {
+        expect(instanceUranio.getLimite()).toBe(LIMITE_COMBUSTIBLE_CONSTRUCTOR);
     })
 })
