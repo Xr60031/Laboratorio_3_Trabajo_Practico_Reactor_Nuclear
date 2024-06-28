@@ -19,6 +19,7 @@ describe("Tests para el sistema de barras de control", () =>{
         try {
             instanceUranio.recargar(LIMITE_COMBUSTIBLE_CONSTRUCTOR+1);
         } catch(error) {
+            expect(error.message).toBe("Se alcanzó el limite de combustible");
             expect(error).toBeInstanceOf(LimiteCombustibleExcepcion);
         }
     })
@@ -43,6 +44,7 @@ describe("Tests para el sistema de barras de control", () =>{
             instanceUranio.consumir(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR+1);
         }
         catch(NoHaySuficienteCombustible){
+            expect(NoHaySuficienteCombustible.message).toBe("No hay suficiente Uranio para consumir");
             expect(NoHaySuficienteCombustible).toBeInstanceOf(NoHaySuficienteCombustibleExcepcion);
         }
     })
