@@ -18,8 +18,6 @@ export const REDUCCION_TEMPERATURA_APAGADO = 200
 
 export const MULTIPLICADOR_ENERGIA_TERMICA = 100;
 
-export const RESEND_API_KEY = '6cbff35844ae5aefa17232cd75fc2478';
-
 export const CONVERSION_TEMPERATURA_A_TERMICA = (n : number) => {
     return n * 8 - 140;
 }

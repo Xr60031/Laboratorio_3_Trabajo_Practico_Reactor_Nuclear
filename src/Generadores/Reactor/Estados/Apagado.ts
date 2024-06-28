@@ -28,7 +28,7 @@ export default class Apagado extends Estado {
     public procesarEnergiaTermica(): void {
         this.reducirEnergiaTermica();
 
-        if (TEMPERATURA_CRITICO >= this.reactor.getEnergiaTermica()) {
+        if (TEMPERATURA_CRITICO >= this.reactor.getSensorTermico().getTemperatura()) {
             this.iniciar();
         }
     }
@@ -43,6 +43,7 @@ export default class Apagado extends Estado {
         
         this.reactor.getSensorTermico().medir(energiaTermica);
     }
+
     private precalentarReactor(){
         this.reactor.consumirCombustible(this.reactor.getConsumoCombustible() * COMBUSTIBLE_INICIO_REACTOR);
     }

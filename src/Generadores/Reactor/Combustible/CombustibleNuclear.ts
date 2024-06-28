@@ -19,13 +19,13 @@ export default abstract class CombustibleNuclear {
         this.cantidad += cantidad;
     }
 
-    public abstract consumir(cantidad: number): number;
+    public abstract consumir(cantidadAConsumir: number): number;
 
     public tieneCombustible(): boolean {
         return this.cantidad > 0;
     }
 
-    public abstract calcularEnergiaTermica(cantidad: number): number;
+    public abstract calcularEnergiaTermica(cantidadAConsumir: number): number;
 
     public getCantidad(): number {
         return this.cantidad;

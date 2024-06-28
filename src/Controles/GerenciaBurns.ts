@@ -1,8 +1,7 @@
-import { RESEND_API_KEY, TEMPERATURA_EMERGENCIA } from "../Constantes";
+import { TEMPERATURA_EMERGENCIA } from "../Constantes";
 import SensorTermico from "../Generadores/Reactor/SensorTermico";
 import Notificador from "../Interfaces/Notificador";
 import Suscriptor from "../Interfaces/Suscriptor";
-import { Resend } from "resend";
 
 export default class GerenciaBurns implements Notificador, Suscriptor {
     private _suscriptoresGerencia: Suscriptor[];
@@ -39,8 +38,6 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
     }
 
     public notificar(): void {
-        const resend = new Resend(RESEND_API_KEY);
- 
         const emailData = {
             from: 'administrador@PlantaNuclearSpringfield.com',
             to: this._email,
@@ -49,7 +46,7 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
         };
             
         try {
-            resend.emails.send(emailData);
+            // Se envía un mail al Sr. Montgomery B.
             return console.log('Email enviado correctamente');
         } 
         

@@ -16,7 +16,7 @@ describe("Tests para el sistema de barras de control", () =>{
 
     it("Se consume el combustible para calcular la energia termica ", ()=>{
         let energiaTermica=instanceUranio.consumir(50);
-        expect(energiaTermica).toBe(450*100);
+        expect(energiaTermica).toBe(50*100);
     })
 
     it("Se calcula la energia termica producida", ()=>{

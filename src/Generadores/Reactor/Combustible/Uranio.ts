@@ -5,19 +5,19 @@ import { MULTIPLICADOR_ENERGIA_TERMICA } from "../../../Constantes";
 export default class Uranio extends CombustibleNuclear {
     
 
-    public consumir(cantidad: number): number {
-        if (this.cantidad - cantidad < 0) {
+    public consumir(cantidadAConsumir: number): number {
+        if (this.cantidad - cantidadAConsumir < 0) {
             throw new NoHaySuficienteCombustibleExcepcion(
                 "No hay suficiente Uranio para consumir"
             );
         }
 
-        this.cantidad -= cantidad;
+        this.cantidad -= cantidadAConsumir;
 
-        return this.calcularEnergiaTermica(cantidad);
+        return this.calcularEnergiaTermica(cantidadAConsumir);
     }
 
-    public calcularEnergiaTermica(cantidad: number): number {
-        return cantidad * MULTIPLICADOR_ENERGIA_TERMICA;
+    public calcularEnergiaTermica(cantidadAConsumir: number): number {
+        return cantidadAConsumir * MULTIPLICADOR_ENERGIA_TERMICA;
     }
 }
