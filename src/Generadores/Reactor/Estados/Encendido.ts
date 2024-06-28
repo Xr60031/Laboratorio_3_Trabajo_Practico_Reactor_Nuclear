@@ -8,15 +8,16 @@ export default abstract class Encendido extends Estado {
         if (!this.reactor.getCombustible().tieneCombustible()) {
             this.detener();
         }
+        else {
+            let energiaTermica = this.reactor.getEnergiaTermica() + this.reactor.getAdicionalEnergia();
 
-        let energiaTermica = this.reactor.getEnergiaTermica() + this.reactor.getAdicionalEnergia();
+            energiaTermica = this.absorcionEnergiaTermica(energiaTermica);
 
-        energiaTermica = this.absorcionEnergiaTermica(energiaTermica);
+            this.reactor.setEnergiaTermica(energiaTermica);
 
-        this.reactor.setEnergiaTermica(energiaTermica);
+            this.reactor.getSensorTermico().medir(energiaTermica);
 
-        this.reactor.getSensorTermico().medir(energiaTermica);
-
-        this.controlarEstado();
+            this.controlarEstado();
+        }
     }
 }

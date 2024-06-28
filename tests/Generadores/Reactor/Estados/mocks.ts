@@ -10,5 +10,6 @@ export const ReactorMock:Reactor = {
     setEnergiaTermica: jest.fn(Number),
     getSensorTermico: jest.fn().mockReturnValue(CONVERSION_TERMICA_A_TEMPERATURA(300)),
     //Deberia de enviar el cambio a normal
-    cambiarA: jest.fn(new Normal()),
+    cambiarA: jest.fn(),
+    getAdicionalEnergia: jest.fn()
 } as any;
