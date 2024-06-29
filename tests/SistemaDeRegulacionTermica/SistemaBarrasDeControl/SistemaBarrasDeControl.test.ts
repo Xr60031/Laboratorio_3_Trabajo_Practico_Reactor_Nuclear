@@ -36,6 +36,7 @@ describe("Tests para el sistema de barras de control", () =>{
         }
         catch (TemperaturaNormal){
             expect(TemperaturaNormal).toBeInstanceOf(ExceptionTemperaturaNormal);
+            expect(TemperaturaNormal.getMessage()).toBe("La temperatura del reactor se encuentra normal, no se realizaron medidas, temperatura: " + 329);
         }
     })
 
