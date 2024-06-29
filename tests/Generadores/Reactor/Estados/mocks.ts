@@ -1,5 +1,5 @@
 import Reactor from "../../../../src/Generadores/Reactor/Reactor";
-import {CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, COMBUSTIBLE_INICIO_REACTOR, CONSUMO_COMBUSTIBLE_BASICO, CONVERSION_TERMICA_A_TEMPERATURA} from "../../../../src/Constantes";
+import { COMBUSTIBLE_INICIO_REACTOR, CONSUMO_COMBUSTIBLE_BASICO } from "../../../../src/Constantes";
 
 export const ReactorMock = {
     getCombustible: jest.fn(),

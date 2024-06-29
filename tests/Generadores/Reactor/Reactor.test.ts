@@ -1,5 +1,4 @@
 import { MULTIPLICADOR_ENERGIA_TERMICA } from "../../../src/Constantes";
-import Estado from "../../../src/Generadores/Reactor/Estados/Estado";
 import Reactor from "../../../src/Generadores/Reactor/Reactor";
 import * as MOCK from "./mocks";
 
@@ -42,7 +41,7 @@ describe("Reactor", () => {
         it("Debería cambiar su estado y asociarse a este", () => {
             const spy = jest.spyOn(MOCK.EstadoMock, "setReactor");
             instancia.cambiarA(MOCK.EstadoMock);
-            expect((instancia as any) ['estado']).toBe(MOCK.EstadoMock);
+            expect((instancia as any)['estado']).toBe(MOCK.EstadoMock);
             expect(spy).toHaveBeenCalled();
         });
     });
@@ -77,8 +76,8 @@ describe("Reactor", () => {
 
     describe("Consumir Combustible", () => {
         it("Debería llamar a CombustibleNuclear.consumir(), a SistemaDeRegulacionTermica.getEnergiaTermica(), y a SensorTermico.medir()", () => {
-            MOCK.CombustibleMock.consumir=jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
-            MOCK.SistemaMock.getEnergiaTermica=jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
+            MOCK.CombustibleMock.consumir = jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
+            MOCK.SistemaMock.getEnergiaTermica = jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
             const spy1 = jest.spyOn(MOCK.CombustibleMock, "consumir");
             const spy2 = jest.spyOn(MOCK.SistemaMock, "getEnergiaTermica");
             const spy3 = jest.spyOn(MOCK.SensorMock, "medir");
@@ -89,8 +88,8 @@ describe("Reactor", () => {
         });
 
         it("Debería sumarle el consumo por el multiplicador a la energia termica del reactor", () => {
-            MOCK.CombustibleMock.consumir=jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
-            MOCK.SistemaMock.getEnergiaTermica=jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
+            MOCK.CombustibleMock.consumir = jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
+            MOCK.SistemaMock.getEnergiaTermica = jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
             const energiaTermicaPrevia = instancia.getEnergiaTermica();
             instancia.consumirCombustible(instancia.getConsumoCombustible());
             expect(instancia.getEnergiaTermica()).toBe(energiaTermicaPrevia + instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
@@ -99,7 +98,7 @@ describe("Reactor", () => {
 
     describe("Get Adicional Energia", () => {
         it("Debería llamar a CombustibleNuclear.consumir() y devolver el consumo por el multiplicador", () => {
-            MOCK.CombustibleMock.consumir=jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
+            MOCK.CombustibleMock.consumir = jest.fn().mockReturnValueOnce(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
             const spy = jest.spyOn(MOCK.CombustibleMock, "consumir");
             expect(instancia.getAdicionalEnergia()).toBe(instancia.getConsumoCombustible() * MULTIPLICADOR_ENERGIA_TERMICA);
             expect(spy).toHaveBeenCalled();

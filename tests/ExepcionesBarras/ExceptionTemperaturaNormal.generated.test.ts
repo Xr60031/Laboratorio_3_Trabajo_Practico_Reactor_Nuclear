@@ -1,7 +1,7 @@
 import ExceptionTemperaturaNormal from '../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionTemperaturaNormal';
 
 describe('ExceptionTemperaturaNormal', () => {
-  let instance : ExceptionTemperaturaNormal;
+  let instance: ExceptionTemperaturaNormal;
 
   beforeEach(() => {
     instance = new ExceptionTemperaturaNormal();
@@ -19,5 +19,5 @@ describe('ExceptionTemperaturaNormal', () => {
     instance = new ExceptionTemperaturaNormal(temperatura);
     expect(instance.getMessage()).toBe("La temperatura del reactor se encuentra normal, no se realizaron medidas, temperatura: " + temperatura);
   });
-  
+
 });

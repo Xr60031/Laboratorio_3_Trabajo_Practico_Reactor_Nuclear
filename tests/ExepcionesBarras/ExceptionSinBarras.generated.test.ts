@@ -1,7 +1,7 @@
 import ExceptionSinBarras from '../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSinBarras';
 
 describe('ExceptionSinBarras', () => {
-  let instance : ExceptionSinBarras;
+  let instance: ExceptionSinBarras;
 
   beforeEach(() => {
     instance = new ExceptionSinBarras();

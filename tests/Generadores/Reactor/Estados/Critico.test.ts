@@ -11,17 +11,17 @@ describe("Normal", () => {
         instancia = new Critico();
         instancia.setReactor(MOCK.ReactorMock);
     })
-    
+
     describe("Set Reactor", () => {
         it("Debería establecer el reactor", () => {
             instancia.setReactor(MOCK.ReactorMock);
-            expect((instancia as any) ['reactor']).toBe(MOCK.ReactorMock);
+            expect((instancia as any)['reactor']).toBe(MOCK.ReactorMock);
         });
     });
-    
+
     describe("Iniciar", () => {
         it("Debería lanzar una excepcion de acción inválida", () => {
-            try{
+            try {
                 instancia.iniciar();
             }
             catch (e) {

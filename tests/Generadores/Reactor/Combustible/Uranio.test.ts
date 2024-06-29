@@ -1,49 +1,49 @@
 import Uranio from "../../../../src/Generadores/Reactor/Combustible/Uranio";
-import {CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR, MULTIPLICADOR_ENERGIA_TERMICA} from "../../../../src/Constantes";
+import { CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR, MULTIPLICADOR_ENERGIA_TERMICA } from "../../../../src/Constantes";
 import NoHaySuficienteCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/NoHaySuficienteCombustibleExcepcion";
 import LimiteCombustibleExcepcion from "../../../../src/Generadores/Reactor/Combustible/ExcepcionesCombustible/LimiteCombustibleExcepcion";
 
-describe("Tests para el sistema de barras de control", () =>{
-    let instanceUranio:Uranio
+describe("Tests para el sistema de barras de control", () => {
+    let instanceUranio: Uranio
 
-    beforeEach(()=>{
-        instanceUranio=new Uranio(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR);
+    beforeEach(() => {
+        instanceUranio = new Uranio(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR, LIMITE_COMBUSTIBLE_CONSTRUCTOR);
     })
 
     it("Se prueba que se realice la recarga de combustible exitosamente", () => {
         instanceUranio.recargar(50);
         expect(instanceUranio.getCantidad()).toBe(550);
-    })    
-    
+    })
+
     it("Se intenta la recarga de combustible en el caso de que pase el limite", () => {
         try {
-            instanceUranio.recargar(LIMITE_COMBUSTIBLE_CONSTRUCTOR+1);
-        } catch(error) {
+            instanceUranio.recargar(LIMITE_COMBUSTIBLE_CONSTRUCTOR + 1);
+        } catch (error) {
             expect(error.message).toBe("Se alcanzó el limite de combustible");
             expect(error).toBeInstanceOf(LimiteCombustibleExcepcion);
         }
     })
 
-    it("Se prueba que se realice el consumo del combustible exitosamente", ()=>{
+    it("Se prueba que se realice el consumo del combustible exitosamente", () => {
         instanceUranio.consumir(50);
         expect(instanceUranio.getCantidad()).toBe(450);
     })
 
-    it("Se consume el combustible para calcular la energia termica ", ()=>{
-        let energiaTermica=instanceUranio.consumir(50);
-        expect(energiaTermica).toBe(50*100);
+    it("Se consume el combustible para calcular la energia termica ", () => {
+        let energiaTermica = instanceUranio.consumir(50);
+        expect(energiaTermica).toBe(50 * 100);
     })
 
-    it("Se calcula la energia termica producida", ()=>{
+    it("Se calcula la energia termica producida", () => {
         let energiaTermica = instanceUranio.calcularEnergiaTermica(instanceUranio.getCantidad());
         expect(energiaTermica).toBe(instanceUranio.getCantidad() * MULTIPLICADOR_ENERGIA_TERMICA);
     })
 
-    it("Se intenta consumir en el caso que no haya combustible", ()=>{
-        try{
-            instanceUranio.consumir(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR+1);
+    it("Se intenta consumir en el caso que no haya combustible", () => {
+        try {
+            instanceUranio.consumir(CANTIDAD_COMBUSTIBLE_CONSTRUCTOR + 1);
         }
-        catch(NoHaySuficienteCombustible){
+        catch (NoHaySuficienteCombustible) {
             expect(NoHaySuficienteCombustible.message).toBe("No hay suficiente Uranio para consumir");
             expect(NoHaySuficienteCombustible).toBeInstanceOf(NoHaySuficienteCombustibleExcepcion);
         }

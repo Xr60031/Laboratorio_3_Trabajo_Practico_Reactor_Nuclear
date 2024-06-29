@@ -1,7 +1,7 @@
 import ExceptionVidaUtilInvalida from '../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionVidaUtilInvalida';
 
 describe('ExceptionVidaUtilInvalida', () => {
-  let instance : ExceptionVidaUtilInvalida;
+  let instance: ExceptionVidaUtilInvalida;
 
   beforeEach(() => {
     instance = new ExceptionVidaUtilInvalida();

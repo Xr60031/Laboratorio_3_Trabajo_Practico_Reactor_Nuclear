@@ -1,5 +1,4 @@
 import SensorTermico from "../../src/Generadores/Reactor/SensorTermico";
-import Notificador from "../../src/Interfaces/Notificador";
 import Suscriptor from "../../src/Interfaces/Suscriptor";
 import SistemaBarrasDeControl from "../../src/SistemaDeRegulacionTermica/SistemaBarrasDeControl/SistemaBarrasDeControl";
 

@@ -35,7 +35,7 @@ describe("Computadora", () => {
             expect(instancia.getModoEnfriamiento()).toBeTruthy();
         });
 
-        
+
         it("deberia obtener la temperatura del reactor", () => {
             expect(typeof instancia.getTemperaturaReactor()).toBe("number");
             expect(instancia.getTemperaturaReactor()).toBe(0);
