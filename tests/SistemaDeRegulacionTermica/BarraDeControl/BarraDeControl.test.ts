@@ -24,6 +24,7 @@ describe("Tests barras de control", () =>{
             barraControl.controlarVidaUtil(220);
         }
         catch(VidaInvalida){
+            expect(VidaInvalida.getMessage()).toBe("El siguiente valor ingresado no es valido: " + 220)
             expect(VidaInvalida).toBeInstanceOf(ExceptionVidaUtilInvalida);
         }
     })
@@ -34,6 +35,7 @@ describe("Tests barras de control", () =>{
         }
         catch(VidaInvalida){
             expect(VidaInvalida).toBeInstanceOf(ExceptionVidaUtilInvalida);
+            expect(VidaInvalida.getMessage()).toBe("El siguiente valor ingresado no es valido: " + (-1));
         }
     })
 

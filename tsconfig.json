@@ -20,7 +20,7 @@
   },
   "include": [
     "src/**/*"
-, "tests/Constructor.generated.test.ts"  ],
+  ],
   "exclude": [
     "dist",
     "node_modules",
