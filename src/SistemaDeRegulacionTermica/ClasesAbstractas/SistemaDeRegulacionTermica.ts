@@ -3,10 +3,10 @@ import Suscriptor from "../../Interfaces/Suscriptor";
 import ExceptionSistemaYaApagado from "../ExceptionsBarras/ExceptionSistemaYaApagado";
 import ExceptionSistemaYaEncendido from "../ExceptionsBarras/ExceptionSistemaYaEncendido";
 
-export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
-    public abstract verificadorParaEncender(temperatura:number):void;
+export default abstract class SistemaDeRegulacionTermica implements Suscriptor {
+    public abstract verificadorParaEncender(temperatura: number): void;
     public abstract getEnergiaTermica(energiaTermica: number): number;
-    protected encendido:boolean=false;
+    protected encendido: boolean = false;
     public actualizar(notificador: Computadora): void {
         if (notificador.getModoEnfriamiento()) {
             this.verificadorParaEncender(notificador.getTemperaturaReactor());
@@ -14,26 +14,26 @@ export default abstract class SistemaDeRegulacionTermica implements Suscriptor{
             this.apagarSistema();
         }
     }
-    public encenderSistema():void{
-        
-        if(this.getEstado()==false){
-            this.encendido=true;
+    public encenderSistema(): void {
+
+        if (this.getEstado() == false) {
+            this.encendido = true;
         }
-        else{
+        else {
             throw new ExceptionSistemaYaEncendido();
         }
-        
+
     }
-    public apagarSistema():void{
-        if(this.getEstado()==true){
-            this.encendido=false;
+    public apagarSistema(): void {
+        if (this.getEstado() == true) {
+            this.encendido = false;
         }
-        else{
+        else {
             throw new ExceptionSistemaYaApagado();
         }
-        
+
     }
-    public getEstado():boolean{
+    public getEstado(): boolean {
         return this.encendido;
     }
 }

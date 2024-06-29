@@ -17,7 +17,7 @@ export default class Reactor {
         combustible: CombustibleNuclear,
         sistemaRegulacionTermica: SistemaDeRegulacionTermica,
         sensor: SensorTermico,
-       
+
     ) {
         this.combustible = combustible;
         this.sistemaDeRegulacionTermica = sistemaRegulacionTermica;

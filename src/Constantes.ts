@@ -18,12 +18,12 @@ export const REDUCCION_TEMPERATURA_APAGADO = 200
 
 export const MULTIPLICADOR_ENERGIA_TERMICA = 100;
 
-export const CONVERSION_TEMPERATURA_A_TERMICA = (n : number) => {
+export const CONVERSION_TEMPERATURA_A_TERMICA = (n: number) => {
     return n * 8 - 140;
 }
-export const CONVERSION_TERMICA_A_TEMPERATURA = (n : number) => {
+export const CONVERSION_TERMICA_A_TEMPERATURA = (n: number) => {
     return (n + 140) / 8;
 }
-export const CONVERSION_TERMICA_A_ELECTRICA = (n : number) => {
+export const CONVERSION_TERMICA_A_ELECTRICA = (n: number) => {
     return n * 1.75 - 3675;
 }

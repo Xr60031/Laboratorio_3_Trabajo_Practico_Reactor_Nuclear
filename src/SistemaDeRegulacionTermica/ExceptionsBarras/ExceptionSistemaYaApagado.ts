@@ -1,12 +1,12 @@
-export default class ExceptionSistemaYaApagado extends Error{
+export default class ExceptionSistemaYaApagado extends Error {
 
-    public getMessage():String{
+    public getMessage(): String {
         return this.message;
     }
 
     constructor();
-    constructor(){
+    constructor() {
         super();
-        this.message="El sistema ya se encuentra apagado";
+        this.message = "El sistema ya se encuentra apagado";
     }
 }

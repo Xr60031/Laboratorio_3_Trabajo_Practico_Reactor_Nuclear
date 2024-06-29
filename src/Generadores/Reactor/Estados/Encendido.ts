@@ -3,7 +3,7 @@ import Estado from "./Estado";
 export default abstract class Encendido extends Estado {
     protected abstract controlarEstado(): void;
     protected abstract absorcionEnergiaTermica(energiaTermica: number): number;
-    
+
     public procesarEnergiaTermica(): void {
         if (!this.reactor.getCombustible().tieneCombustible()) {
             this.detener();

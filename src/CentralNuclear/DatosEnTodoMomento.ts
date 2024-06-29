@@ -1,4 +1,4 @@
-export default class DatosEnTodoMomento{
+export default class DatosEnTodoMomento {
     private _temperatura: number;
     private _energiaProducida: number;
     private _barrasGastadas: number;
@@ -6,7 +6,7 @@ export default class DatosEnTodoMomento{
     private _vecesCritico: number;
     private _vecesApagado: number;
     private static _instance: DatosEnTodoMomento;
-    
+
     public get temperatura(): number {
         return this._temperatura;
     }
@@ -68,7 +68,7 @@ export default class DatosEnTodoMomento{
         return DatosEnTodoMomento._instance;
     }
 
-    private constructor(){
+    private constructor() {
         this._temperatura = 0;
         this._energiaProducida = 0;
         this._barrasGastadas = 0;
@@ -77,7 +77,7 @@ export default class DatosEnTodoMomento{
         this._vecesApagado = 0;
     }
 
-    public toString():string{
+    public toString(): string {
         return "Temperatura: " + this.temperatura +
             "\nEnergia producida: " + this.energiaProducida +
             "\nBarras de control consumidas: " + this.barrasGastadas +
