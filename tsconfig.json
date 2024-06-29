@@ -20,7 +20,7 @@
   },
   "include": [
     "src/**/*"
-, "tests/Constructor.generated.test.ts", "tests/ExepcionesBarras/ExceptionVidaUtilInvalida.generated.test.ts", "tests/ExepcionesBarras/ExceptionTemperaturaNormal.generated.test.ts", "tests/ExepcionesBarras/ExceptionSistemaYaEncendido.generated.test.ts", "tests/ExepcionesBarras/ExceptionSistemaYaApagado.generated.test.ts", "tests/ExepcionesBarras/ExceptionSinBarras.generated.test.ts"  ],
+  ],
   "exclude": [
     "dist",
     "node_modules",
