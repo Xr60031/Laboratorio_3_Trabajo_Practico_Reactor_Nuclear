@@ -46,9 +46,13 @@ Proveer el código y las pruebas unitarias para verificar lo siguiente:
 
 **Descripción de las clases**
 
-* CentralNuclear: Coordina el funcionamiento seguro y eficiente de un reactor y un generador eléctrico en la planta de energía nuclear. Se encarga de la inicialización, actualización de datos, inicio del reactor, generación de energía eléctrica y muestra información relevante sobre el funcionamiento.
 
-* DatosEnTodoMomento: Almacena y gestiona datos relacionados con la temperatura y la energía producida en un momento dado. La clase tiene dos propiedades privadas: _temperatura y _energiaProducida. El constructor inicializa ambas propiedades con el valor 0. Además, la clase proporciona métodos de acceso (get y set) para ambas propiedades. El método toString() devuelve una cadena que muestra la temperatura y la energía producida.
+
+* CentralNuclear: Coordina el funcionamiento seguro y eficiente de un reactor y un generador eléctrico en la planta de energía nuclear. Se encarga de la anotacion subscriptores a los notificadores y provee acceso para iniciar o detener el reactor, iniciar la generacion de energia y agregar o eliminar empleados que reciban la notificacion de alerta por temperatura.
+
+* Constructor: Inicializa todas las clases que componen la central nuclear y devuelve el objeto susodicho listo para ser utilizado. 
+
+* DatosEnTodoMomento: Almacena y provee datos relacionados con la temperatura y la energía producida en un momento dado, asi como con los cambios de estado que sufrio el reactor y la cantidad de barras utilizadas durante el enfriamiento. El constructor inicializa sus propiedades con el valor 0. Además, la clase proporciona métodos de acceso (get y set) para las mismas. El método toString() devuelve una cadena que muestra los datos recopilados.
 
 * Computadora: Gestiona la temperatura de un reactor y notifica a los suscriptores cuando se produce un cambio significativo en la temperatura. La computadora mplementa las interfaces Notificador y Suscriptor. Tiene tres propiedades privadas: suscriptores, modoEnfriamiento y temperaturaReactor. El constructor inicializa estas propiedades. La clase también tiene métodos para suscribir y desuscribir suscriptores, notificar a los suscriptores, actualizar la temperatura del reactor y verificar si se debe activar o desactivar el modo de enfriamiento. Además, hay métodos privados para activar y desactivar el modo de enfriamiento, y métodos para obtener y establecer los valores de las propiedades.
 
