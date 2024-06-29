@@ -11,7 +11,7 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
     private _mensaje: string;
 
     constructor(nombre: string, email: string) {
-        this._suscriptoresGerencia = []; 
+        this._suscriptoresGerencia = [];
         this._temperaturaReactor = 0;
         this._nombre = nombre;
         this._email = email;
@@ -31,7 +31,7 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
 
     public actualizar(notificador: SensorTermico): void {
         this._temperaturaReactor = notificador.getTemperatura();
-        
+
         if (this._temperaturaReactor >= TEMPERATURA_EMERGENCIA) {
             this.notificar();
         }
@@ -44,15 +44,15 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
             subject: 'REACTOR: Estado',
             text: this._mensaje,
         };
-            
+
         try {
             // Se envía un mail al Sr. Montgomery B.
             return console.log('Email enviado correctamente');
-        } 
-        
+        }
+
         catch (error) {
             console.error('Se produjo un error al enviar el Email', error.message);
-        }     
+        }
     }
 
     public getSuscriptores(): Suscriptor[] {
@@ -62,5 +62,5 @@ export default class GerenciaBurns implements Notificador, Suscriptor {
     public setSuscriptores(value: Suscriptor[]) {
         this._suscriptoresGerencia = value;
     }
-    
+
 }

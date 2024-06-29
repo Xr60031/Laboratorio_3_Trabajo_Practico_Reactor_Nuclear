@@ -1,7 +1,7 @@
 import ExceptionSistemaYaEncendido from '../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionSistemaYaEncendido';
 
 describe('ExceptionSistemaYaEncendido', () => {
-  let instance : ExceptionSistemaYaEncendido;
+  let instance: ExceptionSistemaYaEncendido;
 
   beforeEach(() => {
     instance = new ExceptionSistemaYaEncendido();

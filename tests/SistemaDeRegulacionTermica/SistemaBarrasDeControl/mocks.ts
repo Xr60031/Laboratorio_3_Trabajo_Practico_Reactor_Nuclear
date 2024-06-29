@@ -1,14 +1,12 @@
 import BarraDeControl from "../../../src/SistemaDeRegulacionTermica/BarraDeControl/BarraDeControl";
 import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 import Computadora from "../../../src/Controles/Computadora";
-import SensorTermico from "../../../src/Generadores/Reactor/SensorTermico";
-import Suscriptor from "../../../src/Interfaces/Suscriptor";
 
 export const ReactorMocks = {
-    getTemperatura : jest.fn().mockReturnValue(0),
+    getTemperatura: jest.fn().mockReturnValue(0),
 };
 
-export const BarraDeControlMocks:BarraDeControl={
+export const BarraDeControlMocks: BarraDeControl = {
     vidaUtil: BARRA_VIDA_MAX,
     nroSerie: 1,
     getVidaUtil: jest.fn().mockReturnValue(200),
@@ -19,7 +17,7 @@ export const BarraDeControlMocks:BarraDeControl={
     getNroSerie: jest.fn().mockReturnValue(1)
 } as any;
 
-export const ComputadoraMocks:Computadora={
+export const ComputadoraMocks: Computadora = {
     suscriptores: [],
     modoEnfriamiento: false,
     temperaturaReactor: 0,

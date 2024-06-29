@@ -1,12 +1,12 @@
-export default class ExceptionSistemaYaEncendido extends Error{
+export default class ExceptionSistemaYaEncendido extends Error {
 
-    public getMessage():String{
+    public getMessage(): String {
         return this.message;
     }
 
     constructor();
-    constructor(){
+    constructor() {
         super();
-        this.message="El sistema ya se encuentra encendido";
+        this.message = "El sistema ya se encuentra encendido";
     }
 }

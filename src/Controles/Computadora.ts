@@ -31,7 +31,7 @@ export default class Computadora implements Notificador, Suscriptor {
             try {
                 suscriptor.actualizar(this);
             }
-            catch(ERROR){
+            catch (ERROR) {
                 console.error(ERROR);
                 //throw new Error(ERROR);
             }

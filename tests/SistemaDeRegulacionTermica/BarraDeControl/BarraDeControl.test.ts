@@ -2,53 +2,53 @@ import BarraDeControl from "../../../src/SistemaDeRegulacionTermica/BarraDeContr
 import ExceptionVidaUtilInvalida from "../../../src/SistemaDeRegulacionTermica/ExceptionsBarras/ExceptionVidaUtilInvalida";
 import { BARRA_VIDA_MAX } from "../../../src/Constantes";
 
-describe("Tests barras de control", () =>{
+describe("Tests barras de control", () => {
 
-    let barraControl:BarraDeControl;
+    let barraControl: BarraDeControl;
 
-    beforeEach(()=>{
-        barraControl=new BarraDeControl();
+    beforeEach(() => {
+        barraControl = new BarraDeControl();
     })
 
-    it("Prueba para obtener la vida util", ()=>{
+    it("Prueba para obtener la vida util", () => {
         expect(barraControl.getVidaUtil()).toBe(BARRA_VIDA_MAX);
     })
-    
-    it("Prueba para establecer la vida util", ()=>{
+
+    it("Prueba para establecer la vida util", () => {
         barraControl.setVidaUtil(75);
         expect(barraControl.getVidaUtil()).toBe(75);
     })
 
-    it("Prueba controlar vida util cuando la vida util es mayor a 200", () =>{
-        try{
+    it("Prueba controlar vida util cuando la vida util es mayor a 200", () => {
+        try {
             barraControl.controlarVidaUtil(220);
         }
-        catch(VidaInvalida){
+        catch (VidaInvalida) {
             expect(VidaInvalida.getMessage()).toBe("El siguiente valor ingresado no es valido: " + 220)
             expect(VidaInvalida).toBeInstanceOf(ExceptionVidaUtilInvalida);
         }
     })
 
-    it("Prueba controlar vida util cuando la vida util es menor a 0", () =>{
-        try{
+    it("Prueba controlar vida util cuando la vida util es menor a 0", () => {
+        try {
             barraControl.controlarVidaUtil(-1);
         }
-        catch(VidaInvalida){
+        catch (VidaInvalida) {
             expect(VidaInvalida).toBeInstanceOf(ExceptionVidaUtilInvalida);
             expect(VidaInvalida.getMessage()).toBe("El siguiente valor ingresado no es valido: " + (-1));
         }
     })
 
-    it("Prueba del desgaste de la vida util de la barra de control", () =>{
+    it("Prueba del desgaste de la vida util de la barra de control", () => {
         barraControl.setVidaUtil(200);
-        expect(barraControl.desgasteBarraVidaUtil()).toBe(150);    
+        expect(barraControl.desgasteBarraVidaUtil()).toBe(150);
     })
 
-    it("Prueba para obtener el numero de serie de una barra de control", ()=>{
+    it("Prueba para obtener el numero de serie de una barra de control", () => {
         expect(barraControl.getNroSerie()).toBe(0);
     })
 
-    it("Prueba para establecer el numero de serie de una barra de control", ()=>{
+    it("Prueba para establecer el numero de serie de una barra de control", () => {
         barraControl.setNroSerie(50);
         expect(barraControl.getNroSerie()).toBe(50);
     })
